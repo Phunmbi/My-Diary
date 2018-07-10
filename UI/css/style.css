@@ -1,0 +1,67 @@
+/* #FEEF6D --- yellow
+#142B44; --- navy blue
+#667585; --- grey
+rgba(20,43,68,0.4) -- dark navy blue */
+
+/* Base Elements */
+*{
+    box-sizing: border-box
+}
+
+body{
+    margin: 40px auto;
+    font-size: 18px;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    max-width: 700px;
+    background-color: #132a43;
+    color: white
+}
+
+h1{
+    font-size: 2.1em;
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    margin: 10px;
+    color: #FEEF6D;
+}
+
+p{
+    text-align: center;
+    margin: 20px 0 10px 0;
+}
+
+p:last-child{
+    color: rgb(169, 172, 175);
+}
+
+a{
+    text-decoration: none;
+    color: #FEEF6D;
+    font-size: 1.1em;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input{
+    width: 65%;
+    margin: 10px;
+    padding: 13px;
+    border: none;
+    border-radius: 3px;
+    font-size: 1em;
+}
+
+input:focus{
+    outline: none
+}
+
+input[type=submit]{
+    background-color: #FEEF6D;
+    font-weight: bold;
+    color: #142B44;
+    cursor: pointer;
+}
