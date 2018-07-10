@@ -1,20 +1,12 @@
-/* #FEEF6D --- yellow
-#142B44; --- navy blue
-#667585; --- grey
-rgba(20,43,68,0.4) -- dark navy blue */
-
-/* Base Elements */
-*{
-    box-sizing: border-box
-}
-
 body{
-    margin: 40px auto;
-    font-size: 18px;
+    margin: 50px auto;
+    font-size: 17px;
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
-    max-width: 700px;
-    background-color: #132a43;
-    color: white
+    max-width: 1200px;
+    background-image: url("../icons/bg7-unsplash.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
 }
 
 h1{
@@ -23,15 +15,33 @@ h1{
     font-family: 'Dancing Script', cursive;
     margin: 10px;
     color: #FEEF6D;
+    font-weight: bolder;
 }
 
 p{
     text-align: center;
-    margin: 20px 0 10px 0;
+    margin: 20px 30px 10px 0px;
 }
 
-p:last-child{
-    color: rgb(169, 172, 175);
+section{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.hero-marketing{
+    width: 40%;
+    line-height: 2;
+    font-size: 1.4em;
+    color: #142B44;
+}
+
+.hero-account{
+    margin: 20px;
+    width: 40%;
+    background-color: rgba(20, 43, 68, 0.6);
+    padding: 20px 0 20px 0;
+    border-radius: 6px;
 }
 
 a{
@@ -47,7 +57,7 @@ form{
 }
 
 input{
-    width: 65%;
+    width: 90%;
     margin: 10px;
     padding: 13px;
     border: none;

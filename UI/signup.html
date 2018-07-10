@@ -9,7 +9,7 @@
     <title>MyDiary</title>
 
     <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="css/minireset.css">
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -17,20 +17,27 @@
 
     <h1>MyDiary</h1>
 
-    <section>
-        <p>Create your My Diary Account</p>
-        <form>
-            <input type="text" placeholder="First Name" required>
-            <input type="text" placeholder="Last Name" required>
-            <input type="text" placeholder="Email" required>
-            <input type="text" placeholder="Password" required>
-            <input type="text" placeholder="Confirm Password">
-            <input id="submit" type="submit" value="Create Account">
-        </form>
-
-        <p>Already have an account? then
-            <a href="index.html">Sign in</a>
-        </p>
+    <section >
+        <div class="hero-marketing">
+            <p>We'll remind you when you forget to put in a new entry, you just tell us when.</p>
+            <p>Don't want to see an entry anymore? you tell us which.</p>
+            <p>Want to change the details of an entry? Just let us know.</p>
+        </div>
+        <div class="hero-account">
+            <p>Create your My Diary Account</p>
+            <form>
+                <input type="text" placeholder="First Name" required>
+                <input type="text" placeholder="Last Name" required>
+                <input type="text" placeholder="Email" required>
+                <input type="text" placeholder="Password" required>
+                <input type="text" placeholder="Confirm Password">
+                <input id="submit" type="submit" value="Create Account">
+            </form>
+            
+            <p>Already have an account? then
+                <a href="index.html">Sign in</a>
+            </p>
+        </div>
     </section>
 
     <script src="js/main.js"></script>

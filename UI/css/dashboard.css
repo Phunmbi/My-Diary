@@ -1,0 +1,94 @@
+*{
+    box-sizing: border-box
+}
+
+body{
+    font-size: 18px;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    max-width: 1600px;
+    color: #142B44;
+    background-color: whitesmoke;
+}
+
+h1{
+    font-size: 1.6em;
+    font-family: 'Dancing Script', cursive;
+    color: #142B44;
+    font-weight: bolder;
+}
+
+p{
+    margin: 20px 0 10px 0;
+}
+
+a{
+    text-decoration: none;
+    color: #FEEF6D;
+    font-size: 1.1em;
+}
+
+header{
+    background-color: #FEEF6D;
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    align-items: center;
+    padding: 0 20px 0 20px;
+}
+
+section{
+    margin: 30px auto;
+    max-width: 900px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.card{
+    margin: 30px 0 30px 0;
+    padding: 10px;
+    flex-basis: 260px;
+    border-radius: 4px;
+    box-shadow: 2px 3px 17px 2px #e3e7e9;
+    max-height: 290px;
+    cursor: pointer;
+
+}
+
+.card-title{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(169, 172, 175);
+}
+
+.card-details{
+    margin: 20px 0 20px 0;
+    text-align: left;
+    height: 135px;
+}
+
+.card-actions{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0 10px 0;
+}
+
+.add{
+    display: flex;
+    justify-content: flex-end;
+    margin: -40px 30px 20px 0;
+    cursor: pointer;
+}
+
+span{
+    background-color: #142B44;
+    color: white;
+    border-radius: 50%;
+    padding: 40px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    font-size: 2.5em;
+}
