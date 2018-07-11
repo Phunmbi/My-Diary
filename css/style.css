@@ -5,7 +5,7 @@ body{
     max-width: 1200px;
     background-image: url("../icons/bg7-unsplash.jpg");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: unset;
     color: white;
 }
 
@@ -41,7 +41,6 @@ section{
     line-height: 2;
     font-size: 1.3em;
     color: #142B44;
-    font-weight: bold;
     align-items: center;
 }
 

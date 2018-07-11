@@ -105,7 +105,7 @@ section{
     padding: 10px;
     flex-basis: 260px;
     border-radius: 4px;
-    box-shadow: 2px 3px 17px 2px #e3e7e9;
+    box-shadow: 2px 3px 17px 2px #b9babb;
     max-height: 290px;
 }
 
@@ -136,22 +136,27 @@ section{
 .add{
     display: flex;
     justify-content: flex-end;
-    margin: -40px 30px 20px 0;
+    margin: 10px 20px 20px 0;
     cursor: pointer;
+}
+
+.add a{
+    position: fixed;
+    top: 85vh;
 }
 
 span{
     background-color: #142B44;
     color: white;
     border-radius: 50%;
-    padding: 40px;
-    width: 40px;
-    height: 40px;
+    padding: 30px;
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content:center;
-    font-size: 2.5em;
-    box-shadow: 2px 3px 17px 4px #e3e7e9;
+    font-size: 1.6em;
+    box-shadow: 4px 5px 17px 4px #b8b9b9;
 }
 
 .entry-body{
@@ -176,6 +181,16 @@ span{
 .add-entry form, .edit-entry form{
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+
+.add-entry input, .edit-entry input{
+    width: 100%;
+    margin: 10px;
+    padding: 13px;
+    border: none;
+    border-radius: 3px;
+    font-size: 1em;
 }
 
 .profile{
