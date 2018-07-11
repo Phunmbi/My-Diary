@@ -18,7 +18,7 @@ h3{
     font-size: 1.7em;
     text-align: center;
     font-weight: bolder;
-    border-bottom: 7px solid rgb(254, 239, 109, 0.4)
+    border-bottom: 7px solid rgb(254, 239, 109, 0.4);
 }
 
 h4{
@@ -160,6 +160,17 @@ span{
     height: 450px;
     max-width: 700px;
     padding: 15px;
+}
+
+.entry-title h3:last-child{
+    font-size: 1.2em;
+    border-bottom: none;
+    font-weight: 400;
+    align-self: center;
+}
+
+.entry-actions div a{
+    margin: 10px;
 }
 
 .add-entry form, .edit-entry form{
