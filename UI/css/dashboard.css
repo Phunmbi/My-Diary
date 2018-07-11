@@ -32,6 +32,27 @@ a{
     font-size: 1em;
 }
 
+input,textarea{
+    width: 100%;
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 1em;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+input:focus, textarea:focus{
+    outline: none
+}
+
+input[type=submit]{
+    background-color: #FEEF6D;
+    font-weight: bold;
+    color: #142B44;
+    cursor: pointer;
+}
+
 header{
     border-top: 8px solid rgb(20, 43, 68);
     background-color: #FEEF6D;
@@ -110,4 +131,9 @@ span{
     height: 450px;
     max-width: 700px;
     padding: 15px;
+}
+
+.add-entry form{
+    display: flex;
+    flex-direction: column;
 }
