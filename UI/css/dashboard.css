@@ -133,7 +133,7 @@ span{
     padding: 15px;
 }
 
-.add-entry form{
+.add-entry form, .edit-entry form{
     display: flex;
     flex-direction: column;
 }
