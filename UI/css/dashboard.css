@@ -17,9 +17,14 @@ h1{
 h3{
     font-size: 1.7em;
     text-align: center;
-    margin: px;
     font-weight: bolder;
     border-bottom: 7px solid rgb(254, 239, 109, 0.4)
+}
+
+h4{
+    font-size: 1.3em;
+    font-weight: bold;
+    border-bottom: 1px solid rgb(90, 98, 107);
 }
 
 p{
@@ -30,6 +35,18 @@ a{
     text-decoration: none;
     color: #FEEF6D;
     font-size: 1em;
+}
+
+button{
+    width: 100px;
+    margin: 10px auto;
+    background-color: #142B44;
+    color: #FEEF6D;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 input,textarea{
@@ -51,6 +68,18 @@ input[type=submit]{
     font-weight: bold;
     color: #142B44;
     cursor: pointer;
+}
+
+.profile div{
+    background-color: white;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 20px;
+    text-align: left;
+}
+
+.profile a{
+    margin: 0 auto;
 }
 
 header{
@@ -134,6 +163,11 @@ span{
 }
 
 .add-entry form, .edit-entry form{
+    display: flex;
+    flex-direction: column;
+}
+
+.profile{
     display: flex;
     flex-direction: column;
 }
