@@ -1,7 +1,3 @@
-*{
-    box-sizing: border-box
-}
-
 body{
     font-size: 18px;
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
@@ -33,7 +29,7 @@ p{
 a{
     text-decoration: none;
     color: #FEEF6D;
-    font-size: 1.1em;
+    font-size: 1em;
 }
 
 header{
@@ -55,20 +51,24 @@ section{
 }
 
 .card{
-    margin: 30px 0 30px 0;
+    margin: 15px 0 30px 0;
     padding: 10px;
     flex-basis: 260px;
     border-radius: 4px;
     box-shadow: 2px 3px 17px 2px #e3e7e9;
     max-height: 290px;
-    cursor: pointer;
-
 }
 
 .card-title{
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid rgb(169, 172, 175);
+}
+
+.card-title a{
+    text-decoration: none;
+    color:  rgb(20, 43, 68);
+    font-size: 1em;
 }
 
 .card-details{
@@ -102,4 +102,12 @@ span{
     justify-content:center;
     font-size: 2.5em;
     box-shadow: 2px 3px 17px 4px #e3e7e9;
+}
+
+.entry-body{
+    background-color: white;
+    color: #142B44;
+    height: 450px;
+    max-width: 700px;
+    padding: 15px;
 }
