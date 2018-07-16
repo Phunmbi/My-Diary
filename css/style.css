@@ -1,0 +1,88 @@
+body{
+    margin: 20px auto;
+    font-size: 17px;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    max-width: 1200px;
+    background-image: url("../icons/bg7-unsplash.jpg");
+    background-repeat: no-repeat;
+    background-size: unset;
+    color: white;
+}
+
+h1{
+    font-size: 3.1em;
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    margin: 10px;
+    color: #142B44;
+    font-weight: bolder;
+}
+
+h3{
+    font-size: 1.7em;
+    text-align: center;
+    margin: 13px;
+}
+
+p{
+    text-align: center;
+    margin: 20px;
+}
+
+section{
+    padding: 15px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.hero-marketing{
+    line-height: 2;
+    font-size: 1.3em;
+    color: #142B44;
+    align-items: center;
+}
+
+.hero-account{
+    margin: 20px;
+    background-color: rgba(20, 43, 68, 0.2);
+    padding: 20px;
+    border-radius: 6px;
+}
+
+.hero-account h3{
+    color: #FEEF6D;
+}
+
+a{
+    text-decoration: none;
+    color: #FEEF6D;
+    font-size: 1.1em;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input{
+    width: 100%;
+    margin: 10px;
+    padding: 13px;
+    border: none;
+    border-radius: 3px;
+    font-size: 1em;
+}
+
+input:focus{
+    outline: none
+}
+
+input[type=submit]{
+    background-color: #FEEF6D;
+    font-weight: bold;
+    color: #142B44;
+    cursor: pointer;
+}
