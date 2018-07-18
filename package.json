@@ -4,9 +4,10 @@
   "description": "APIs for the My Diary app",
   "main": "./Server/dist",
   "scripts": {
-    "dev": "nodemon server/src/index.js --exec babel-node --preset airbnb",
-    "build": "babel server/src -s -D -d server/dist --preset airbnb",
-    "lint": "eslint server/src",
+    "dev": "nodemon -w server/src ./server/src/index.js --exec \"babel-node ./server/src --preset airbnb\"",
+    "start": "start dist",
+    "build": "babel ./server/src -s -D -d ./server/dist --preset airbnb",
+    "lint": "eslint ./server/src",
     "test": "mocha"
   },
   "eslintConfig": {

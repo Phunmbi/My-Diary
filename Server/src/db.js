@@ -44,33 +44,11 @@ const deleteOne = (id) => {
   return database;
 };
 
-module.exports.database = database;
-module.exports.addOne = addOne;
-module.exports.viewOne = viewOne;
-module.exports.viewAll = viewAll;
-module.exports.modifyOne = modifyOne;
-module.exports.deleteOne = deleteOne;
-
-// let key = {
-//   id: '689473',
-//   title: 'Breathe',
-//   details: 'life goes on'
-// };
-
-// const age = {
-//   id: '808730',
-//   title: 'greetings',
-//   details: 'greetings boys and girls'
-// };
-
-// database.push(key);
-// database.push(age);
-
-// key = {
-//   id: '689473',
-//   title: 'Breathe',
-//   details: 'had a fire conversation'
-// };
-
-// modifyOne(key);
-// console.log(database);
+module.exports = {
+  database,
+  addOne,
+  viewOne,
+  viewAll,
+  modifyOne,
+  deleteOne
+};
