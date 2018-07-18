@@ -2,17 +2,46 @@
   "name": "mydiary-api",
   "version": "1.0.0",
   "description": "APIs for the My Diary app",
-  "main": "dist",
+  "main": "./Server/dist",
   "scripts": {
+    "dev": "nodemon server/src/index.js --exec babel-node --preset airbnb",
+    "build": "babel server/src -s -D -d server/dist --preset airbnb",
+    "lint": "eslint server/src",
     "test": "mocha"
   },
   "eslintConfig": {
     "extends": "airbnb-base",
-    "overrides": [
-    {
-      "files": ["./test/db.test.js"]
+    "parserOptions": {
+      "ecmaVersion": 7,
+      "sourceType": "module"
+    },
+    "env": {
+      "node": true,
+      "es6": true
+    },
+    "rules": {
+      "no-console": 0,
+      "no-unused-vars": 1,
+      "eol-last": 0,
+      "one-var": 0,
+      "no-plusplus": 0,
+      "one-var-declaration-per-line": 0,
+      "new-cap": 0,
+      "consistent-return": 0,
+      "no-param-reassign": 0,
+      "comma-dangle": 0,
+      "arrow-body-style": 0,
+      "curly": [2, "multi-line"],
+      "no-shadow": [2, { "allow": ["req", "res", "err"]}],
+      "linebreak-style": 0,
+      "require-jsdoc": [2, {
+        "require": {
+          "FunctionDeclaration": true,
+          "MethodDefinition": true,
+          "ClassDeclaration": true
+        }
+      }]
     }
-  ]
   },
   "author": "Funmbi Adeyokunnu <funmbi.adeyokunnu@gmail.com>",
   "license": "ISC",
@@ -25,6 +54,7 @@
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.6",
     "babel-preset-airbnb": "^2.5.2",
+    "babel-preset-env": "^1.7.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.12.0",

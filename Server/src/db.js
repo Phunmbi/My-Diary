@@ -1,57 +1,76 @@
-const database = new Map();
+const database = [];
 
-const viewOne = (id) => {
-  database.get(id);
+const uniqueId = () => {
+  let id = '';
+  for (let index = 0; index < 7; index++) {
+    id += Math.round(Math.random() * 10);
+  }
+  return id;
 };
 
-var addone = (newEntry) => {
-  return database.set(database.size + 1, newEntry);
-}
-
-const viewAll = () => {
-  let allEntries = [...database.entries()]
-  console.log(allEntries)
-  return allEntries;
+const viewOne = (id) => {
+  for (let index = 0; index < database.length; index++) {
+    if (database[index].id === id) {
+      return database[index];
+    }
+  }
 };
 
 const addOne = (newEntry) => {
-  return database.set(database.size+1, newEntry);
-}
+  newEntry.id = uniqueId();
+  database.push(newEntry);
+  return database;
+};
 
-// const modifyOne =(id) =>{
-//     for (let entry of database) {
-//         if(entry.id === id){
-//             database.delete(entry);
-//             database.add()
-//         }
-//     }
-// }
+const viewAll = () => {
+  return database;
+};
+
+const modifyOne = (entry) => {
+  for (let index = 0; index < database.length; index++) {
+    if (database[index].id === entry.id) {
+      database.splice(index, 1, entry);
+      return database[index];
+    }
+  }
+};
 
 const deleteOne = (id) => {
-  return database.delete();
+  for (let index = 0; index < database.length; index++) {
+    if (database[index].id === id) {
+      database.splice(index, 1);
+    }
+  }
+  return database;
 };
 
-module.exports = {
-  database: database,
-  viewOne: viewOne,
-  viewAll: viewAll,
-  addOne: addOne,
-  // modifyOne : modifyOne,
-  deleteOne: deleteOne
-};
+module.exports.database = database;
+module.exports.addOne = addOne;
+module.exports.viewOne = viewOne;
+module.exports.viewAll = viewAll;
+module.exports.modifyOne = modifyOne;
+module.exports.deleteOne = deleteOne;
 
+// let key = {
+//   id: '689473',
+//   title: 'Breathe',
+//   details: 'life goes on'
+// };
 
-var age = {
-  'title': 'meet me',
-  'details': 'Oh well let me be woman!'
-}
+// const age = {
+//   id: '808730',
+//   title: 'greetings',
+//   details: 'greetings boys and girls'
+// };
 
-var key = {
-  'title': 'i met a girl!',
-  'details': 'i think i finally met the one'
-}
+// database.push(key);
+// database.push(age);
 
-addone(key)
-addone(age)
-viewAll()
-console.log(database)
+// key = {
+//   id: '689473',
+//   title: 'Breathe',
+//   details: 'had a fire conversation'
+// };
+
+// modifyOne(key);
+// console.log(database);
