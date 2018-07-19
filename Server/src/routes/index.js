@@ -22,4 +22,11 @@ router.post('/entries', (req, res) => {
   res.json({ message: 'New entry added' });
 });
 
+// edit an entry
+router.put('/entries/:id', (req, res) => {
+  req.body.id = req.params.id;
+  db.modifyOne(req.body);
+  res.json({ message: 'Entry updated successfully' });
+});
+
 export default router;

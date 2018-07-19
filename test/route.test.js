@@ -47,7 +47,10 @@ describe("Entries", () => {
   // Test the /GET route
   describe("/GET entry", () => {
     it("it should GET a single entry", done => {
-      let entry = { title: "Met a bagel", details: "Asked if i had seen scones recently"};
+      let entry = {
+        title: "Met a bagel",
+        details: "Asked if i had seen scones recently"
+      };
       let save = db.addOne(entry);
       chai
         .request("http://localhost:3000/api/v1")
@@ -56,9 +59,32 @@ describe("Entries", () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a("object");
-          res.body.should.have.property('title');
-          res.body.should.have.property('details');
-          res.body.should.have.property('id');
+          res.body.should.have.property("title");
+          res.body.should.have.property("details");
+          res.body.should.have.property("id");
+          done();
+        });
+    });
+  });
+
+  // Test the /PUT route
+  describe("/PUT/:id entry", () => {
+    it("it should UPDATE an entry given the id", done => {
+      let entry = {
+        title: "Met a band",
+        details: "Asked if i had seen clefs"
+      };
+      let save = db.addOne(entry);
+      chai
+        .request("http://localhost:3000/api/v1")
+        .put("/entries/" + save[db.database.length - 1].id)
+        .send({ title: "Met a wand" })
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a("object");
+          res.body.should.have
+            .property("message")
+            .eql("Entry updated successfully");
           done();
         });
     });
