@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 describe("Entries", () => {
   // Testing /POST
   describe("/POST entries", () => {
-    it("it should not POST a book without pages field", done => {
+    it("it should POST a new entry", done => {
       let entry = {
         title: "Met a female dragon",
         details: "had a fire conversation"
@@ -85,6 +85,28 @@ describe("Entries", () => {
           res.body.should.have
             .property("message")
             .eql("Entry updated successfully");
+          done();
+        });
+    });
+  });
+
+  // Test the /DELETE route
+  describe("/DELETE/:id entry", () => {
+    it("it should DELETE an entry given the id", done => {
+      let entry = {
+        title: "Met a band",
+        details: "Asked if i had seen clefs"
+      };
+      let save = db.addOne(entry);
+      chai
+        .request("http://localhost:3000/api/v1")
+        .delete("/entries/" + save[db.database.length - 1].id)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a("object");
+          res.body.should.have
+            .property("message")
+            .eql("This entry has been removed");
           done();
         });
     });

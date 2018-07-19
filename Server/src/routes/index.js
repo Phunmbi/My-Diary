@@ -5,6 +5,7 @@ import db from '../db';
 const router = Router();
 
 // api routes v1 (/v1)
+
 // /entries api, get all entries
 router.get('/entries', (req, res) => {
   res.json(db.viewAll());
@@ -28,5 +29,13 @@ router.put('/entries/:id', (req, res) => {
   db.modifyOne(req.body);
   res.json({ message: 'Entry updated successfully' });
 });
+
+// delete an entry#
+router.delete('/entries/:id', (req, res) => {
+  const entry = req.params.id;
+  db.deleteOne(entry);
+  res.json({ message: 'This entry has been removed' });
+});
+
 
 export default router;
