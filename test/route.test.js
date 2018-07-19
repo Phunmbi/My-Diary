@@ -26,7 +26,20 @@ describe('Entries', () => {
                     done();
                 });
         });
-
     });
 
+    // Test the /GET route
+    describe('/GET database', () => {
+        it('it should GET all the entries', (done) => {
+            chai
+                .request("http://localhost:3000/api/v1")
+                .get("/entries")
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a("array");
+                    res.body.length.should.be.eql(3);
+                    done();
+                });
+        });
+    });
 });
