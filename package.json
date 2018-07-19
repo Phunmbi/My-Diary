@@ -5,10 +5,10 @@
   "main": "./Server/dist",
   "scripts": {
     "dev": "nodemon -w server/src ./server/src/index.js --exec \"babel-node ./server/src --preset airbnb\"",
-    "start": "start dist",
-    "build": "babel ./server/src -s -D -d ./server/dist --preset airbnb",
     "lint": "eslint ./server/src",
-    "test": "mocha --compilers js:babel-core/register ./test/*"
+    "test": "mocha --compilers js:babel-core/register ./test/*",
+    "build": "babel ./server/src -s -D -d ./server/dist --preset airbnb",
+    "start": "start dist"
   },
   "eslintConfig": {
     "extends": "airbnb-base",
