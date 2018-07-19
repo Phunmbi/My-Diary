@@ -1,5 +1,5 @@
 language: node_js
 node_js:
   - "node"
-after_install: 
+before_script: 
   -babel ./server/src -s -D -d ./server/dist --preset airbnb"
