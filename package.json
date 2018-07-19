@@ -8,7 +8,7 @@
     "start": "start dist",
     "build": "babel ./server/src -s -D -d ./server/dist --preset airbnb",
     "lint": "eslint ./server/src",
-    "test": "mocha"
+    "test": "mocha --compilers js:babel-core/register ./test/*"
   },
   "eslintConfig": {
     "extends": "airbnb-base",
@@ -32,16 +32,31 @@
       "no-param-reassign": 0,
       "comma-dangle": 0,
       "arrow-body-style": 0,
-      "curly": [2, "multi-line"],
-      "no-shadow": [2, { "allow": ["req", "res", "err"]}],
-      "linebreak-style": 0,
-      "require-jsdoc": [2, {
-        "require": {
-          "FunctionDeclaration": true,
-          "MethodDefinition": true,
-          "ClassDeclaration": true
+      "curly": [
+        2,
+        "multi-line"
+      ],
+      "no-shadow": [
+        2,
+        {
+          "allow": [
+            "req",
+            "res",
+            "err"
+          ]
         }
-      }]
+      ],
+      "linebreak-style": 0,
+      "require-jsdoc": [
+        2,
+        {
+          "require": {
+            "FunctionDeclaration": true,
+            "MethodDefinition": true,
+            "ClassDeclaration": true
+          }
+        }
+      ]
     }
   },
   "author": "Funmbi Adeyokunnu <funmbi.adeyokunnu@gmail.com>",
@@ -56,6 +71,8 @@
     "babel-eslint": "^8.2.6",
     "babel-preset-airbnb": "^2.5.2",
     "babel-preset-env": "^1.7.0",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.12.0",
