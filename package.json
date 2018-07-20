@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon -w server/src ./server/src/index.js --exec \"babel-node ./server/src --preset airbnb\"",
     "lint": "eslint ./server/src",
-    "test": "nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register ./test/* --exit",
+    "test": "nyc mocha --compilers js:babel-core/register ./test/* --exit",
     "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "build": "babel ./server/src -s -D -d ./server/dist --preset airbnb",
     "start": "start ./Server/dist/index.js"
