@@ -25,18 +25,18 @@ var _index2 = _interopRequireDefault(_index);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 // Setup Server
-var app = _express2.default();
-app.server = _http2.default.createServer(app);
+var app = (0, _express2['default'])();
+app.server = _http2['default'].createServer(app);
 
 // Middleware
 // parse application/json
-app.use(_bodyParser2.default.json({}));
+app.use(_bodyParser2['default'].json({}));
 
 // Api routes v1
-app.use('/api/v1', _index2.default);
+app.use('/api/v1', _index2['default']);
 
 app.server.listen(process.env.port || 3000);
 console.log('started listening in on port 3000');
 
-exports.default = app;
+exports['default'] = app;
 //# sourceMappingURL=index.js.map

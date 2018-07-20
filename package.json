@@ -9,12 +9,12 @@
     "test": "nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register ./test/* --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "babel ./server/src/ -s -D -d ./server/dist/ --preset env",
-    "start": "node ./server/dist/index.js"
+    "start": "start ./server/dist/index.js"
   },
   "eslintConfig": {
     "extends": "airbnb-base",
     "parserOptions": {
-      "ecmaVersion": 7,
+      "ecmaVersion": 6,
       "sourceType": "module"
     },
     "env": {
@@ -72,7 +72,12 @@
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.6",
     "babel-plugin-check-es2015-constants": "^6.22.0",
+    "babel-plugin-transform-es2015-block-scoping": "^6.26.0",
+    "babel-plugin-transform-es2015-constants": "^6.1.4",
+    "babel-plugin-transform-es3-member-expression-literals": "^6.22.0",
     "babel-plugin-transform-es3-property-literals": "^6.22.0",
+    "babel-plugin-transform-export-default": "^7.0.0-alpha.20",
+    "babel-plugin-transform-export-extensions": "^6.22.0",
     "babel-preset-airbnb": "^2.5.2",
     "babel-preset-env": "^1.7.0",
     "chai": "^4.1.2",
