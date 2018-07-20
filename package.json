@@ -13,7 +13,7 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "babel server/src -s -D -d server/dist --presets env",
     "heroku_build": "npx babel server/ --out-dir dist/ --ignore server/test",
-    "start": "node ./server/dist/"
+    "start": "node ./server/dist/index"
   },
   "eslintConfig": {
     "extends": "airbnb-base",
