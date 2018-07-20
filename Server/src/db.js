@@ -1,35 +1,33 @@
-'use strict';
+const database = [];
 
-var database = [];
-
-var uniqueId = () => {
-  var id = '';
-  for (var index = 0; index < 7; index++) {
+const uniqueId = () => {
+  let id = '';
+  for (let index = 0; index < 7; index++) {
     id += Math.round(Math.random() * 10);
   }
   return id;
 };
 
-var viewOne = id => {
-  for (var index = 0; index < database.length; index++) {
+const viewOne = (id) => {
+  for (let index = 0; index < database.length; index++) {
     if (database[index].id === id) {
       return database[index];
     }
   }
 };
 
-var addOne = newEntry => {
+const addOne = (newEntry) => {
   newEntry.id = uniqueId();
   database.push(newEntry);
   return database;
 };
 
-var viewAll = () => {
+const viewAll = () => {
   return database;
 };
 
-var modifyOne = entry => {
-  for (var index = 0; index < database.length; index++) {
+const modifyOne = (entry) => {
+  for (let index = 0; index < database.length; index++) {
     if (database[index].id === entry.id) {
       database.splice(index, 1, entry);
       return database[index];
@@ -37,8 +35,8 @@ var modifyOne = entry => {
   }
 };
 
-var deleteOne = id => {
-  for (var index = 0; index < database.length; index++) {
+const deleteOne = (id) => {
+  for (let index = 0; index < database.length; index++) {
     if (database[index].id === id) {
       database.splice(index, 1);
     }
