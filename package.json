@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "APIs for the My Diary app",
   "engines": {
-    "node": "8.11.3"
+    "node": "8.11.3",
+    "npm" : "5.6.0"
   },
   "main": "./Server/dist/index.js",
   "scripts": {
@@ -13,7 +14,7 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "babel server/src -s -D -d server/dist --presets env",
     "heroku_build": "npx babel server/ --out-dir dist/ --ignore server/test",
-    "start": "node ./server/dist/index"
+    "start": "node ./server/dist/index.js"
   },
   "eslintConfig": {
     "extends": "airbnb-base",
