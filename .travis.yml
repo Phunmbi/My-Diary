@@ -1,5 +1,4 @@
 language: node_js
 node_js:
-  - "node"
-before_script: 
-  -babel ./server/src -s -D -d ./server/dist --preset airbnb"
+  - "stable"
+script: npm run build
