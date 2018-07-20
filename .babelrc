@@ -1,12 +1,13 @@
 {
-	"presets": [
-		[
-			"airbnb",
-			{
-				"targets": {
-					"node": 6
-				}
-			}
-		]
-	]
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ]
+  ],
+  "plugins": ["transform-es3-property-literals", "check-es2015-constants"]
 }
