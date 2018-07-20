@@ -1,95 +1,112 @@
+Skip to content
+ 
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ @Phunmbi Sign out
+1
+0 0 Phunmbi/My-Diary
+ Code  Issues 0  Pull requests 1  Projects 0  Wiki  Insights  Settings
+My-Diary/package.json
+aac4039  29 minutes ago
+@Phunmbi Phunmbi Set up Heroku
+     
+96 lines (95 sloc)  2.61 KB
 {
-  "name": "mydiary-api",
-  "version": "1.0.0",
-  "description": "APIs for the My Diary app",
-  "main": "./Server/dist/index.js",
-  "scripts": {
-    "dev": "nodemon -w server/src ./server/src/index.js --exec \"babel-node ./server/src --preset airbnb\"",
-    "lint": "eslint ./server/src",
-    "test": "nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register ./test/* --exit",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "build": "babel ./server/src/ -s -D -d ./server/dist/ --preset env",
-    "start": "start ./server/dist/index.js"
-  },
-  "eslintConfig": {
-    "extends": "airbnb-base",
-    "parserOptions": {
-      "ecmaVersion": 6,
-      "sourceType": "module"
+    "name": "mydiary-api",
+    "version": "1.0.0",
+    "description": "APIs for the My Diary app",
+    "main": "./Server/dist/index.js",
+    "scripts": {
+        "dev": "nodemon -w server/src ./server/src/index.js --exec \"babel-node ./server/src --preset airbnb\"",
+        "lint": "eslint ./server/src",
+        "test": "nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register ./test/* --exit",
+        "coverage": "nyc report --reporter=text-lcov | coveralls",
+        "build": "babel ./server/src/ -out-dir  ./server/dist/ ",
+        "start": "node ./server/dist/index.js"
     },
-    "env": {
-      "node": true,
-      "es6": true
+    "eslintConfig": {
+        "extends": "airbnb-base",
+        "parserOptions": {
+            "ecmaVersion": 6,
+            "sourceType": "module"
+        },
+        "env": {
+            "node": true,
+            "es6": true
+        },
+        "rules": {
+            "no-console": 0,
+            "no-unused-vars": 1,
+            "eol-last": 0,
+            "one-var": 0,
+            "no-plusplus": 0,
+            "one-var-declaration-per-line": 0,
+            "new-cap": 0,
+            "consistent-return": 0,
+            "no-param-reassign": 0,
+            "comma-dangle": 0,
+            "arrow-body-style": 0,
+            "curly": [
+                2,
+                "multi-line"
+            ],
+            "no-shadow": [
+                2,
+                {
+                    "allow": [
+                        "req",
+                        "res",
+                        "err"
+                    ]
+                }
+            ],
+            "linebreak-style": 0,
+            "require-jsdoc": [
+                2,
+                {
+                    "require": {
+                        "FunctionDeclaration": true,
+                        "MethodDefinition": true,
+                        "ClassDeclaration": true
+                    }
+                }
+            ]
+        }
     },
-    "rules": {
-      "no-console": 0,
-      "no-unused-vars": 1,
-      "eol-last": 0,
-      "one-var": 0,
-      "no-plusplus": 0,
-      "one-var-declaration-per-line": 0,
-      "new-cap": 0,
-      "consistent-return": 0,
-      "no-param-reassign": 0,
-      "comma-dangle": 0,
-      "arrow-body-style": 0,
-      "curly": [
-        2,
-        "multi-line"
-      ],
-      "no-shadow": [
-        2,
-        {
-          "allow": [
-            "req",
-            "res",
-            "err"
-          ]
-        }
-      ],
-      "linebreak-style": 0,
-      "require-jsdoc": [
-        2,
-        {
-          "require": {
-            "FunctionDeclaration": true,
-            "MethodDefinition": true,
-            "ClassDeclaration": true
-          }
-        }
-      ]
+    "author": "Funmbi Adeyokunnu <funmbi.adeyokunnu@gmail.com>",
+    "license": "ISC",
+    "dependencies": {
+        "babel-polyfill": "^6.26.0",
+        "body-parser": "^1.18.3",
+        "express": "^4.16.3"
+    },
+    "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-core": "^6.26.3",
+        "babel-eslint": "^8.2.6",
+        "babel-plugin-check-es2015-constants": "^6.22.0",
+        "babel-plugin-transform-es2015-block-scoping": "^6.26.0",
+        "babel-plugin-transform-es2015-constants": "^6.1.4",
+        "babel-plugin-transform-es3-member-expression-literals": "^6.22.0",
+        "babel-plugin-transform-es3-property-literals": "^6.22.0",
+        "babel-plugin-transform-export-default": "^7.0.0-alpha.20",
+        "babel-plugin-transform-export-extensions": "^6.22.0",
+        "babel-preset-airbnb": "^2.5.2",
+        "babel-preset-env": "^1.7.0",
+        "chai": "^4.1.2",
+        "chai-http": "^4.0.0",
+        "coveralls": "^3.0.2",
+        "eslint": "^4.19.1",
+        "eslint-config-airbnb-base": "^13.0.0",
+        "eslint-plugin-import": "^2.12.0",
+        "istanbul": "^0.4.5",
+        "mocha": "^5.2.0",
+        "mocha-lcov-reporter": "^1.3.0",
+        "nodemon": "^1.18.2",
+        "nyc": "^12.0.2"
     }
-  },
-  "author": "Funmbi Adeyokunnu <funmbi.adeyokunnu@gmail.com>",
-  "license": "ISC",
-  "dependencies": {
-    "babel-polyfill": "^6.26.0",
-    "body-parser": "^1.18.3",
-    "express": "^4.16.3"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.6",
-    "babel-plugin-check-es2015-constants": "^6.22.0",
-    "babel-plugin-transform-es2015-block-scoping": "^6.26.0",
-    "babel-plugin-transform-es2015-constants": "^6.1.4",
-    "babel-plugin-transform-es3-member-expression-literals": "^6.22.0",
-    "babel-plugin-transform-es3-property-literals": "^6.22.0",
-    "babel-plugin-transform-export-default": "^7.0.0-alpha.20",
-    "babel-plugin-transform-export-extensions": "^6.22.0",
-    "babel-preset-airbnb": "^2.5.2",
-    "babel-preset-env": "^1.7.0",
-    "chai": "^4.1.2",
-    "chai-http": "^4.0.0",
-    "coveralls": "^3.0.2",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb-base": "^13.0.0",
-    "eslint-plugin-import": "^2.12.0",
-    "istanbul": "^0.4.5",
-    "mocha": "^5.2.0",
-    "mocha-lcov-reporter": "^1.3.0",
-    "nodemon": "^1.18.2",
-    "nyc": "^12.0.2"
-  }
 }

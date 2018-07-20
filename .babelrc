@@ -9,5 +9,5 @@
       }
     ]
   ],
-	"plugins": ["transform-es3-property-literals", "check-es2015-constants","transform-es3-member-expression-literals", "transform-es2015-constants", "transform-export-default", "transform-es2015-block-scoping"]
+	"plugins": ["transform-es3-property-literals", "transform-es3-member-expression-literals", "transform-es2015-constants", "transform-export-default", "transform-es2015-block-scoping"]
 }
