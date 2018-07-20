@@ -13,8 +13,8 @@
     "test": "nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register ./test/* --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "babel server/src -s -D -d server/dist --presets env",
-    "heroku_build": "npx babel server/ --out-dir dist/ --ignore server/test",
-    "start": "node ./server/dist/index.js"
+    "heroku-build": "npx babel server/ --out-dir dist/ --ignore server/test",
+    "start": "node ./Server/dist/index.js"
   },
   "eslintConfig": {
     "extends": "airbnb-base",
