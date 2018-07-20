@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/Phunmbi/My-Diary.svg?branch=server)](https://travis-ci.com/Phunmbi/My-Diary)
+[![Build Status](https://travis-ci.com/Phunmbi/My-Diary.svg?branch=server)](https://travis-ci.com/Phunmbi/My-Diary) [![Coverage Status](https://coveralls.io/repos/github/Phunmbi/My-Diary/badge.svg?branch=server)](https://coveralls.io/github/Phunmbi/My-Diary?branch=server)
 
 # My Diary
 This is the UI Component of the My Diary project which is an app for you to keep your diary entries and manage them.
