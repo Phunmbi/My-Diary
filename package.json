@@ -2,7 +2,7 @@
   "name": "mydiary-api",
   "version": "1.0.0",
   "description": "APIs for the My Diary app",
-  "main": "./Server/dist",
+  "main": "./Server/dist/index.js",
   "scripts": {
     "dev": "nodemon -w server/src ./server/src/index.js --exec \"babel-node ./server/src --preset airbnb\"",
     "lint": "eslint ./server/src",
