@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon -w server/src ./server/src/index.js --exec \"babel-node ./server/src --preset airbnb\"",
     "lint": "eslint ./server/src",
-    "test": "mocha --compilers js:babel-core/register ./test/*",
+    "test": "mocha --compilers js:babel-core/register ./test/* --exit",
     "build": "babel ./server/src -s -D -d ./server/dist --preset airbnb",
     "start": "start ./Server/dist/index.js"
   },
