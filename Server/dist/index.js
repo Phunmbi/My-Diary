@@ -4,8 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-require('babel-polyfill');
-
 var _http = require('http');
 
 var _http2 = _interopRequireDefault(_http);
@@ -35,7 +33,7 @@ app.use(_bodyParser2['default'].json({}));
 // Api routes v1
 app.use('/api/v1', _index2['default']);
 
-app.server.listen(process.env.port || 3000);
+app.server.listen(process.env.PORT || 3000);
 console.log('started listening in on port 3000');
 
 exports['default'] = app;
