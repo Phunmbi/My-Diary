@@ -2,7 +2,7 @@
 
 var database = [];
 
-var uniqueId = () => {
+var uniqueId = function uniqueId() {
   var id = '';
   for (var index = 0; index < 7; index++) {
     id += Math.round(Math.random() * 10);
@@ -10,7 +10,7 @@ var uniqueId = () => {
   return id;
 };
 
-var viewOne = id => {
+var viewOne = function viewOne(id) {
   for (var index = 0; index < database.length; index++) {
     if (database[index].id === id) {
       return database[index];
@@ -18,17 +18,17 @@ var viewOne = id => {
   }
 };
 
-var addOne = newEntry => {
+var addOne = function addOne(newEntry) {
   newEntry.id = uniqueId();
   database.push(newEntry);
   return database;
 };
 
-var viewAll = () => {
+var viewAll = function viewAll() {
   return database;
 };
 
-var modifyOne = entry => {
+var modifyOne = function modifyOne(entry) {
   for (var index = 0; index < database.length; index++) {
     if (database[index].id === entry.id) {
       database.splice(index, 1, entry);
@@ -37,7 +37,7 @@ var modifyOne = entry => {
   }
 };
 
-var deleteOne = id => {
+var deleteOne = function deleteOne(id) {
   for (var index = 0; index < database.length; index++) {
     if (database[index].id === id) {
       database.splice(index, 1);
@@ -47,10 +47,11 @@ var deleteOne = id => {
 };
 
 module.exports = {
-  database,
-  addOne,
-  viewOne,
-  viewAll,
-  modifyOne,
-  deleteOne
+  database: database,
+  addOne: addOne,
+  viewOne: viewOne,
+  viewAll: viewAll,
+  modifyOne: modifyOne,
+  deleteOne: deleteOne
 };
+//# sourceMappingURL=db.js.map

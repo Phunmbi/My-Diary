@@ -39,3 +39,4 @@ app.server.listen(process.env.port || 3000);
 console.log('started listening in on port 3000');
 
 exports['default'] = app;
+//# sourceMappingURL=index.js.map

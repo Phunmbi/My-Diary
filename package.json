@@ -2,13 +2,17 @@
   "name": "mydiary-api",
   "version": "1.0.0",
   "description": "APIs for the My Diary app",
+  "engines": {
+    "node": "8.11.3"
+  },
   "main": "./Server/dist/index.js",
   "scripts": {
     "dev": "nodemon -w server/src ./server/src/index.js --exec \"babel-node ./server/src --preset airbnb\"",
     "lint": "eslint ./server/src",
     "test": "nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register ./test/* --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "build": "babel ./server/src/ --out-dir ./server/dist/ ",
+    "build": "babel server/src -s -D -d server/dist --presets env",
+    "heroku_build": "npx babel server/ --out-dir dist/ --ignore server/test",
     "start": "node ./server/dist/"
   },
   "eslintConfig": {
