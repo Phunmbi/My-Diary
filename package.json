@@ -9,7 +9,7 @@
     "test": "nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register ./test/* --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "babel ./server/src/ --out-dir ./server/dist/ ",
-    "start": "node ./server/dist/index.js"
+    "start": "node ./server/dist/"
   },
   "eslintConfig": {
     "extends": "airbnb-base",
