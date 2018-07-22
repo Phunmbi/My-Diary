@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
 [![Build Status](https://travis-ci.com/Phunmbi/My-Diary.svg?branch=master)](https://travis-ci.com/Phunmbi/My-Diary) [![Coverage Status](https://coveralls.io/repos/github/Phunmbi/My-Diary/badge.svg?branch=master)](https://coveralls.io/github/Phunmbi/My-Diary?branch=master)
 
 >>>>>>> 76d4e6e2057899e5ebb810679ff412f6b7228600
@@ -13,10 +11,3 @@ HTML, CSS and JavaScript
 
 ## Authors
 Funmbi Adeyokunnu
-<<<<<<< HEAD
-=======
-# My-Diary
-A day to day diary with view, edit and reminder options.
->>>>>>> 5f96e0b790dff4ec1cb509fe50ae7c6632d6b073
-=======
->>>>>>> 76d4e6e2057899e5ebb810679ff412f6b7228600
