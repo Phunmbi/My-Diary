@@ -23,7 +23,6 @@ describe('Entries', () => {
         .post('/entries')
         .send(entry)
         .end((err, res) => {
-          console.log(res);
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.data.should.have.property('title');
@@ -51,10 +50,9 @@ describe('Entries', () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
-          res.body.length.should.be.eql(4);
-          res.body.data.should.have.property("title");
-          res.body.data.should.have.property("details");
-          res.body.data.should.have.property("id");
+          res.body.should.have.property('data');
+          res.body.should.have.property('message');
+          res.body.should.have.property('message').eql('Entire database');
           done();
         });
     });
@@ -70,14 +68,20 @@ describe('Entries', () => {
       const save = db.addOne(entry);
       chai
         .request('http://localhost:3000/api/v1')
-        .get(`/entries/${save[db.database.length - 1].id}`)
+        .get(`/entries/${save.id}`)
         .send(entry)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
-          res.body.should.have.property('title');
-          res.body.should.have.property('details');
-          res.body.should.have.property('id');
+          res.body.should.have.property('data');
+          res.body.should.have.property('message');
+          res.body.should.have.property('status');
+          res.body.data.should.have
+            .property('title')
+            .eql(entry.title);
+          res.body.data.should.have
+            .property('details')
+            .eql(entry.details);
           done();
         });
     });
@@ -90,17 +94,19 @@ describe('Entries', () => {
         title: 'Met a band',
         details: 'Asked if i had seen clefs'
       };
+      const newTitle = 'Met a wand';
       const save = db.addOne(entry);
       chai
         .request('http://localhost:3000/api/v1')
-        .put(`/entries/${save[db.database.length - 1].id}`)
-        .send({ title: 'Met a wand' })
+        .put(`/entries/${save.id}`)
+        .send(newTitle)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
-          res.body.should.have
-            .property('message')
-            .eql('Entry updated successfully');
+          res.body.should.have.property('data');
+          res.body.should.have.property('message');
+          res.body.should.have.property('status');
+          res.body.data.should.have.property('id');
           done();
         });
     });
@@ -116,13 +122,13 @@ describe('Entries', () => {
       const save = db.addOne(entry);
       chai
         .request('http://localhost:3000/api/v1')
-        .delete(`'/entries/'${save[db.database.length - 1].id}`)
+        .delete(`/entries/${save.id}`)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
-          res.body.should.have
-            .property('message')
-            .eql('This entry has been removed');
+          res.body.should.have.property('data');
+          res.body.should.have.property('message');
+          res.body.should.have.property('status');
           done();
         });
     });
