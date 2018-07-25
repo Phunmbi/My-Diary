@@ -40,6 +40,7 @@ router.post('/entries', (req, res) => {
 // edit an entry
 router.put('/entries/:id', (req, res) => {
   req.body.id = req.params.id;
+  db.modifyOne(req.body.id);
   res.json({
     data: req.body,
     status: res.statusCode,

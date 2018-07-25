@@ -1,6 +1,18 @@
 'use strict';
 
-var database = [];
+var database = [{
+  id: '123456',
+  title: 'Today I met an avocado',
+  details: 'Today was a good day, I met an avocado and it made me want to have chips and guacamole for dinner'
+}, {
+  id: '234612',
+  title: 'Shitty day at work',
+  details: 'Had a cliet go bezerk on me at work today, really got to get better at managing expectations.'
+}, {
+  id: '786833',
+  title: 'Happy day, should celebrate',
+  details: 'Finally copped my udacity nanodegree. awesome day to be alive.'
+}];
 
 var uniqueId = function uniqueId() {
   var id = '';
@@ -21,7 +33,7 @@ var viewOne = function viewOne(id) {
 var addOne = function addOne(newEntry) {
   newEntry.id = uniqueId();
   database.push(newEntry);
-  return database;
+  return database[database.length - 1];
 };
 
 var viewAll = function viewAll() {
