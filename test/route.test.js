@@ -1,112 +1,134 @@
-/* eslint-disable */
-let db = require("../Server/src/db");
-let chai = require("chai");
-let { address } = require("../Server/src/index");
+// This code was written based off of this tutorial from Scotch.io
+// https://scotch.io/tutorials/test-a-node-restful-api-with-mocha-and-chai
 
-let chaiHttp = require("chai-http");
-let should = chai.should();
+import chai from 'chai';
+import chaiHttp from 'chai-http';
+import db from '../Server/src/db';
+import server from '../Server/src/index';
+
+const should = chai.should();
 
 chai.use(chaiHttp);
-//Our parent block
-describe("Entries", () => {
+
+describe('Entries', () => {
   // Testing /POST
-  describe("/POST entries", () => {
-    it("it should POST a new entry", done => {
-      let entry = {
-        title: "Met a female dragon",
-        details: "had a fire conversation"
+  describe('/POST entries', () => {
+    it('it should POST a new entry', (done) => {
+      const entry = {
+        title: 'Met a female dragon',
+        details: 'had a fire conversation'
       };
       chai
-        .request("http://localhost:3000/api/v1")
-        .post("/entries")
+        .request('http://localhost:3000/api/v1')
+        .post('/entries')
         .send(entry)
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.should.be.a("object");
-          res.body.should.have.property("message");
+          res.body.should.be.a('object');
+          res.body.data.should.have.property('title');
+          res.body.data.should.have.property('details');
+          res.body.data.should.have.property('id');
+          res.body.should.have.property('message');
+          res.body.should.have.property('status');
+          res.body.data.should.have
+            .property('title')
+            .eql(entry.title);
+          done();
+          res.body.data.should.have
+            .property('details')
+            .eql(entry.details);
+        });
+    });
+  });
+
+  // Test the /GET route
+  describe('/GET database', () => {
+    it('it should GET all the entries', (done) => {
+      chai
+        .request('http://localhost:3000/api/v1')
+        .get('/entries')
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('data');
+          res.body.should.have.property('message');
+          res.body.should.have.property('message').eql('Entire database');
           done();
         });
     });
   });
 
   // Test the /GET route
-  describe("/GET database", () => {
-    it("it should GET all the entries", done => {
-      chai
-        .request("http://localhost:3000/api/v1")
-        .get("/entries")
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a("array");
-          res.body.length.should.be.eql(3);
-          done();
-        });
-    });
-  });
-
-  // Test the /GET route
-  describe("/GET entry", () => {
-    it("it should GET a single entry", done => {
-      let entry = {
-        title: "Met a bagel",
-        details: "Asked if i had seen scones recently"
+  describe('/GET entry', () => {
+    it('it should GET a single entry', (done) => {
+      const entry = {
+        title: 'Met a bagel',
+        details: 'Asked if i had seen scones recently'
       };
-      let save = db.addOne(entry);
+      const save = db.addOne(entry);
       chai
-        .request("http://localhost:3000/api/v1")
-        .get("/entries/" + save[db.database.length - 1].id)
+        .request('http://localhost:3000/api/v1')
+        .get(`/entries/${save.id}`)
         .send(entry)
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.should.be.a("object");
-          res.body.should.have.property("title");
-          res.body.should.have.property("details");
-          res.body.should.have.property("id");
+          res.body.should.be.a('object');
+          res.body.should.have.property('data');
+          res.body.should.have.property('message');
+          res.body.should.have.property('status');
+          res.body.data.should.have
+            .property('title')
+            .eql(entry.title);
+          res.body.data.should.have
+            .property('details')
+            .eql(entry.details);
           done();
         });
     });
   });
 
   // Test the /PUT route
-  describe("/PUT/:id entry", () => {
-    it("it should UPDATE an entry given the id", done => {
-      let entry = {
-        title: "Met a band",
-        details: "Asked if i had seen clefs"
+  describe('/PUT/:id entry', () => {
+    it('it should UPDATE an entry given the id', (done) => {
+      const entry = {
+        title: 'Met a band',
+        details: 'Asked if i had seen clefs'
       };
-      let save = db.addOne(entry);
+      const newTitle = 'Met a wand';
+      const save = db.addOne(entry);
       chai
-        .request("http://localhost:3000/api/v1")
-        .put("/entries/" + save[db.database.length - 1].id)
-        .send({ title: "Met a wand" })
+        .request('http://localhost:3000/api/v1')
+        .put(`/entries/${save.id}`)
+        .send(newTitle)
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.should.be.a("object");
-          res.body.should.have
-            .property("message")
-            .eql("Entry updated successfully");
+          res.body.should.be.a('object');
+          res.body.should.have.property('data');
+          res.body.should.have.property('message');
+          res.body.should.have.property('status');
+          res.body.data.should.have.property('id');
           done();
         });
     });
   });
 
   // Test the /DELETE route
-  describe("/DELETE/:id entry", () => {
-    it("it should DELETE an entry given the id", done => {
-      let entry = {
-        title: "Met a band",
-        details: "Asked if i had seen clefs"
+  describe('/DELETE/:id entry', () => {
+    it('it should DELETE an entry given the id', (done) => {
+      const entry = {
+        title: 'Met a band',
+        details: 'Asked if i had seen clefs'
       };
-      let save = db.addOne(entry);
+      const save = db.addOne(entry);
       chai
-        .request("http://localhost:3000/api/v1")
-        .delete("/entries/" + save[db.database.length - 1].id)
+        .request('http://localhost:3000/api/v1')
+        .delete(`/entries/${save.id}`)
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.should.be.a("object");
-          res.body.should.have
-            .property("message")
-            .eql("This entry has been removed");
+          res.body.should.be.a('object');
+          res.body.should.have.property('data');
+          res.body.should.have.property('message');
+          res.body.should.have.property('status');
           done();
         });
     });

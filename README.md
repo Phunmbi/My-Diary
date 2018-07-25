@@ -5,6 +5,7 @@
 This is a diary application with add, delete, modify and view functionalities.
 This essentially runs through the app flow, as well as features from account creation to signing in and then to the dashboard then to the process of adding, editing and deleting entries. 
 
+
 ## Built With
 HTML, CSS and JavaScript
 
