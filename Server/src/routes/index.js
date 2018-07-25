@@ -10,10 +10,12 @@ const router = Router();
 
 // /entries api, get all entries
 router.get('/entries', (req, res) => {
-  res.json({
-    data: db.viewAll(),
-    status: res.statusCode,
-    message: 'Entire database'
+  db.viewAll((data) => {
+    res.json({
+      data,
+      status: res.statusCode,
+      message: 'Entire database'
+    });
   });
 });
 
