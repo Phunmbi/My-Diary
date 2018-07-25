@@ -6,6 +6,7 @@ const client = new Client({ connectionString });
 
 const startDb = () => {
   client.connect();
+  return client;
 };
 
 const database = [{
@@ -47,8 +48,14 @@ const addOne = (newEntry) => {
   return database[database.length - 1];
 };
 
-const viewAll = () => {
-  return database;
+const viewAll = (callback) => {
+  client.query('SELECT * FROM public.entries', (err, res) => {
+    if (err) {
+      console.log(err.stack);
+    } else {
+      callback(res.rows);
+    }
+  });
 };
 
 const modifyOne = (entry) => {
