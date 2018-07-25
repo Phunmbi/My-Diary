@@ -2,15 +2,19 @@ import http from 'http';
 import express from 'express';
 import bodyParser from 'body-parser';
 import routes from './routes/index';
+import { startDb } from './db';
 
 // Setup Server
 const app = express();
-
 app.server = http.createServer(app);
+
+// Start up PostgreSQL database
+startDb();
 
 // Middleware
 // parse application/json
 app.use(bodyParser.json({}));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Api routes v1
 app.use('/api/v1', routes);

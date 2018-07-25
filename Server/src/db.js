@@ -1,3 +1,13 @@
+import { Client } from 'pg';
+
+const connectionString = 'postgresql://postgres:Birthdays262314@localhost:5432/MyDiary';
+
+const client = new Client({ connectionString });
+
+const startDb = () => {
+  client.connect();
+};
+
 const database = [{
   id: '123456',
   title: 'Today I met an avocado',
@@ -60,6 +70,7 @@ const deleteOne = (id) => {
 };
 
 module.exports = {
+  startDb,
   database,
   addOne,
   viewOne,
