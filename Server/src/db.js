@@ -1,6 +1,6 @@
 import { Client } from 'pg';
 
-const connectionString = 'postgresql://postgres:Birthdays262314@localhost:5432/MyDiary';
+const connectionString = process.env.DATABAS_URL || 'postgresql://postgres:Birthdays262314@localhost:5432/MyDiary';
 
 const client = new Client({ connectionString });
 
@@ -76,7 +76,7 @@ const deleteOne = (id) => {
   return database;
 };
 
-module.exports = {
+export {
   startDb,
   database,
   addOne,

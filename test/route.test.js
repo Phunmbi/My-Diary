@@ -3,7 +3,7 @@
 
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import db from '../Server/src/db';
+import { addOne } from '../Server/src/db';
 import server from '../Server/src/index';
 
 const should = chai.should();
@@ -55,7 +55,7 @@ describe('Entries', () => {
           res.body.should.have.property('message').eql('Entire database');
           done();
         });
-    });
+    }).timeout(17000);
   });
 
   // Test the /GET route
@@ -65,7 +65,7 @@ describe('Entries', () => {
         title: 'Met a bagel',
         details: 'Asked if i had seen scones recently'
       };
-      const save = db.addOne(entry);
+      const save = addOne(entry);
       chai
         .request('http://localhost:3000/api/v1')
         .get(`/entries/${save.id}`)
@@ -95,7 +95,7 @@ describe('Entries', () => {
         details: 'Asked if i had seen clefs'
       };
       const newTitle = 'Met a wand';
-      const save = db.addOne(entry);
+      const save = addOne(entry);
       chai
         .request('http://localhost:3000/api/v1')
         .put(`/entries/${save.id}`)
@@ -119,7 +119,7 @@ describe('Entries', () => {
         title: 'Met a band',
         details: 'Asked if i had seen clefs'
       };
-      const save = db.addOne(entry);
+      const save = addOne(entry);
       chai
         .request('http://localhost:3000/api/v1')
         .delete(`/entries/${save.id}`)

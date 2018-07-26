@@ -1,6 +1,7 @@
 import http from 'http';
 import express from 'express';
 import bodyParser from 'body-parser';
+import logger from 'morgan';
 import routes from './routes/index';
 import { startDb } from './db';
 
@@ -11,6 +12,7 @@ app.server = http.createServer(app);
 // Start up PostgreSQL database
 startDb();
 
+app.use(logger('dev'));
 // Middleware
 // parse application/json
 app.use(bodyParser.json({}));
