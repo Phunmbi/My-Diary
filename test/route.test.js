@@ -33,10 +33,10 @@ describe('Entries', () => {
           res.body.data.should.have
             .property('title')
             .eql(entry.title);
-          done();
           res.body.data.should.have
             .property('details')
             .eql(entry.details);
+          done();
         });
     });
   });
