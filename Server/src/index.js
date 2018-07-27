@@ -12,7 +12,7 @@ app.server = http.createServer(app);
 // Start up PostgreSQL database
 startDb();
 
-app.use(logger('dev'));
+app.use(logger('combined'));
 // Middleware
 // parse application/json
 app.use(bodyParser.json({}));
