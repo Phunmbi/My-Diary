@@ -7,7 +7,7 @@ const client = new Client({ connectionString });
 const startDb = () => {
   client.connect((err) => {
     if (err) {
-      console.log('connection error', err.stack);
+      console.log('connection error', err);
     } else {
       console.log('connected succesfully');
     }
