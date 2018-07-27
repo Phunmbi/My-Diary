@@ -5,7 +5,13 @@ const connectionString = 'postgresql://postgres:Birthdays262314@localhost:5432/M
 const client = new Client({ connectionString });
 
 const startDb = () => {
-  client.connect();
+  client.connect((err) => {
+    if (err) {
+      console.log('connection error', err.stack);
+    } else {
+      console.log('connected succesfully');
+    }
+  });
   return client;
 };
 
