@@ -1,6 +1,6 @@
 import { Client } from 'pg';
 
-const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:Birthdays262314@localhost:5432/MyDiary';
+const connectionString = 'postgresql://postgres:Birthdays262314@localhost:5432/MyDiary';
 
 const client = new Client({ connectionString });
 
