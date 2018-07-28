@@ -6,15 +6,16 @@
     "node": "8.11.3",
     "npm": "5.6.0"
   },
-  "main": "./dist/index.js",
+  "main": "./dist/controllers/index.js",
   "scripts": {
-    "dev": "nodemon -w server/src ./server/src/index.js --exec \"babel-node ./server/src --preset airbnb\"",
-    "lint": "eslint ./server/src",
-    "test": "nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register ./test/* --exit",
+    "dev": "nodemon -w server/ ./server/index.js --exec \"babel-node ./server/ --preset airbnb\"",
+    "lint": "eslint ./server/",
+    "test": "nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register ./server/tests/* --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "build": "babel server/src -s -D -d ./dist --presets env",
-    "heroku-build": "npx babel server/ --out-dir dist/ --ignore server/test",
-    "start": "node ./dist/index.js"
+    "build": "babel server/ -s -D -d ./dist --presets env",
+    "heroku-build": "npx babel server/ --out-dir dist/ --ignore server/tests",
+    "start": "node ./dist/index.js",
+    "new-start": "babel-node ./"
   },
   "eslintConfig": {
     "extends": "airbnb-base",
@@ -72,6 +73,7 @@
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "joi": "^13.4.0",
     "morgan": "^1.9.0",
     "pg": "^7.4.3"
   },
