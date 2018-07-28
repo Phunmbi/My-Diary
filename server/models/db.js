@@ -1,6 +1,8 @@
 import { Client } from 'pg';
 
-const connectionString = 'postgresql://postgres:Birthdays262314@localhost:5432/MyDiary';
+require('dotenv').config();
+
+const connectionString = process.env.DATABASE_URL;
 
 const client = new Client({ connectionString });
 
