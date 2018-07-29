@@ -19,7 +19,7 @@ describe('Entries', () => {
         details: 'had a fire conversation'
       };
       chai
-        .request('http://localhost:3000/api/v1')
+        .request('localhost:3000/api/v1')
         .post('/entries')
         .send(entry)
         .end((err, res) => {
@@ -52,7 +52,7 @@ describe('Entries', () => {
   describe('/GET database', () => {
     it('it should GET all the entries', (done) => {
       chai
-        .request('http://localhost:3000/api/v1')
+        .request('localhost:3000/api/v1')
         .get('/entries')
         .end((err, res) => {
           if (err) {
@@ -70,7 +70,7 @@ describe('Entries', () => {
 
     it('it should return an error while trying to GET a route that does not exist', (done) => {
       chai
-        .request('http://localhost:3000/api/v')
+        .request('localhost:3000/api/v')
         .get('/entries')
         .end((err, res) => {
           if (err) {
@@ -89,7 +89,7 @@ describe('Entries', () => {
 
     it('it should GET the entry page', (done) => {
       chai
-        .request('http://localhost:3000')
+        .request('localhost:3000')
         .get('/')
         .end((err, res) => {
           if (err) {
@@ -120,7 +120,7 @@ describe('Entries', () => {
         } else {
           const data = response.rows[0];
           chai
-            .request('http://localhost:3000/api/v1')
+            .request('localhost:3000/api/v1')
             .get(`/entries/${data.id}`)
             .send(entry)
             .end((err, res) => {
@@ -158,7 +158,7 @@ describe('Entries', () => {
             console.log(err.stack);
           } else {
             chai
-              .request('http://localhost:3000/api/v1')
+              .request('localhost:3000/api/v1')
               .get('/entries/1000000')
               .send(entry)
               .end((err, res) => {
@@ -194,7 +194,7 @@ describe('Entries', () => {
         } else {
           const data = response.rows[0];
           chai
-            .request('http://localhost:3000/api/v1')
+            .request('localhost:3000/api/v1')
             .put(`/entries/${data.id}`)
             .send({ title: 'Met a wand', details: 'Asked if i had seen clefs' })
             .end((err, res) => {
@@ -226,7 +226,7 @@ describe('Entries', () => {
         } else {
           const data = response.rows[0];
           chai
-            .request('http://localhost:3000/api/v1')
+            .request('localhost:3000/api/v1')
             .put('/entries/10000')
             .send({ title: 'Met a wand', details: 'Asked if i had seen clefs' })
             .end((err, res) => {
@@ -261,7 +261,7 @@ describe('Entries', () => {
         } else {
           const data = response.rows[0];
           chai
-            .request('http://localhost:3000/api/v1')
+            .request('localhost:3000/api/v1')
             .delete(`/entries/${data.id}`)
             .end((err, res) => {
               if (err) {
@@ -292,7 +292,7 @@ describe('Entries', () => {
         } else {
           const data = response.rows[0];
           chai
-            .request('http://localhost:3000/api/v1')
+            .request('localhost:3000/api/v1')
             .delete('/entries/989999')
             .end((err, res) => {
               if (err) {
