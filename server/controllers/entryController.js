@@ -1,7 +1,7 @@
 import { client } from '../models/db';
 
 const viewAll = (req, res) => {
-  client.query('SELECT * FROM public.entries', (err, response) => {
+  client.query('SELECT * FROM entries', (err, response) => {
     if (err) {
       console.log(err.stack);
     } else {
@@ -17,7 +17,7 @@ const viewAll = (req, res) => {
 
 const viewOne = (req, res) => {
   client.query(
-    `SELECT * FROM public.entries WHERE id=${req.params.id}`,
+    `SELECT * FROM entries WHERE id=${req.params.id}`,
     (err, response) => {
       if (err) {
         console.log(err.stack);
@@ -42,7 +42,7 @@ const viewOne = (req, res) => {
 
 const addOne = (req, res) => {
   client.query(
-    'INSERT INTO public.entries(title, details, last_time_edited) VALUES ( $1, $2, Now()) RETURNING *',
+    'INSERT INTO entries(title, details, last_time_edited) VALUES ( $1, $2, Now()) RETURNING *',
     [req.value.body.title, req.value.body.details],
     (err, response) => {
       if (err) {
@@ -61,7 +61,7 @@ const addOne = (req, res) => {
 
 const modifyOne = (req, res) => {
   client.query(
-    'UPDATE public.entries SET title = $1, details = $2 WHERE id = $3 RETURNING *',
+    'UPDATE entries SET title = $1, details = $2 WHERE id = $3 RETURNING *',
     [req.value.body.title, req.value.body.details, req.params.id],
     (err, response) => {
       if (err) {
@@ -87,7 +87,7 @@ const modifyOne = (req, res) => {
 
 const deleteOne = (req, res) => {
   client.query(
-    'DELETE FROM public.entries WHERE id = $1 RETURNING *',
+    'DELETE FROM entries WHERE id = $1 RETURNING *',
     [req.params.id],
     (err, response) => {
       if (err) {
