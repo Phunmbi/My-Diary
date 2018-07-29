@@ -1,9 +1,8 @@
 import { client } from '../models/db';
 
 const viewAll = (req, res) => {
-  console.log(res, 'A');
   client.query('SELECT * FROM public.entries', (err, response) => {
-    console.log('B', response);
+    console.log('B', response, err);
     const data = response.rows;
     res.status(200).json({
       data,
