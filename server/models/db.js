@@ -2,7 +2,7 @@ import { Client } from 'pg';
 
 require('dotenv').config();
 
-const connectionString = 'postgresql://postgres:Birthdays262314@localhost:5432/MyDiary';
+const connectionString = process.env.DATABASE_URL;
 
 const client = new Client({ connectionString });
 

@@ -224,7 +224,6 @@ describe('Entries', () => {
         if (err) {
           console.log(err.stack);
         } else {
-          const data = response.rows[0];
           chai
             .request('localhost:3000/api/v1')
             .put('/entries/10000')
@@ -290,7 +289,6 @@ describe('Entries', () => {
         if (err) {
           console.log(err.stack);
         } else {
-          const data = response.rows[0];
           chai
             .request('localhost:3000/api/v1')
             .delete('/entries/989999')

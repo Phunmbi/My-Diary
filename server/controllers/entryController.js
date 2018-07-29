@@ -2,13 +2,16 @@ import { client } from '../models/db';
 
 const viewAll = (req, res) => {
   client.query('SELECT * FROM public.entries', (err, response) => {
-    console.log('B', response, err);
-    const data = response.rows;
-    res.status(200).json({
-      data,
-      status: res.statusCode,
-      message: 'All records displayed'
-    });
+    if (err) {
+      console.log(err.stack);
+    } else {
+      const data = response.rows;
+      res.status(200).json({
+        data,
+        status: res.statusCode,
+        message: 'All records displayed'
+      });
+    }
   });
 };
 
@@ -16,18 +19,22 @@ const viewOne = (req, res) => {
   client.query(
     `SELECT * FROM public.entries WHERE id=${req.params.id}`,
     (err, response) => {
-      const data = response.rows[0];
-      if (response.rowCount > 0) {
-        res.status(200).json({
-          data,
-          status: res.statusCode,
-          message: 'Single entry displayed'
-        });
+      if (err) {
+        console.log(err.stack);
       } else {
-        res.status(404).json({
-          status: res.statusCode,
-          message: 'Entry does not exist'
-        });
+        const data = response.rows[0];
+        if (response.rowCount > 0) {
+          res.status(200).json({
+            data,
+            status: res.statusCode,
+            message: 'Single entry displayed'
+          });
+        } else {
+          res.status(404).json({
+            status: res.statusCode,
+            message: 'Entry does not exist'
+          });
+        }
       }
     }
   );
@@ -38,12 +45,16 @@ const addOne = (req, res) => {
     'INSERT INTO public.entries(title, details, last_time_edited) VALUES ( $1, $2, Now()) RETURNING *',
     [req.value.body.title, req.value.body.details],
     (err, response) => {
-      const data = response.rows[0];
-      res.status(200).json({
-        data,
-        status: res.statusCode,
-        message: 'A new entry has been added'
-      });
+      if (err) {
+        console.log(err.stack);
+      } else {
+        const data = response.rows[0];
+        res.status(200).json({
+          data,
+          status: res.statusCode,
+          message: 'A new entry has been added'
+        });
+      }
     }
   );
 };
@@ -53,18 +64,22 @@ const modifyOne = (req, res) => {
     'UPDATE public.entries SET title = $1, details = $2 WHERE id = $3 RETURNING *',
     [req.value.body.title, req.value.body.details, req.params.id],
     (err, response) => {
-      const data = response.rows;
-      if (response.rowCount > 0) {
-        res.status(200).json({
-          data,
-          status: res.statusCode,
-          message: 'This entry has been successfully edited'
-        });
+      if (err) {
+        console.log(err.stack);
       } else {
-        res.status(404).json({
-          status: res.statusCode,
-          message: 'This entry was not modified successfully.'
-        });
+        const data = response.rows;
+        if (response.rowCount > 0) {
+          res.status(200).json({
+            data,
+            status: res.statusCode,
+            message: 'This entry has been successfully edited'
+          });
+        } else {
+          res.status(404).json({
+            status: res.statusCode,
+            message: 'This entry was not modified successfully.'
+          });
+        }
       }
     }
   );
@@ -75,7 +90,9 @@ const deleteOne = (req, res) => {
     'DELETE FROM public.entries WHERE id = $1 RETURNING *',
     [req.params.id],
     (err, response) => {
-      if (response.rowCount > 0) {
+      if (err) {
+        console.log(err.stack);
+      } else if (response.rowCount > 0) {
         res.status(200).json({
           status: res.statusCode,
           message: 'The entry was successfully deleted'
