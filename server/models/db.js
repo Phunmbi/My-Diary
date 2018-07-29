@@ -8,6 +8,9 @@ const client = new Client({ connectionString });
 
 const startDb = () => {
   client.connect((err) => {
+    if (err) {
+      console.log(err);
+    }
     console.log('connected succesfully');
   });
   return client;
