@@ -31,10 +31,10 @@ app.all('/*', (req, res) => {
 });
 
 // Specify port
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-app.server.listen(port, () => {
-  console.log('started listening in on port 3000');
+app.server.listen(PORT, () => {
+  console.log(`started listening in on port 3000 ${PORT}`);
 });
 
 export default app;

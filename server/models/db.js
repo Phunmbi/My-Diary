@@ -13,7 +13,6 @@ const startDb = () => {
     }
     console.log('connected succesfully');
   });
-  return client;
 };
 
 export { startDb, client };
