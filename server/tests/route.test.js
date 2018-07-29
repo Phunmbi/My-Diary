@@ -114,7 +114,7 @@ describe('Entries', () => {
         title: 'Met a bagel',
         details: 'Asked if i had seen scones recently'
       };
-      client.query('INSERT INTO public.entries(title, details, last_time_edited) VALUES ( $1, $2, Now()) RETURNING *', [entry.title, entry.details], (err, response) => {
+      client.query('INSERT INTO entries(title, details, last_time_edited) VALUES ( $1, $2, Now()) RETURNING *', [entry.title, entry.details], (err, response) => {
         if (err) {
           console.log(err.stack);
         } else {
@@ -151,7 +151,7 @@ describe('Entries', () => {
     it('it should not GET an entry when it does not exist', (done) => {
       const entry = { title: 'Met a bagel', details: 'Asked if i had seen scones recently' };
       client.query(
-        'INSERT INTO public.entries(title, details, last_time_edited) VALUES ( $1, $2, Now()) RETURNING *',
+        'INSERT INTO entries(title, details, last_time_edited) VALUES ( $1, $2, Now()) RETURNING *',
         [entry.title, entry.details],
         (err, response) => {
           if (err) {
@@ -188,7 +188,7 @@ describe('Entries', () => {
         title: 'Met a band',
         details: 'Asked if i had seen clefs'
       };
-      client.query('INSERT INTO public.entries(title, details, last_time_edited) VALUES ( $1, $2, Now()) RETURNING *', [entry.title, entry.details], (err, response) => {
+      client.query('INSERT INTO entries(title, details, last_time_edited) VALUES ( $1, $2, Now()) RETURNING *', [entry.title, entry.details], (err, response) => {
         if (err) {
           console.log(err.stack);
         } else {
@@ -220,7 +220,7 @@ describe('Entries', () => {
         title: 'Met a band',
         details: 'Asked if i had seen clefs'
       };
-      client.query('INSERT INTO public.entries(title, details, last_time_edited) VALUES ( $1, $2, Now()) RETURNING *', [entry.title, entry.details], (err, response) => {
+      client.query('INSERT INTO entries(title, details, last_time_edited) VALUES ( $1, $2, Now()) RETURNING *', [entry.title, entry.details], (err, response) => {
         if (err) {
           console.log(err.stack);
         } else {
@@ -254,7 +254,7 @@ describe('Entries', () => {
         title: 'Met a band',
         details: 'Asked if i had seen clefs'
       };
-      client.query('INSERT INTO public.entries(title, details, last_time_edited) VALUES ( $1, $2, Now()) RETURNING *', [entry.title, entry.details], (err, response) => {
+      client.query('INSERT INTO entries(title, details, last_time_edited) VALUES ( $1, $2, Now()) RETURNING *', [entry.title, entry.details], (err, response) => {
         if (err) {
           console.log(err.stack);
         } else {
@@ -285,7 +285,7 @@ describe('Entries', () => {
         title: 'Met a band',
         details: 'Asked if i had seen clefs'
       };
-      client.query('INSERT INTO public.entries(title, details, last_time_edited) VALUES ( $1, $2, Now()) RETURNING *', [entry.title, entry.details], (err, response) => {
+      client.query('INSERT INTO entries(title, details, last_time_edited) VALUES ( $1, $2, Now()) RETURNING *', [entry.title, entry.details], (err, response) => {
         if (err) {
           console.log(err.stack);
         } else {
