@@ -3,6 +3,7 @@ import { client } from '../models/db';
 const viewAll = (req, res) => {
   client.query('SELECT * FROM public.entries', (err, response) => {
     const data = response.rows;
+    console.log(data);
     res.status(200).json({
       data,
       status: res.statusCode,
