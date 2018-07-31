@@ -15,6 +15,7 @@ describe('Entries', () => {
   describe('/POST entries', () => {
     it('it should POST a new entry', (done) => {
       const entry = {
+        email: 'phunmbi3@gmail.com',
         title: 'Met a female dragon',
         details: 'had a fire conversation'
       };
@@ -30,12 +31,15 @@ describe('Entries', () => {
             res.body.should.be.a('object');
             res.body.data.should.have.property('title');
             res.body.data.should.have.property('details');
-            res.body.data.should.have.property('id');
+            res.body.data.should.have.property('entryid');
             res.body.should.have.property('message');
             res.body.should.have.property('status');
             res.body.should.have
               .property('message')
               .eql('A new entry has been added');
+            res.body.data.should.have
+              .property('email')
+              .eql('phunmbi3@gmail.com');
             res.body.data.should.have
               .property('title')
               .eql('Met a female dragon');
@@ -111,17 +115,18 @@ describe('Entries', () => {
   describe('/GET entry', () => {
     it('it should GET a single entry', (done) => {
       const entry = {
+        email: 'phunmbi1@gmail.com',
         title: 'Met a bagel',
         details: 'Asked if i had seen scones recently'
       };
-      client.query('INSERT INTO entries(title, details, last_time_edited) VALUES ( $1, $2, Now()) RETURNING *', [entry.title, entry.details], (err, response) => {
+      client.query('INSERT INTO entries(email, title, details, last_time_edited) VALUES ( $1, $2, $3, Now()) RETURNING *', [entry.email, entry.title, entry.details], (err, response) => {
         if (err) {
           console.log(err.stack);
         } else {
           const data = response.rows[0];
           chai
             .request('localhost:3000/api/v1')
-            .get(`/entries/${data.id}`)
+            .get(`/entries/${data.entryid}`)
             .send(entry)
             .end((err, res) => {
               if (err) {
@@ -136,6 +141,9 @@ describe('Entries', () => {
                   .property('message')
                   .eql('Single entry displayed');
                 res.body.data.should.have
+                  .property('email')
+                  .eql('phunmbi1@gmail.com');
+                res.body.data.should.have
                   .property('title')
                   .eql('Met a bagel');
                 res.body.data.should.have
@@ -149,10 +157,10 @@ describe('Entries', () => {
     });
 
     it('it should not GET an entry when it does not exist', (done) => {
-      const entry = { title: 'Met a bagel', details: 'Asked if i had seen scones recently' };
+      const entry = { email: 'phunmbi@gmail.com', title: 'Met a bagel', details: 'Asked if i had seen scones recently' };
       client.query(
-        'INSERT INTO entries(title, details, last_time_edited) VALUES ( $1, $2, Now()) RETURNING *',
-        [entry.title, entry.details],
+        'INSERT INTO entries(email, title, details, last_time_edited) VALUES ( $1, $2, $3, Now()) RETURNING *',
+        [entry.email, entry.title, entry.details],
         (err, response) => {
           if (err) {
             console.log(err.stack);
@@ -185,18 +193,19 @@ describe('Entries', () => {
   describe('/PUT/:id entry', () => {
     it('it should UPDATE an entry given the id', (done) => {
       const entry = {
+        email: 'phunmbi2@gmail.com',
         title: 'Met a band',
         details: 'Asked if i had seen clefs'
       };
-      client.query('INSERT INTO entries(title, details, last_time_edited) VALUES ( $1, $2, Now()) RETURNING *', [entry.title, entry.details], (err, response) => {
+      client.query('INSERT INTO entries(email, title, details, last_time_edited) VALUES ( $1, $2, $3, Now()) RETURNING *', [entry.email, entry.title, entry.details], (err, response) => {
         if (err) {
           console.log(err.stack);
         } else {
           const data = response.rows[0];
           chai
             .request('localhost:3000/api/v1')
-            .put(`/entries/${data.id}`)
-            .send({ title: 'Met a wand', details: 'Asked if i had seen clefs' })
+            .put(`/entries/${data.entryid}`)
+            .send({ email: 'phunmbi2@gmail.com', title: 'Met a wand', details: 'Asked if i had seen clefs' })
             .end((err, res) => {
               if (err) {
                 console.log(err.stack);
@@ -217,17 +226,18 @@ describe('Entries', () => {
 
     it('it should not UPDATE an entry when the entry does not exist.', (done) => {
       const entry = {
+        email: 'phunmbi4@gmail.com',
         title: 'Met a band',
         details: 'Asked if i had seen clefs'
       };
-      client.query('INSERT INTO entries(title, details, last_time_edited) VALUES ( $1, $2, Now()) RETURNING *', [entry.title, entry.details], (err, response) => {
+      client.query('INSERT INTO entries(email, title, details, last_time_edited) VALUES ( $1, $2, $3, Now()) RETURNING *', [entry.email, entry.title, entry.details], (err, response) => {
         if (err) {
           console.log(err.stack);
         } else {
           chai
             .request('localhost:3000/api/v1')
             .put('/entries/10000')
-            .send({ title: 'Met a wand', details: 'Asked if i had seen clefs' })
+            .send({ email: 'phunmbi4@gmail.com', title: 'Met a wand', details: 'Asked if i had seen clefs' })
             .end((err, res) => {
               if (err) {
                 console.log(err.stack);
@@ -251,17 +261,18 @@ describe('Entries', () => {
   describe('/DELETE/:id entry', () => {
     it('it should DELETE an entry given the id', (done) => {
       const entry = {
+        email: 'phunmbi5@gmail.com',
         title: 'Met a band',
         details: 'Asked if i had seen clefs'
       };
-      client.query('INSERT INTO entries(title, details, last_time_edited) VALUES ( $1, $2, Now()) RETURNING *', [entry.title, entry.details], (err, response) => {
+      client.query('INSERT INTO entries(email, title, details, last_time_edited) VALUES ( $1, $2, $3, Now()) RETURNING *', [entry.email, entry.title, entry.details], (err, response) => {
         if (err) {
           console.log(err.stack);
         } else {
           const data = response.rows[0];
           chai
             .request('localhost:3000/api/v1')
-            .delete(`/entries/${data.id}`)
+            .delete(`/entries/${data.entryid}`)
             .end((err, res) => {
               if (err) {
                 console.log(err);
@@ -282,10 +293,11 @@ describe('Entries', () => {
 
     it('it should not DELETE an entry if the given id does not exist', (done) => {
       const entry = {
+        email: 'phunmbi6@gmail.com',
         title: 'Met a band',
         details: 'Asked if i had seen clefs'
       };
-      client.query('INSERT INTO entries(title, details, last_time_edited) VALUES ( $1, $2, Now()) RETURNING *', [entry.title, entry.details], (err, response) => {
+      client.query('INSERT INTO entries(email, title, details, last_time_edited) VALUES ( $1, $2, $3, Now()) RETURNING *', [entry.email, entry.title, entry.details], (err, response) => {
         if (err) {
           console.log(err.stack);
         } else {

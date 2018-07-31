@@ -1,5 +1,7 @@
 import { client } from '../models/db';
+import { createEntriesTable } from '../models/schema';
 
+createEntriesTable();
 const viewAll = (req, res) => {
   client.query('SELECT * FROM entries', (err, response) => {
     if (err) {
@@ -17,10 +19,14 @@ const viewAll = (req, res) => {
 
 const viewOne = (req, res) => {
   client.query(
-    `SELECT * FROM entries WHERE id=${req.params.id}`,
+    `SELECT * FROM entries WHERE entryid=${req.params.id}`,
     (err, response) => {
       if (err) {
         console.log(err.stack);
+        res.status(404).json({
+          status: res.statusCode,
+          message: 'Record does not exist'
+        });
       } else {
         const data = response.rows[0];
         if (response.rowCount > 0) {
@@ -42,8 +48,8 @@ const viewOne = (req, res) => {
 
 const addOne = (req, res) => {
   client.query(
-    'INSERT INTO entries(title, details, last_time_edited) VALUES ( $1, $2, Now()) RETURNING *',
-    [req.value.body.title, req.value.body.details],
+    'INSERT INTO entries(email, title, details, last_time_edited) VALUES ( $1, $2, $3, Now()) RETURNING *',
+    [req.value.body.email, req.value.body.title, req.value.body.details],
     (err, response) => {
       if (err) {
         console.log(err.stack);
@@ -61,7 +67,7 @@ const addOne = (req, res) => {
 
 const modifyOne = (req, res) => {
   client.query(
-    'UPDATE entries SET title = $1, details = $2 WHERE id = $3 RETURNING *',
+    'UPDATE entries SET title = $1, details = $2 WHERE entryid = $3 RETURNING *',
     [req.value.body.title, req.value.body.details, req.params.id],
     (err, response) => {
       if (err) {
@@ -87,7 +93,7 @@ const modifyOne = (req, res) => {
 
 const deleteOne = (req, res) => {
   client.query(
-    'DELETE FROM entries WHERE id = $1 RETURNING *',
+    'DELETE FROM entries WHERE entryid = $1 RETURNING *',
     [req.params.id],
     (err, response) => {
       if (err) {

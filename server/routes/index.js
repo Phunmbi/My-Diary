@@ -8,17 +8,24 @@ import {
   viewOne,
   addOne,
   deleteOne,
-  modifyOne
+  modifyOne,
 } from '../controllers/entryController';
+import { signup, welcome } from '../controllers/userController';
 
 const router = Router();
 
 // api routes v1 (/v1)
 
+// API endpoints for entries
+
 router.get('/entries', viewAll);
 router.get('/entries/:id', viewOne);
-router.post('/entries', validateEntry(schemas), addOne);
-router.put('/entries/:id', validateEntry(schemas), modifyOne);
+router.post('/entries', validateEntry(schemas.entries), addOne);
+router.put('/entries/:id', validateEntry(schemas.entries), modifyOne);
 router.delete('/entries/:id', deleteOne);
+
+// API endpoints for users
+router.get('/auth', welcome);
+router.post('/auth/signup', validateEntry(schemas.userSignUp), signup);
 
 export default router;
