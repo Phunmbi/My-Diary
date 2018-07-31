@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import logger from 'morgan';
 import routes from './routes/index';
 import { startDb } from './models/db';
+import { createEntriesTable, createUsersTable } from './models/schema';
 
 // Setup Server
 const app = express();
@@ -11,6 +12,8 @@ app.server = http.createServer(app);
 
 // Start up PostgreSQL database
 startDb();
+createUsersTable();
+createEntriesTable();
 
 // Initiate Morgan logger
 app.use(logger('dev'));

@@ -10,7 +10,7 @@ import {
   deleteOne,
   modifyOne,
 } from '../controllers/entryController';
-import { signup, welcome } from '../controllers/userController';
+import { signup, signin, welcome } from '../controllers/userController';
 
 const router = Router();
 
@@ -27,5 +27,6 @@ router.delete('/entries/:id', deleteOne);
 // API endpoints for users
 router.get('/auth', welcome);
 router.post('/auth/signup', validateEntry(schemas.userSignUp), signup);
+router.post('/auth/signin', validateEntry(schemas.userSignIn), signin);
 
 export default router;

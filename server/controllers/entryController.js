@@ -1,7 +1,6 @@
 import { client } from '../models/db';
 import { createEntriesTable } from '../models/schema';
 
-createEntriesTable();
 const viewAll = (req, res) => {
   client.query('SELECT * FROM entries', (err, response) => {
     if (err) {
@@ -48,8 +47,8 @@ const viewOne = (req, res) => {
 
 const addOne = (req, res) => {
   client.query(
-    'INSERT INTO entries(email, title, details, last_time_edited) VALUES ( $1, $2, $3, Now()) RETURNING *',
-    [req.value.body.email, req.value.body.title, req.value.body.details],
+    'INSERT INTO entries(email, title, details, last_time_edited, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *',
+    [req.value.body.email, req.value.body.title, req.value.body.details, req.value.body.email],
     (err, response) => {
       if (err) {
         console.log(err.stack);

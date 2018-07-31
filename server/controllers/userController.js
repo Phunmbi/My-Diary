@@ -1,7 +1,6 @@
 import { client } from '../models/db';
 import { createUsersTable } from '../models/schema';
 
-createUsersTable();
 const signup = (req, res) => {
   client.query(
     'INSERT INTO users(firstName, lastName, email, password) VALUES ( $1, $2, $3, $4) RETURNING *',
@@ -30,6 +29,32 @@ const signup = (req, res) => {
   );
 };
 
+const signin = (req, res) => {
+  client.query(
+    'SELECT * FROM users WHERE email = $1 AND password = $2',
+    [req.value.body.email, req.value.body.password],
+    (err, response) => {
+      if (err) {
+        console.log(err.stack);
+      } else {
+        const data = response.rows[0];
+        if (response.rowCount > 0) {
+          res.status(200).json({
+            data,
+            status: res.statusCode,
+            message: 'Here are the entries for this user'
+          });
+        } else {
+          res.status(404).json({
+            status: res.statusCode,
+            message: 'Wrong Email or Password, Try again.'
+          });
+        }
+      }
+    }
+  );
+};
+
 const welcome = (req, res) => {
   res.status(200).json({
     status: res.statusCode,
@@ -37,4 +62,4 @@ const welcome = (req, res) => {
   });
 };
 
-export { signup, welcome };
+export { signup, signin, welcome };
