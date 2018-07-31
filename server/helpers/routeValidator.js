@@ -26,22 +26,39 @@ const schemas = {
       .replace(/  +/g, ' ')
       .trim()
       .max(20)
+      .lowercase()
       .required(),
     lastName: Joi.string()
       .replace(/  +/g, ' ')
       .trim()
       .max(20)
+      .lowercase()
       .required(),
     email: Joi.string()
       .replace(/  +/g, ' ')
       .trim()
       .email()
-      .max(20)
+      .lowercase()
+      .max(40)
       .required(),
     password: Joi.string()
       .replace(/  +/g, ' ')
       .trim()
-      .max(20)
+      .max(200)
+      .required()
+  }),
+  userSignIn: Joi.object().keys({
+    email: Joi.string()
+      .replace(/  +/g, ' ')
+      .trim()
+      .email()
+      .max(40)
+      .lowercase()
+      .required(),
+    password: Joi.string()
+      .replace(/  +/g, ' ')
+      .trim()
+      .max(200)
       .required()
   })
 };
