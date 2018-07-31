@@ -12,17 +12,17 @@ app.server = http.createServer(app);
 // Start up PostgreSQL database
 startDb();
 
+// Initiate Morgan logger
 app.use(logger('dev'));
+
 // Middleware
 // parse application/json
 app.use(bodyParser.json({}));
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/', (req, res) => res.json({ message: 'Welcome to the MyDiary APIs' }));
-
 // Api routes v1
+app.get('/', (req, res) => res.json({ message: 'Welcome to the MyDiary APIs' }));
 app.use('/api/v1', routes);
-
 app.all('/*', (req, res) => {
   res.status(404).json({
     status: res.statusCode,
@@ -33,8 +33,9 @@ app.all('/*', (req, res) => {
 // Specify port
 const PORT = process.env.PORT || 3000;
 
+// Listen on specified port
 app.server.listen(PORT, () => {
-  console.log(`started listening in on port 3000 ${PORT}`);
+  console.log(`started listening in on port ${PORT}`);
 });
 
 export default app;
