@@ -9,6 +9,7 @@ import { createEntriesTable, createUsersTable } from '../models/schema';
 
 const should = chai.should();
 let token;
+const tokens = 'Bearer aho;hfliklh[fohaoi haoihfiahkpoikhj iuhapo';
 
 chai.use(chaiHttp);
 
@@ -23,6 +24,7 @@ client.query('DROP TABLE IF EXISTS entries, users', (err, res) => {
 createUsersTable();
 createEntriesTable();
 
+// Testing Signup
 describe('Users', () => {
   describe('CREATE new users', () => {
     it('should CREATE a new user', (done) => {
@@ -60,14 +62,41 @@ describe('Users', () => {
           }
         });
     });
+
+    it('should CREATE fail to create a new user when the email already exists', (done) => {
+      const entry = {
+        firstName: 'Funmbi',
+        lastName: 'Adeniyi',
+        email: 'phunmbi@gmail.com',
+        password: 'testing'
+      };
+      chai
+        .request('localhost:3000/api/v1')
+        .post('/auth/signup')
+        .send(entry)
+        .end((err, res) => {
+          if (err) {
+            console.log(err.stack);
+          } else {
+            res.should.have.status(400);
+            res.body.should.be.a('object');
+            res.body.should.have.property('message');
+            res.body.should.have.property('status');
+            res.body.should.have
+              .property('message')
+              .eql('User was not added successfully, email already exists.');
+            done();
+          }
+        });
+    });
   });
 
   // Testing Signin
   describe('LOGIN existing users', () => {
-    it('should fail to LOGIN an existing user with wrong password', (done) => {
+    it('should fail to LOGIN an existing user with wrong email and wrong password', (done) => {
       const entry = {
-        email: 'phunmbi@gmail.com',
-        password: 'testing'
+        email: 'phubi@gmail.com',
+        password: 'teng'
       };
       chai
         .request('localhost:3000/api/v1')
@@ -77,13 +106,38 @@ describe('Users', () => {
           if (err) {
             console.log(err.stack);
           } else {
-            res.should.have.status(200);
+            res.should.have.status(404);
             res.body.should.be.a('object');
-            res.body.data.should.have.property('email');
-            res.body.data.should.have.property('password');
-            res.body.data.should.have
-              .property('email')
-              .eql('phunmbi@gmail.com');
+            res.body.should.have.property('message');
+            res.body.should.have.property('status');
+            res.body.should.have
+              .property('message')
+              .eql('Can\'t find user');
+            done();
+          }
+        });
+    });
+
+    it('should fail to LOGIN an existing user with wrong password', (done) => {
+      const entry = {
+        email: 'phunmbi@gmail.com',
+        password: 'smooth'
+      };
+      chai
+        .request('localhost:3000/api/v1')
+        .post('/auth/login')
+        .send(entry)
+        .end((err, res) => {
+          if (err) {
+            console.log(err.stack);
+          } else {
+            res.should.have.status(401);
+            res.body.should.be.a('object');
+            res.body.should.have.property('message');
+            res.body.should.have.property('status');
+            res.body.should.have
+              .property('message')
+              .eql('Authorization failed');
             done();
           }
         });
@@ -106,14 +160,78 @@ describe('Users', () => {
             res.body.should.be.a('object');
             res.body.data.should.have.property('email');
             res.body.data.should.have.property('password');
+            res.body.should.have.property('message');
             res.body.data.should.have
               .property('email')
               .eql('phunmbi@gmail.com');
+            res.body.should.have
+              .property('message')
+              .eql('Authentic User');
             token = `Bearer ${res.body.tokenize}`;
             done();
           }
         });
     });
+  });
+});
+
+// Testing AUTHORIZATION
+describe('Authorization', () => {
+  it('should not authorize user to access protected resources', (done) => {
+    chai
+      .request('localhost:3000/api/v1')
+      .get('/entries')
+      .set('Authorization', tokens)
+      .end((err, res) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.should.have.status(404);
+          res.body.should.be.a('object');
+          res.body.should.have.property('message');
+          res.body.should.have.property('message').eql('Unauthorized');
+          done();
+        }
+      });
+  });
+
+  it('should not authorize user to access protected resources without a token', (done) => {
+    chai
+      .request('localhost:3000/api/v1')
+      .get('/entries')
+      .end((err, res) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.should.have.status(401);
+          res.body.should.be.a('object');
+          res.body.should.have.property('message');
+          res.body.should.have.property('message').eql('Unauthorized');
+          done();
+        }
+      });
+  });
+});
+
+// Testing /GET
+describe('Entries', () => {
+  it('should return an empty for new users withoug entries', (done) => {
+    chai
+      .request('localhost:3000/api/v1')
+      .get('/entries')
+      .set('Authorization', token)
+      .end((err, res) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('data');
+          res.body.should.have.property('message');
+          res.body.should.have.property('message').eql('Empty Entries');
+          done();
+        }
+      });
   });
 });
 
@@ -135,7 +253,6 @@ describe('Entries', () => {
           if (err) {
             console.log(err.stack);
           } else {
-            console.log(res.body);
             res.should.have.status(200);
             res.body.should.be.a('object');
             res.body.data.should.have.property('title');

@@ -16,38 +16,32 @@ const token = (newUser) => {
 const signup = (req, res) => {
   // Add new user
   bcrypt.hash(req.value.body.password, 10, (err, hash) => {
-    if (err) {
-      res.status(500).json({
-        status: res.statusCode
-      });
-    } else {
-      client.query(
-        'INSERT INTO users(firstName, lastName, email, password) VALUES ( $1, $2, $3, $4) RETURNING *',
-        [
-          req.value.body.firstName,
-          req.value.body.lastName,
-          req.value.body.email,
-          hash
-        ],
-        (err, response) => {
-          if (err) {
-            console.log(err.stack);
-            res.status(400).json({
-              status: res.statusCode,
-              message: 'User was not added successfully, Bad Request'
-            });
-          } else {
-            const data = response.rows[0];
-            res.status(201).json({
-              token: token(data),
-              data,
-              status: res.statusCode,
-              message: 'A new user has been created'
-            });
-          }
+    client.query(
+      'INSERT INTO users(firstName, lastName, email, password) VALUES ( $1, $2, $3, $4) RETURNING *',
+      [
+        req.value.body.firstName,
+        req.value.body.lastName,
+        req.value.body.email,
+        hash
+      ],
+      (err, response) => {
+        if (err) {
+          console.log(err.stack);
+          res.status(400).json({
+            status: res.statusCode,
+            message: 'User was not added successfully, email already exists.'
+          });
+        } else {
+          const data = response.rows[0];
+          res.status(201).json({
+            token: token(data),
+            data,
+            status: res.statusCode,
+            message: 'A new user has been created'
+          });
         }
-      );
-    }
+      }
+    );
   });
 };
 
@@ -55,21 +49,22 @@ const login = (req, res) => {
   client.query('SELECT * FROM users WHERE email = $1', [req.value.body.email], (err, response) => {
     if (err) {
       console.log(err.stack);
-    } else if (response.rowCount > 0) {
+    }
+    if (response.rowCount > 0) {
       const data = response.rows[0];
       const tokenize = token(data);
       bcrypt.compare(req.value.body.password, data.password, (error, result) => {
-        if (error) {
-          res.status(401).json({
-            status: res.statusCode,
-            message: 'Authorization failed'
-          });
-        } if (result) {
+        if (result) {
           res.status(200).json({
             tokenize,
             data,
             status: res.statusCode,
             message: 'Authentic User'
+          });
+        } else {
+          res.status(401).json({
+            status: res.statusCode,
+            message: 'Authorization failed'
           });
         }
       });

@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "nodemon -w server/ ./server/index.js --exec \"babel-node ./server/ --preset airbnb\"",
     "lint": "eslint ./server/",
-    "test": "nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register ./server/tests/* --exit",
+    "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register ./server/tests/* --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "babel server/ -s -D -d ./dist --presets env",
     "heroku-build": "npx babel server/ --out-dir dist/ --ignore server/tests",
@@ -29,6 +29,7 @@
       "mocha": true
     },
     "rules": {
+      "import/no-mutable-exports": 0,
       "no-console": 0,
       "no-unused-vars": 1,
       "eol-last": 0,
@@ -90,6 +91,7 @@
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
     "coveralls": "^3.0.2",
+    "cross-env": "^5.2.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.12.0",

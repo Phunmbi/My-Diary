@@ -1,9 +1,11 @@
 import { Client } from 'pg';
+import { config } from '../config/index';
 
 require('dotenv').config();
 
-const connectionString = process.env.DATABASE_URL;
+const connectionString = config;
 
+console.log(connectionString);
 const client = new Client({ connectionString });
 
 const startDb = () => {
