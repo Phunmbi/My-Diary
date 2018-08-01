@@ -27,26 +27,18 @@ const viewOne = (req, res) => {
   client.query(
     `SELECT * FROM entries WHERE entryid=${req.params.id}`,
     (err, response) => {
-      if (err) {
-        console.log(err.stack);
-        res.status(404).json({
+      const data = response.rows[0];
+      if (response.rowCount > 0) {
+        res.status(200).json({
+          data,
           status: res.statusCode,
-          message: 'Record does not exist'
+          message: 'Single entry displayed'
         });
       } else {
-        const data = response.rows[0];
-        if (response.rowCount > 0) {
-          res.status(200).json({
-            data,
-            status: res.statusCode,
-            message: 'Single entry displayed'
-          });
-        } else {
-          res.status(404).json({
-            status: res.statusCode,
-            message: 'Entry does not exist'
-          });
-        }
+        res.status(404).json({
+          status: res.statusCode,
+          message: 'Entry does not exist'
+        });
       }
     }
   );
