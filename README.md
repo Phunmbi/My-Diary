@@ -1,5 +1,5 @@
 
-[![Build Status](https://travis-ci.com/Phunmbi/My-Diary.svg?branch=master)](https://travis-ci.com/Phunmbi/My-Diary) [![Coverage Status](https://coveralls.io/repos/github/Phunmbi/My-Diary/badge.svg?branch=master)](https://coveralls.io/github/Phunmbi/My-Diary?branch=master)
+[![Build Status](https://travis-ci.com/Phunmbi/My-Diary.svg?branch=develop)](https://travis-ci.com/Phunmbi/My-Diary) [![Coverage Status](https://coveralls.io/repos/github/Phunmbi/My-Diary/badge.svg?branch=develop)](https://coveralls.io/github/Phunmbi/My-Diary?branch=develop)
 
 # My Diary
 This is a diary application with add, delete, modify and view functionalities.
