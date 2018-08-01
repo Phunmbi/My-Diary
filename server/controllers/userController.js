@@ -1,58 +1,85 @@
+// This tutorial by codewokr off youtube helped build the webtoken
+// https://www.youtube.com/watch?v=YxFZC8FtRao
+// While this helped in explaining and implementing bcrypt
+// https://www.youtube.com/watch?v=0D5EEKH97NA&list=PL55RiY5tL51q4D-B63KBnygU6opNPFk_q&index=12
+import bcrypt from 'bcrypt';
+import JWT from 'jsonwebtoken';
 import { client } from '../models/db';
-import { createUsersTable } from '../models/schema';
 
-const signup = (req, res) => {
-  client.query(
-    'INSERT INTO users(firstName, lastName, email, password) VALUES ( $1, $2, $3, $4) RETURNING *',
-    [
-      req.value.body.firstName,
-      req.value.body.lastName,
-      req.value.body.email,
-      req.value.body.password
-    ],
-    (err, response) => {
-      if (err) {
-        console.log(err.stack);
-        res.status(404).json({
-          status: res.statusCode,
-          message: 'User was not added successfully'
-        });
-      } else {
-        const data = response.rows[0];
-        res.status(200).json({
-          data,
-          status: res.statusCode,
-          message: 'A new user has been created'
-        });
-      }
-    }
-  );
+
+const token = (newUser) => {
+  return JWT.sign({
+    iss: 'MyDiaryAPI', sub: newUser.userid, iat: new Date().getTime(), expiresIn: '1h'
+  }, process.env.SECRET_KEY);
 };
 
-const signin = (req, res) => {
-  client.query(
-    'SELECT * FROM users WHERE email = $1 AND password = $2',
-    [req.value.body.email, req.value.body.password],
-    (err, response) => {
-      if (err) {
-        console.log(err.stack);
-      } else {
-        const data = response.rows[0];
-        if (response.rowCount > 0) {
+const signup = (req, res) => {
+  // Add new user
+  bcrypt.hash(req.value.body.password, 10, (err, hash) => {
+    if (err) {
+      res.status(500).json({
+        status: res.statusCode
+      });
+    } else {
+      client.query(
+        'INSERT INTO users(firstName, lastName, email, password) VALUES ( $1, $2, $3, $4) RETURNING *',
+        [
+          req.value.body.firstName,
+          req.value.body.lastName,
+          req.value.body.email,
+          hash
+        ],
+        (err, response) => {
+          if (err) {
+            console.log(err.stack);
+            res.status(400).json({
+              status: res.statusCode,
+              message: 'User was not added successfully, Bad Request'
+            });
+          } else {
+            const data = response.rows[0];
+            res.status(201).json({
+              token: token(data),
+              data,
+              status: res.statusCode,
+              message: 'A new user has been created'
+            });
+          }
+        }
+      );
+    }
+  });
+};
+
+const login = (req, res) => {
+  client.query('SELECT * FROM users WHERE email = $1', [req.value.body.email], (err, response) => {
+    if (err) {
+      console.log(err.stack);
+    } else if (response.rowCount > 0) {
+      const data = response.rows[0];
+      const tokenize = token(data);
+      bcrypt.compare(req.value.body.password, data.password, (error, result) => {
+        if (error) {
+          res.status(401).json({
+            status: res.statusCode,
+            message: 'Authorization failed'
+          });
+        } if (result) {
           res.status(200).json({
+            tokenize,
             data,
             status: res.statusCode,
-            message: 'Here are the entries for this user'
-          });
-        } else {
-          res.status(404).json({
-            status: res.statusCode,
-            message: 'Wrong Email or Password, Try again.'
+            message: 'Authentic User'
           });
         }
-      }
+      });
+    } else {
+      res.status(404).json({
+        status: res.statusCode,
+        message: 'Can\'t find user'
+      });
     }
-  );
+  });
 };
 
 const welcome = (req, res) => {
@@ -62,4 +89,4 @@ const welcome = (req, res) => {
   });
 };
 
-export { signup, signin, welcome };
+export { signup, login, welcome };
