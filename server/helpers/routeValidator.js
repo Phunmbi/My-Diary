@@ -47,7 +47,7 @@ const schemas = {
       .max(200)
       .required()
   }),
-  userSignIn: Joi.object().keys({
+  userLogIn: Joi.object().keys({
     email: Joi.string()
       .replace(/  +/g, ' ')
       .trim()

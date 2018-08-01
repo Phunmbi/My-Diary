@@ -42,6 +42,7 @@
       "comma-dangle": 0,
       "no-useless-concat": 0,
       "arrow-body-style": 0,
+      "prefer-destructuring": 0,
       "curly": [
         2,
         "multi-line"
@@ -63,10 +64,13 @@
   "license": "ISC",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "bcrypt": "^3.0.0",
     "body-parser": "^1.18.3",
+    "brcypt": "^1.0.1",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "joi": "^13.4.0",
+    "jsonwebtoken": "^8.3.0",
     "morgan": "^1.9.0",
     "pg": "^7.4.3"
   },

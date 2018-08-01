@@ -10,23 +10,23 @@ import {
   deleteOne,
   modifyOne,
 } from '../controllers/entryController';
-import { signup, signin, welcome } from '../controllers/userController';
+import { signup, login, welcome } from '../controllers/userController';
+import { authorization } from '../helpers/authorization';
 
 const router = Router();
 
 // api routes v1 (/v1)
 
-// API endpoints for entries
-
-router.get('/entries', viewAll);
-router.get('/entries/:id', viewOne);
-router.post('/entries', validateEntry(schemas.entries), addOne);
-router.put('/entries/:id', validateEntry(schemas.entries), modifyOne);
-router.delete('/entries/:id', deleteOne);
-
 // API endpoints for users
 router.get('/auth', welcome);
 router.post('/auth/signup', validateEntry(schemas.userSignUp), signup);
-router.post('/auth/signin', validateEntry(schemas.userSignIn), signin);
+router.post('/auth/login', validateEntry(schemas.userLogIn), login);
+
+// API endpoints for entries
+router.get('/entries', authorization, viewAll);
+router.get('/entries/:id', authorization, viewOne);
+router.post('/entries', validateEntry(schemas.entries), authorization, addOne);
+router.put('/entries/:id', validateEntry(schemas.entries), authorization, modifyOne);
+router.delete('/entries/:id', authorization, deleteOne);
 
 export default router;

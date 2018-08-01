@@ -1,5 +1,4 @@
 import { client } from '../models/db';
-import { createEntriesTable } from '../models/schema';
 
 const viewAll = (req, res) => {
   client.query('SELECT * FROM entries', (err, response) => {
@@ -7,11 +6,19 @@ const viewAll = (req, res) => {
       console.log(err.stack);
     } else {
       const data = response.rows;
-      res.status(200).json({
-        data,
-        status: res.statusCode,
-        message: 'All records displayed'
-      });
+      if (response.rowCount > 0) {
+        res.status(200).json({
+          data,
+          status: res.statusCode,
+          message: 'All records displayed'
+        });
+      } else {
+        res.status(200).json({
+          data,
+          status: res.statusCode,
+          message: 'Empty Entries'
+        });
+      }
     }
   });
 };
