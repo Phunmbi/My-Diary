@@ -9,19 +9,19 @@ import { client } from '../models/db';
 
 const token = (newUser) => {
   return JWT.sign({
-    iss: 'MyDiaryAPI', sub: newUser.userid, iat: new Date().getTime(), expiresIn: '1h'
+    iss: 'MyDiaryAPI', sub: newUser.userid, iat: new Date().getTime(), exp: new Date().getTime() + 3600000
   }, process.env.SECRET_KEY);
 };
 
 const signup = (req, res) => {
   // Add new user
-  bcrypt.hash(req.value.body.password, 10, (err, hash) => {
+  bcrypt.hash(req.body.password, 10, (err, hash) => {
     client.query(
       'INSERT INTO users(firstName, lastName, email, password) VALUES ( $1, $2, $3, $4) RETURNING *',
       [
-        req.value.body.firstName,
-        req.value.body.lastName,
-        req.value.body.email,
+        req.body.firstName,
+        req.body.lastName,
+        req.body.email,
         hash
       ],
       (err, response) => {
@@ -46,14 +46,14 @@ const signup = (req, res) => {
 };
 
 const login = (req, res) => {
-  client.query('SELECT * FROM users WHERE email = $1', [req.value.body.email], (err, response) => {
+  client.query('SELECT * FROM users WHERE email = $1', [req.body.email], (err, response) => {
     if (err) {
       console.log(err.stack);
     }
     if (response.rowCount > 0) {
       const data = response.rows[0];
       const tokenize = token(data);
-      bcrypt.compare(req.value.body.password, data.password, (error, result) => {
+      bcrypt.compare(req.body.password, data.password, (error, result) => {
         if (result) {
           res.status(200).json({
             tokenize,

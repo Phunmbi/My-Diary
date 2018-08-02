@@ -32,7 +32,7 @@ describe('Users', () => {
         firstName: 'Funmbi',
         lastName: 'Adeniyi',
         email: 'phunmbi@gmail.com',
-        password: 'testing'
+        password: 'testing67'
       };
       chai
         .request('localhost:3000/api/v1')
@@ -63,12 +63,12 @@ describe('Users', () => {
         });
     });
 
-    it('should CREATE fail to create a new user when the email already exists', (done) => {
+    it('should fail to CREATE a new user when the email already exists', (done) => {
       const entry = {
         firstName: 'Funmbi',
         lastName: 'Adeniyi',
         email: 'phunmbi@gmail.com',
-        password: 'testing'
+        password: 'testing67'
       };
       chai
         .request('localhost:3000/api/v1')
@@ -96,7 +96,7 @@ describe('Users', () => {
     it('should fail to LOGIN an existing user with wrong email and wrong password', (done) => {
       const entry = {
         email: 'phubi@gmail.com',
-        password: 'teng'
+        password: 'tenghhnji'
       };
       chai
         .request('localhost:3000/api/v1')
@@ -121,7 +121,7 @@ describe('Users', () => {
     it('should fail to LOGIN an existing user with wrong password', (done) => {
       const entry = {
         email: 'phunmbi@gmail.com',
-        password: 'smooth'
+        password: 'smooth6787'
       };
       chai
         .request('localhost:3000/api/v1')
@@ -146,7 +146,7 @@ describe('Users', () => {
     it('should LOGIN an existing user', (done) => {
       const entry = {
         email: 'phunmbi@gmail.com',
-        password: 'testing'
+        password: 'testing67'
       };
       chai
         .request('localhost:3000/api/v1')
@@ -207,6 +207,375 @@ describe('Authorization', () => {
           res.body.should.be.a('object');
           res.body.should.have.property('message');
           res.body.should.have.property('message').eql('Unauthorized');
+          done();
+        }
+      });
+  });
+});
+
+// TESTING VALIDATION
+describe('Validation', () => {
+  // TESTING SIGN UP VALIDATION
+  it('should fail to SIGNUP a new user with an empty first name field', (done) => {
+    const entry = {
+      firstName: ' ',
+      lastName: 'Adeniyi',
+      email: ' testme@gmailhhl',
+      password: 'smooth'
+    };
+    chai
+      .request('localhost:3000/api/v1')
+      .post('/auth/signup')
+      .send(entry)
+      .end((err, res) => {
+        if (err) {
+          console.log(err.stack);
+        } else {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('Error');
+          res.body.should.have
+            .property('Error')
+            .eql('Please enter your First Name');
+          done();
+        }
+      });
+  });
+
+  it('should fail to SIGNUP a new user with an first name field of \'true\'', (done) => {
+    const entry = {
+      firstName: 'true',
+      lastName: 'Adeniyi',
+      email: ' testme@gmailhhl',
+      password: 'smooth'
+    };
+    chai
+      .request('localhost:3000/api/v1')
+      .post('/auth/signup')
+      .send(entry)
+      .end((err, res) => {
+        if (err) {
+          console.log(err.stack);
+        } else {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('Error');
+          res.body.should.have
+            .property('Error')
+            .eql('Please enter an acceptable First Name');
+          done();
+        }
+      });
+  });
+
+  it('should fail to SIGNUP a new user with an first name field of \'false\'', (done) => {
+    const entry = {
+      firstName: 'false',
+      lastName: 'Adeniyi',
+      email: ' testme@gmailhhl',
+      password: 'smooth'
+    };
+    chai
+      .request('localhost:3000/api/v1')
+      .post('/auth/signup')
+      .send(entry)
+      .end((err, res) => {
+        if (err) {
+          console.log(err.stack);
+        } else {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('Error');
+          res.body.should.have
+            .property('Error')
+            .eql('Please enter an acceptable First Name');
+          done();
+        }
+      });
+  });
+
+  it('should fail to SIGNUP a new user with an empty last name field', (done) => {
+    const entry = {
+      firstName: 'Funmbi',
+      lastName: ' ',
+      email: 'testme@gmailhhl',
+      password: 'smooth'
+    };
+    chai
+      .request('localhost:3000/api/v1')
+      .post('/auth/signup')
+      .send(entry)
+      .end((err, res) => {
+        if (err) {
+          console.log(err.stack);
+        } else {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('Error');
+          res.body.should.have
+            .property('Error')
+            .eql('Please enter your Last Name');
+          done();
+        }
+      });
+  });
+
+  it('should fail to SIGNUP a new user with an last name field of \'true\'', (done) => {
+    const entry = {
+      firstName: 'Steve',
+      lastName: 'true',
+      email: ' testme@gmailhhl',
+      password: 'smooth'
+    };
+    chai
+      .request('localhost:3000/api/v1')
+      .post('/auth/signup')
+      .send(entry)
+      .end((err, res) => {
+        if (err) {
+          console.log(err.stack);
+        } else {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('Error');
+          res.body.should.have
+            .property('Error')
+            .eql('Please enter an acceptable Last Name');
+          done();
+        }
+      });
+  });
+
+  it('should fail to SIGNUP a new user with an last name field of \'false\'', (done) => {
+    const entry = {
+      firstName: 'Ade',
+      lastName: 'false',
+      email: ' testme@gmailhhl',
+      password: 'smooth'
+    };
+    chai
+      .request('localhost:3000/api/v1')
+      .post('/auth/signup')
+      .send(entry)
+      .end((err, res) => {
+        if (err) {
+          console.log(err.stack);
+        } else {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('Error');
+          res.body.should.have
+            .property('Error')
+            .eql('Please enter an acceptable Last Name');
+          done();
+        }
+      });
+  });
+
+  it('should fail to SIGNUP a new user with email inputed in the wrong format', (done) => {
+    const entry = {
+      firstName: 'Funmbi',
+      lastName: 'Adeniyi',
+      email: ' testme@gmailhhl',
+      password: 'smooth'
+    };
+    chai
+      .request('localhost:3000/api/v1')
+      .post('/auth/signup')
+      .send(entry)
+      .end((err, res) => {
+        if (err) {
+          console.log(err.stack);
+        } else {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('Error');
+          res.body.should.have
+            .property('Error')
+            .eql('Please enter an accurate email');
+          done();
+        }
+      });
+  });
+
+  it('should fail to SIGNUP a new user with email inputed in the wrong format', (done) => {
+    const entry = {
+      firstName: 'Funmbi',
+      lastName: 'Adeniyi',
+      email: ' testmegmail.com',
+      password: 'smooth'
+    };
+    chai
+      .request('localhost:3000/api/v1')
+      .post('/auth/signup')
+      .send(entry)
+      .end((err, res) => {
+        if (err) {
+          console.log(err.stack);
+        } else {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('Error');
+          res.body.should.have
+            .property('Error')
+            .eql('Please enter an accurate email');
+          done();
+        }
+      });
+  });
+
+  it('should fail to SIGNUP a new user with a password less than 8 characters', (done) => {
+    const entry = {
+      firstName: 'Funmbi',
+      lastName: 'Adeniyi',
+      email: 'testme@gmail.com',
+      password: 'smooth'
+    };
+    chai
+      .request('localhost:3000/api/v1')
+      .post('/auth/signup')
+      .send(entry)
+      .end((err, res) => {
+        if (err) {
+          console.log(err.stack);
+        } else {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('Error');
+          res.body.should.have
+            .property('Error')
+            .eql('Your password should be at least 8 characters long');
+          done();
+        }
+      });
+  });
+
+  it('should fail to SIGNUP a new user with an empty password field', (done) => {
+    const entry = {
+      firstName: 'Funmbi',
+      lastName: 'Adeniyi',
+      email: 'testme@gmail.com',
+      password: ' '
+    };
+    chai
+      .request('localhost:3000/api/v1')
+      .post('/auth/signup')
+      .send(entry)
+      .end((err, res) => {
+        if (err) {
+          console.log(err.stack);
+        } else {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('Error');
+          res.body.should.have
+            .property('Error')
+            .eql('Please enter your password');
+          done();
+        }
+      });
+  });
+
+  // TESTING LOG IN VALIDATION
+  it('should fail to LOGIN an existing user with email inputed in the wrong format', (done) => {
+    const entry = {
+      firstName: 'Funmbi',
+      lastName: 'Adeniyi',
+      email: ' testme@gmailhhl',
+      password: 'smooth'
+    };
+    chai
+      .request('localhost:3000/api/v1')
+      .post('/auth/login')
+      .send(entry)
+      .end((err, res) => {
+        if (err) {
+          console.log(err.stack);
+        } else {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('Error');
+          res.body.should.have
+            .property('Error')
+            .eql('Please enter an accurate email');
+          done();
+        }
+      });
+  });
+
+  it('should fail to LOGIN an existing user with email inputed in the wrong format', (done) => {
+    const entry = {
+      firstName: 'Funmbi',
+      lastName: 'Adeniyi',
+      email: ' testmegmail.com',
+      password: 'smooth'
+    };
+    chai
+      .request('localhost:3000/api/v1')
+      .post('/auth/login')
+      .send(entry)
+      .end((err, res) => {
+        if (err) {
+          console.log(err.stack);
+        } else {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('Error');
+          res.body.should.have
+            .property('Error')
+            .eql('Please enter an accurate email');
+          done();
+        }
+      });
+  });
+
+  it('should fail to LOGIN an existing user with a password less than 8 characters', (done) => {
+    const entry = {
+      firstName: 'Funmbi',
+      lastName: 'Adeniyi',
+      email: 'testme@gmail.com',
+      password: 'smooth'
+    };
+    chai
+      .request('localhost:3000/api/v1')
+      .post('/auth/login')
+      .send(entry)
+      .end((err, res) => {
+        if (err) {
+          console.log(err.stack);
+        } else {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('Error');
+          res.body.should.have
+            .property('Error')
+            .eql('Your password should be at least 8 characters long');
+          done();
+        }
+      });
+  });
+
+  it('should fail to LOGIN a new user with an empty password field', (done) => {
+    const entry = {
+      firstName: 'Funmbi',
+      lastName: 'Adeniyi',
+      email: 'testme@gmail.com',
+      password: ' '
+    };
+    chai
+      .request('localhost:3000/api/v1')
+      .post('/auth/login')
+      .send(entry)
+      .end((err, res) => {
+        if (err) {
+          console.log(err.stack);
+        } else {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('Error');
+          res.body.should.have
+            .property('Error')
+            .eql('Please enter your password');
           done();
         }
       });
