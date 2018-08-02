@@ -3,7 +3,7 @@ import { config } from '../config/index';
 
 require('dotenv').config();
 
-const connectionString = config;
+const connectionString = process.env.DATABASE_URL;
 
 console.log(connectionString);
 const client = new Client({ connectionString });
