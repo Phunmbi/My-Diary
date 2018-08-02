@@ -5,6 +5,8 @@
 
 A simple journal / Diary application. It helps you keep your thoughts and diary entries in a secure location while ensuring that you can use it on the go. It's a lightweight application built for your convenience.
 
+Check out user interface [here](https://phunmbi.github.io/My-Diary/)
+
 ## Getting Started
 
 To get this unto your local machine, all you need to do is clone this repo. 
