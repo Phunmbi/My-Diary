@@ -55,7 +55,3 @@ Then you can test the entries resources on
 ## Authors
 
 * **Adeniyi Adeyokunnu** 
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
