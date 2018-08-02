@@ -677,7 +677,7 @@ describe('Entries', () => {
         title: 'Met a bagel',
         details: 'Asked if i had seen scones recently'
       };
-      client.query('INSERT INTO entries(email, title, details, last_time_edited, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *', [entry.email, entry.title, entry.details, entry.email], (err, response) => {
+      client.query('INSERT INTO entries(email, title, details, time_created, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *', [entry.email, entry.title, entry.details, entry.email], (err, response) => {
         if (err) {
           console.log(err.stack);
         } else {
@@ -721,7 +721,7 @@ describe('Entries', () => {
         title: 'Met a bagel',
         details: 'Asked if i had seen scones recently'
       };
-      client.query('INSERT INTO entries(email, title, details, last_time_edited, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *', [entry.email, entry.title, entry.details, entry.email], (err, response) => {
+      client.query('INSERT INTO entries(email, title, details, time_created, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *', [entry.email, entry.title, entry.details, entry.email], (err, response) => {
         if (err) {
           console.log(err.stack);
         } else {
@@ -816,7 +816,7 @@ describe('Entries', () => {
         title: 'Met a band',
         details: 'Asked if i had seen clefs'
       };
-      client.query('INSERT INTO entries(email, title, details, last_time_edited, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *', [entry.email, entry.title, entry.details, entry.email], (err, response) => {
+      client.query('INSERT INTO entries(email, title, details, time_created, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *', [entry.email, entry.title, entry.details, entry.email], (err, response) => {
         if (err) {
           console.log(err.stack);
         } else {
@@ -850,7 +850,7 @@ describe('Entries', () => {
         title: 'Met a band',
         details: 'Asked if i had seen clefs'
       };
-      client.query('INSERT INTO entries(email, title, details, last_time_edited, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *', [entry.email, entry.title, entry.details, entry.email], (err, response) => {
+      client.query('INSERT INTO entries(email, title, details, time_created, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *', [entry.email, entry.title, entry.details, entry.email], (err, response) => {
         if (err) {
           console.log(err.stack);
         } else {
@@ -869,7 +869,7 @@ describe('Entries', () => {
                 res.body.should.have.property('status');
                 res.body.should.have
                   .property('message')
-                  .eql('This entry was not modified successfully.');
+                  .eql('This entry doesn\'t exist');
                 done();
               }
             });
@@ -886,7 +886,7 @@ describe('Entries', () => {
         title: 'Met a band',
         details: 'Asked if i had seen clefs'
       };
-      client.query('INSERT INTO entries(email, title, details, last_time_edited, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *', [entry.email, entry.title, entry.details, entry.email], (err, response) => {
+      client.query('INSERT INTO entries(email, title, details, time_created, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *', [entry.email, entry.title, entry.details, entry.email], (err, response) => {
         if (err) {
           console.log(err.stack);
         } else {
@@ -919,7 +919,7 @@ describe('Entries', () => {
         title: 'Met a band',
         details: 'Asked if i had seen clefs'
       };
-      client.query('INSERT INTO entries(email, title, details, last_time_edited, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *', [entry.email, entry.title, entry.details, entry.email], (err, response) => {
+      client.query('INSERT INTO entries(email, title, details, time_created, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *', [entry.email, entry.title, entry.details, entry.email], (err, response) => {
         if (err) {
           console.log(err.stack);
         } else {
