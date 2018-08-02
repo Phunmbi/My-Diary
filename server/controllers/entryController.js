@@ -46,7 +46,7 @@ const viewOne = (req, res) => {
 
 const addOne = (req, res) => {
   client.query(
-    'INSERT INTO entries(email, title, details, last_time_edited, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *',
+    'INSERT INTO entries(email, title, details, time_created, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *',
     [req.body.email, req.body.title, req.body.details, req.body.email],
     (err, response) => {
       if (err) {
@@ -68,29 +68,55 @@ const addOne = (req, res) => {
 };
 
 const modifyOne = (req, res) => {
-  client.query(
-    'UPDATE entries SET title = $1, details = $2 WHERE entryid = $3 RETURNING *',
-    [req.body.title, req.body.details, req.params.id],
-    (err, response) => {
-      if (err) {
-        console.log(err.stack);
-      } else {
-        const data = response.rows;
-        if (response.rowCount > 0) {
-          res.status(200).json({
-            data,
-            status: res.statusCode,
-            message: 'This entry has been successfully edited'
-          });
+  const currentDate = new Date();
+  const currentDay = currentDate.getDate();
+  const currentMonth = currentDate.getMonth() + 1;
+  const currentYear = currentDate.getFullYear();
+  let oldDay;
+  let oldMonth;
+  let oldYear;
+  client.query('SELECT EXTRACT (day FROM time_created) as day, EXTRACT (month FROM time_created) as month, EXTRACT (isoyear FROM time_created) as year FROM entries WHERE entryid = $1', [req.params.id], (err, resp) => {
+    if (err) {
+      console.log(err.stack);
+    } else {
+      if (resp.rowCount > 0) {
+        oldDay = resp.rows[0].day;
+        oldMonth = resp.rows[0].month;
+        oldYear = resp.rows[0].year;
+        const dayDiff = currentDay - oldDay;
+        const monthDiff = currentMonth - oldMonth;
+        const yearDiff = currentYear - oldYear;
+        if (dayDiff === 0 && monthDiff === 0 && yearDiff === 0) {
+          client.query(
+            'UPDATE entries SET title = $1, details = $2 WHERE entryid = $3 RETURNING *',
+            [req.body.title, req.body.details, req.params.id],
+            (err, response) => {
+              if (err) {
+                console.log(err.stack);
+              } else {
+                const data = response.rows;
+                res.status(200).json({
+                  data,
+                  status: res.statusCode,
+                  message: 'This entry has been successfully edited'
+                });
+              }
+            }
+          );
         } else {
-          res.status(404).json({
+          res.status(403).json({
             status: res.statusCode,
-            message: 'This entry was not modified successfully.'
+            message: 'Sorry, You can\'t edit an entry after the day it was created'
           });
         }
+      } else {
+        res.status(404).json({
+          status: res.statusCode,
+          message: 'This entry doesn\'t exist'
+        });
       }
     }
-  );
+  });
 };
 
 const deleteOne = (req, res) => {
