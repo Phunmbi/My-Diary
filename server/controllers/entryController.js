@@ -1,7 +1,7 @@
 import { client } from '../models/db';
 
 const viewAll = (req, res) => {
-  client.query('SELECT * FROM entries', (err, response) => {
+  client.query('SELECT * FROM entries WHERE user_id = $1', [req.userData.sub], (err, response) => {
     if (err) {
       console.log(err.stack);
     } else {
@@ -13,10 +13,8 @@ const viewAll = (req, res) => {
           message: 'All records displayed'
         });
       } else {
-        res.status(200).json({
-          data,
-          status: res.statusCode,
-          message: 'Empty Entries'
+        res.status(204).json({
+          status: res.statusCode
         });
       }
     }
@@ -25,7 +23,7 @@ const viewAll = (req, res) => {
 
 const viewOne = (req, res) => {
   client.query(
-    `SELECT * FROM entries WHERE entryid=${req.params.id}`,
+    `SELECT * FROM entries WHERE id=${req.params.id}`,
     (err, response) => {
       const data = response.rows[0];
       if (response.rowCount > 0) {
@@ -46,8 +44,8 @@ const viewOne = (req, res) => {
 
 const addOne = (req, res) => {
   client.query(
-    'INSERT INTO entries(email, title, details, time_created, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *',
-    [req.body.email, req.body.title, req.body.details, req.body.email],
+    'INSERT INTO entries(title, details, time_created, user_id) VALUES ( $1, $2, Now(), $3) RETURNING *',
+    [req.body.title, req.body.details, req.userData.sub],
     (err, response) => {
       if (err) {
         console.log(err.stack);
@@ -75,7 +73,7 @@ const modifyOne = (req, res) => {
   let oldDay;
   let oldMonth;
   let oldYear;
-  client.query('SELECT EXTRACT (day FROM time_created) as day, EXTRACT (month FROM time_created) as month, EXTRACT (isoyear FROM time_created) as year FROM entries WHERE entryid = $1', [req.params.id], (err, resp) => {
+  client.query('SELECT EXTRACT (day FROM time_created) as day, EXTRACT (month FROM time_created) as month, EXTRACT (isoyear FROM time_created) as year FROM entries WHERE id = $1', [req.params.id], (err, resp) => {
     if (err) {
       console.log(err.stack);
     } else {
@@ -88,18 +86,25 @@ const modifyOne = (req, res) => {
         const yearDiff = currentYear - oldYear;
         if (dayDiff === 0 && monthDiff === 0 && yearDiff === 0) {
           client.query(
-            'UPDATE entries SET title = $1, details = $2 WHERE entryid = $3 RETURNING *',
-            [req.body.title, req.body.details, req.params.id],
+            'UPDATE entries SET title = $1, details = $2 WHERE id = $3 AND user_id = $4 RETURNING *',
+            [req.body.title, req.body.details, req.params.id, req.userData.sub],
             (err, response) => {
               if (err) {
                 console.log(err.stack);
               } else {
                 const data = response.rows;
-                res.status(200).json({
-                  data,
-                  status: res.statusCode,
-                  message: 'This entry has been successfully edited'
-                });
+                if (response.rowCount > 0) {
+                  res.status(200).json({
+                    data,
+                    status: res.statusCode,
+                    message: 'This entry has been successfully edited'
+                  });
+                } else {
+                  res.status(404).json({
+                    status: res.statusCode,
+                    message: 'This entry does not exist'
+                  });
+                }
               }
             }
           );
@@ -121,21 +126,23 @@ const modifyOne = (req, res) => {
 
 const deleteOne = (req, res) => {
   client.query(
-    'DELETE FROM entries WHERE entryid = $1 RETURNING *',
-    [req.params.id],
+    'DELETE FROM entries WHERE id = $1 AND user_id = $2 RETURNING *',
+    [req.params.id, req.userData.sub],
     (err, response) => {
       if (err) {
         console.log(err.stack);
-      } else if (response.rowCount > 0) {
-        res.status(200).json({
-          status: res.statusCode,
-          message: 'The entry was successfully deleted'
-        });
       } else {
-        res.status(404).json({
-          status: res.statusCode,
-          message: 'This entry was not deleted successfully'
-        });
+        if (response.rowCount > 0) {
+          res.status(200).json({
+            status: res.statusCode,
+            message: 'The entry was successfully deleted'
+          });
+        } else {
+          res.status(404).json({
+            status: res.statusCode,
+            message: 'This entry was not found'
+          });
+        }
       }
     }
   );

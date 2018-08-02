@@ -9,6 +9,7 @@ import { createEntriesTable, createUsersTable } from '../models/schema';
 
 const should = chai.should();
 let token;
+let userId;
 const tokens = 'Bearer aho;hfliklh[fohaoi haoihfiahkpoikhj iuhapo';
 
 chai.use(chaiHttp);
@@ -45,18 +46,17 @@ describe('Users', () => {
             res.should.have.status(201);
             res.body.should.be.a('object');
             res.body.data.should.have.property('userid');
-            res.body.data.should.have.property('firstname');
-            res.body.data.should.have.property('lastname');
+            res.body.data.should.have.property('firstName');
+            res.body.data.should.have.property('lastName');
             res.body.data.should.have.property('email');
-            res.body.data.should.have.property('password');
             res.body.data.should.have
-              .property('firstname')
+              .property('firstName')
               .eql('funmbi');
             res.body.data.should.have
               .property('email')
               .eql('phunmbi@gmail.com');
             res.body.data.should.have
-              .property('lastname')
+              .property('lastName')
               .eql('adeniyi');
             done();
           }
@@ -159,7 +159,6 @@ describe('Users', () => {
             res.should.have.status(200);
             res.body.should.be.a('object');
             res.body.data.should.have.property('email');
-            res.body.data.should.have.property('password');
             res.body.should.have.property('message');
             res.body.data.should.have
               .property('email')
@@ -584,7 +583,7 @@ describe('Validation', () => {
 
 // Testing /GET
 describe('Entries', () => {
-  it('should return an empty for new users withoug entries', (done) => {
+  it('should return an empty for new users without entries', (done) => {
     chai
       .request('localhost:3000/api/v1')
       .get('/entries')
@@ -593,11 +592,8 @@ describe('Entries', () => {
         if (err) {
           console.log(err);
         } else {
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-          res.body.should.have.property('data');
-          res.body.should.have.property('message');
-          res.body.should.have.property('message').eql('Empty Entries');
+          console.log(res.body);
+          res.should.have.status(204);
           done();
         }
       });
@@ -609,7 +605,6 @@ describe('Entries', () => {
   describe('ADD entries', () => {
     it('should ADD a new entry', (done) => {
       const entry = {
-        email: 'phunmbi@gmail.com',
         title: 'Met a female dragon',
         details: 'had a fire conversation'
       };
@@ -626,21 +621,20 @@ describe('Entries', () => {
             res.body.should.be.a('object');
             res.body.data.should.have.property('title');
             res.body.data.should.have.property('details');
-            res.body.data.should.have.property('entryid');
+            res.body.data.should.have.property('user_id');
+            res.body.data.should.have.property('id');
             res.body.should.have.property('message');
             res.body.should.have.property('status');
             res.body.should.have
               .property('message')
               .eql('A new entry has been added');
             res.body.data.should.have
-              .property('email')
-              .eql('phunmbi@gmail.com');
-            res.body.data.should.have
               .property('title')
               .eql('Met a female dragon');
             res.body.data.should.have
               .property('details')
               .eql('had a fire conversation');
+            userId = res.body.data.user_id;
             done();
           }
         });
@@ -673,18 +667,17 @@ describe('Entries', () => {
   describe('VIEW entry', () => {
     it('should VIEW a single entry', (done) => {
       const entry = {
-        email: 'phunmbi@gmail.com',
         title: 'Met a bagel',
         details: 'Asked if i had seen scones recently'
       };
-      client.query('INSERT INTO entries(email, title, details, time_created, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *', [entry.email, entry.title, entry.details, entry.email], (err, response) => {
+      client.query('INSERT INTO entries(title, details, time_created, user_id) VALUES ( $1, $2, Now(), $3 ) RETURNING *', [entry.title, entry.details, userId], (err, response) => {
         if (err) {
           console.log(err.stack);
         } else {
           const data = response.rows[0];
           chai
             .request('localhost:3000/api/v1')
-            .get(`/entries/${data.entryid}`)
+            .get(`/entries/${data.id}`)
             .send(entry)
             .set('Authorization', token)
             .end((err, res) => {
@@ -700,9 +693,6 @@ describe('Entries', () => {
                   .property('message')
                   .eql('Single entry displayed');
                 res.body.data.should.have
-                  .property('email')
-                  .eql('phunmbi@gmail.com');
-                res.body.data.should.have
                   .property('title')
                   .eql('Met a bagel');
                 res.body.data.should.have
@@ -717,11 +707,10 @@ describe('Entries', () => {
 
     it('should not GET an entry when it does not exist', (done) => {
       const entry = {
-        email: 'phunmbi@gmail.com',
         title: 'Met a bagel',
         details: 'Asked if i had seen scones recently'
       };
-      client.query('INSERT INTO entries(email, title, details, time_created, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *', [entry.email, entry.title, entry.details, entry.email], (err, response) => {
+      client.query('INSERT INTO entries(title, details, time_created, user_id) VALUES ( $1, $2, Now(), $3) RETURNING *', [entry.title, entry.details, userId], (err, response) => {
         if (err) {
           console.log(err.stack);
         } else {
@@ -812,19 +801,18 @@ describe('Entries', () => {
   describe('MODIFY entry', () => {
     it('should MODIFY an entry given the id', (done) => {
       const entry = {
-        email: 'phunmbi@gmail.com',
         title: 'Met a band',
         details: 'Asked if i had seen clefs'
       };
-      client.query('INSERT INTO entries(email, title, details, time_created, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *', [entry.email, entry.title, entry.details, entry.email], (err, response) => {
+      client.query('INSERT INTO entries(title, details, time_created, user_id) VALUES ( $1, $2, Now(), $3) RETURNING *', [entry.title, entry.details, userId], (err, response) => {
         if (err) {
           console.log(err.stack);
         } else {
           const data = response.rows[0];
           chai
             .request('localhost:3000/api/v1')
-            .put(`/entries/${data.entryid}`)
-            .send({ email: 'phunmbi@gmail.com', title: 'Met a wand', details: 'Asked if i had seen clefs' })
+            .put(`/entries/${data.id}`)
+            .send({ title: 'Met a wand', details: 'Asked if i had seen clefs', user_id: userId })
             .set('Authorization', token)
             .end((err, res) => {
               if (err) {
@@ -846,18 +834,17 @@ describe('Entries', () => {
 
     it('should not MODIFY an entry when the entry does not exist.', (done) => {
       const entry = {
-        email: 'phunmbi@gmail.com',
         title: 'Met a band',
         details: 'Asked if i had seen clefs'
       };
-      client.query('INSERT INTO entries(email, title, details, time_created, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *', [entry.email, entry.title, entry.details, entry.email], (err, response) => {
+      client.query('INSERT INTO entries(title, details, time_created, user_id) VALUES ( $1, $2, Now(), $3) RETURNING *', [entry.title, entry.details, userId], (err, response) => {
         if (err) {
           console.log(err.stack);
         } else {
           chai
             .request('localhost:3000/api/v1')
             .put('/entries/10000')
-            .send({ email: 'phunmbi@gmail.com', title: 'Met a wand', details: 'Asked if i had seen clefs' })
+            .send({ title: 'Met a wand', details: 'Asked if i had seen clefs' })
             .set('Authorization', token)
             .end((err, res) => {
               if (err) {
@@ -882,18 +869,17 @@ describe('Entries', () => {
   describe('DELETE entry', () => {
     it('should DELETE an entry given the id', (done) => {
       const entry = {
-        email: 'phunmbi@gmail.com',
         title: 'Met a band',
         details: 'Asked if i had seen clefs'
       };
-      client.query('INSERT INTO entries(email, title, details, time_created, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *', [entry.email, entry.title, entry.details, entry.email], (err, response) => {
+      client.query('INSERT INTO entries(title, details, time_created, user_id) VALUES ( $1, $2, Now(), $3) RETURNING *', [entry.title, entry.details, userId], (err, response) => {
         if (err) {
           console.log(err.stack);
         } else {
           const data = response.rows[0];
           chai
             .request('localhost:3000/api/v1')
-            .delete(`/entries/${data.entryid}`)
+            .delete(`/entries/${data.id}`)
             .set('Authorization', token)
             .end((err, res) => {
               if (err) {
@@ -915,11 +901,10 @@ describe('Entries', () => {
 
     it('should not DELETE an entry if the given id does not exist', (done) => {
       const entry = {
-        email: 'phunmbi@gmail.com',
         title: 'Met a band',
         details: 'Asked if i had seen clefs'
       };
-      client.query('INSERT INTO entries(email, title, details, time_created, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *', [entry.email, entry.title, entry.details, entry.email], (err, response) => {
+      client.query('INSERT INTO entries(title, details, time_created, user_id) VALUES ( $1, $2, Now(), $3) RETURNING *', [entry.title, entry.details, userId], (err, response) => {
         if (err) {
           console.log(err.stack);
         } else {
@@ -937,7 +922,7 @@ describe('Entries', () => {
                 res.body.should.have.property('status');
                 res.body.should.have
                   .property('message')
-                  .eql('This entry was not deleted successfully');
+                  .eql('This entry was not found');
                 done();
               }
             });
