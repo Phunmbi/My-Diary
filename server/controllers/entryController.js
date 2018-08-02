@@ -47,10 +47,14 @@ const viewOne = (req, res) => {
 const addOne = (req, res) => {
   client.query(
     'INSERT INTO entries(email, title, details, last_time_edited, userid) VALUES ( $1, $2, $3, Now(), (SELECT userid FROM users WHERE email = $4)) RETURNING *',
-    [req.value.body.email, req.value.body.title, req.value.body.details, req.value.body.email],
+    [req.body.email, req.body.title, req.body.details, req.body.email],
     (err, response) => {
       if (err) {
         console.log(err.stack);
+        res.status(404).json({
+          status: res.statusCode,
+          message: 'This User can\'t add an entry'
+        });
       } else {
         const data = response.rows[0];
         res.status(200).json({
@@ -66,7 +70,7 @@ const addOne = (req, res) => {
 const modifyOne = (req, res) => {
   client.query(
     'UPDATE entries SET title = $1, details = $2 WHERE entryid = $3 RETURNING *',
-    [req.value.body.title, req.value.body.details, req.params.id],
+    [req.body.title, req.body.details, req.params.id],
     (err, response) => {
       if (err) {
         console.log(err.stack);

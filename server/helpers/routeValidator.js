@@ -1,75 +1,71 @@
-// Built working with the tutorial from https://www.youtube.com/watch?v=XFpV8b5937M
-// Regex to replace multiple whitespace with single white space is from https://stackoverflow.com/questions/1981349/regex-to-replace-multiple-spaces-with-a-single-space
-import Joi from 'joi';
+const validateSignUp = (req, res, next) => {
+  if (!req.value) { req.value = {}; }
 
-const schemas = {
-  entries: Joi.object().keys({
-    email: Joi.string()
-      .replace(/  +/g, ' ')
-      .trim()
-      .email()
-      .max(20)
-      .required(),
-    title: Joi.string()
-      .replace(/  +/g, ' ')
-      .trim()
-      .max(200)
-      .required(),
-    details: Joi.string()
-      .replace(/  +/g, ' ')
-      .trim()
-      .max(10000)
-      .required()
-  }),
-  userSignUp: Joi.object().keys({
-    firstName: Joi.string()
-      .replace(/  +/g, ' ')
-      .trim()
-      .max(20)
-      .lowercase()
-      .required(),
-    lastName: Joi.string()
-      .replace(/  +/g, ' ')
-      .trim()
-      .max(20)
-      .lowercase()
-      .required(),
-    email: Joi.string()
-      .replace(/  +/g, ' ')
-      .trim()
-      .email()
-      .lowercase()
-      .max(40)
-      .required(),
-    password: Joi.string()
-      .replace(/  +/g, ' ')
-      .trim()
-      .max(200)
-      .required()
-  }),
-  userLogIn: Joi.object().keys({
-    email: Joi.string()
-      .replace(/  +/g, ' ')
-      .trim()
-      .email()
-      .max(40)
-      .lowercase()
-      .required(),
-    password: Joi.string()
-      .replace(/  +/g, ' ')
-      .trim()
-      .max(200)
-      .required()
-  })
+  if (!req.body.firstName || req.body.firstName.trim().length < 1) {
+    res.status(400).json({ Error: 'Please enter your First Name' });
+  }
+
+  if (req.body.firstName === 'true' || req.body.firstName === 'false') {
+    res.status(400).json({ Error: 'Please enter an acceptable First Name' });
+  }
+
+  if (!req.body.lastName || req.body.lastName.trim().length < 1) {
+    res.status(400).json({ Error: 'Please enter your Last Name' });
+  }
+
+  if (req.body.lastName === 'true' || req.body.lastName === 'false') {
+    res.status(400).json({ Error: 'Please enter an acceptable Last Name' });
+  }
+
+  if (req.body.email.search('.com') === -1 || req.body.email.search('@') === -1) {
+    res.status(400).json({ Error: 'Please enter an accurate email' });
+  }
+
+  if (!req.body.password || req.body.password.trim().length < 1) {
+    res.status(400).json({ Error: 'Please enter your password' });
+  }
+
+  if (!req.body.password || req.body.password.trim().length < 8) {
+    res.status(400).json({ Error: 'Your password should be at least 8 characters long' });
+  }
+
+  if (req.body.firstName && req.body.firstName !== 'true' && req.body.firstName !== 'false') {
+    req.body.firstName = req.body.firstName.toLowerCase().trim();
+    if (req.body.lastName && req.body.lastName !== 'true' && req.body.lastName !== 'false') {
+      req.body.lastName = req.body.lastName.toLowerCase().trim();
+      if (req.body.email && req.body.email.search('.com') !== -1 && req.body.email.search('@') !== -1) {
+        req.body.email = req.body.email.toLowerCase().trim();
+        if (req.body.password && req.body.password.trim().length >= 8) {
+          req.body.password = req.body.password.trim();
+          next();
+        }
+      }
+    }
+  }
 };
 
-const validateEntry = (schema) => {
-  return (req, res, next) => {
-    const result = Joi.validate(req.body, schema);
-    if (!req.value) { req.value = {}; }
-    req.value.body = result.value;
-    next();
-  };
+const validateLogIn = (req, res, next) => {
+  if (!req.value) { req.value = {}; }
+
+  if (req.body.email.search('.com') === -1 || req.body.email.search('@') === -1) {
+    res.status(400).json({ Error: 'Please enter an accurate email' });
+  }
+
+  if (!req.body.password || req.body.password.trim().length < 1) {
+    res.status(400).json({ Error: 'Please enter your password' });
+  }
+
+  if (!req.body.password || req.body.password.trim().length < 8) {
+    res.status(400).json({ Error: 'Your password should be at least 8 characters long' });
+  }
+
+  if (req.body.email && req.body.email.search('.com') !== -1 && req.body.email.search('@') !== -1) {
+    req.body.email = req.body.email.toLowerCase().trim();
+    if (req.body.password && req.body.password.trim().length >= 8) {
+      req.body.password = req.body.password.trim();
+      next();
+    }
+  }
 };
 
-export { schemas, validateEntry };
+export { validateSignUp, validateLogIn };
