@@ -66,62 +66,33 @@ const addOne = (req, res) => {
 };
 
 const modifyOne = (req, res) => {
-  const currentDate = new Date();
-  const currentDay = currentDate.getDate();
-  const currentMonth = currentDate.getMonth() + 1;
-  const currentYear = currentDate.getFullYear();
-  let oldDay;
-  let oldMonth;
-  let oldYear;
-  client.query('SELECT EXTRACT (day FROM time_created) as day, EXTRACT (month FROM time_created) as month, EXTRACT (isoyear FROM time_created) as year FROM entries WHERE id = $1', [req.params.id], (err, resp) => {
-    if (err) {
-      console.log(err.stack);
-    } else {
-      if (resp.rowCount > 0) {
-        oldDay = resp.rows[0].day;
-        oldMonth = resp.rows[0].month;
-        oldYear = resp.rows[0].year;
-        const dayDiff = currentDay - oldDay;
-        const monthDiff = currentMonth - oldMonth;
-        const yearDiff = currentYear - oldYear;
-        if (dayDiff === 0 && monthDiff === 0 && yearDiff === 0) {
-          client.query(
-            'UPDATE entries SET title = $1, details = $2 WHERE id = $3 AND user_id = $4 RETURNING *',
-            [req.body.title, req.body.details, req.params.id, req.userData.sub],
-            (err, response) => {
-              if (err) {
-                console.log(err.stack);
-              } else {
-                const data = response.rows;
-                if (response.rowCount > 0) {
-                  res.status(200).json({
-                    data,
-                    status: res.statusCode,
-                    message: 'This entry has been successfully edited'
-                  });
-                } else {
-                  res.status(404).json({
-                    status: res.statusCode,
-                    message: 'This entry does not exist'
-                  });
-                }
-              }
-            }
-          );
-        } else {
-          res.status(403).json({
+  client.query(
+    'UPDATE entries SET title = $1, details = $2 WHERE id = $3 AND user_id = $4 AND (age(now(), time_created) < interval \'1 DAY\') RETURNING *',
+    [req.body.title, req.body.details, req.params.id, req.userData.sub],
+    (err, response) => {
+      if (err) {
+        console.log(err.stack);
+        res.status(500).json({
+          status: res.statusCode,
+          err
+        });
+      } else {
+        const data = response.rows;
+        if (response.rowCount > 0) {
+          res.status(200).json({
+            data,
             status: res.statusCode,
-            message: 'Sorry, You can\'t edit an entry after the day it was created'
+            message: 'This entry has been successfully edited'
+          });
+        } else {
+          res.status(404).json({
+            status: res.statusCode,
+            message: 'This entry doesn\'t exist'
           });
         }
-      } else {
-        res.status(404).json({
-          status: res.statusCode,
-          message: 'This entry doesn\'t exist'
-        });
       }
     }
-  });
+  );
 };
 
 const deleteOne = (req, res) => {
