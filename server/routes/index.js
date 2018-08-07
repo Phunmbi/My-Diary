@@ -2,6 +2,7 @@
 // https://www.youtube.com/playlist?list=PL4cUxeGkcC9jBcybHMTIia56aV21o2cZ8
 // https://www.youtube.com/playlist?list=PL4cUxeGkcC9gcy9lrvMJ75z9maRw4byYp
 import { Router } from 'express';
+import swaggerUI from 'swagger-ui-express';
 import { validateSignUp, validateLogIn } from '../helpers/routeValidator';
 import {
   viewAll,
@@ -12,6 +13,7 @@ import {
 } from '../controllers/entryController';
 import { signup, login, welcome } from '../controllers/userController';
 import { authorization } from '../helpers/authorization';
+import swaggerDoc from '../../swagger.json';
 
 const router = Router();
 
@@ -29,4 +31,6 @@ router.post('/entries', authorization, addOne);
 router.put('/entries/:id', authorization, modifyOne);
 router.delete('/entries/:id', authorization, deleteOne);
 
+// API endpoint for Documentation
+router.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 export default router;
