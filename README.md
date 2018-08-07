@@ -5,7 +5,8 @@
 
 A simple journal / Diary application. It helps you keep your thoughts and diary entries in a secure location while ensuring that you can use it on the go. It's a lightweight application built for your convenience.
 
-Check out user interface [here](https://phunmbi.github.io/My-Diary/)
+Check out user interface [here](https://phunmbi.github.io/My-Diary/).
+This is the full [documentation](https://morning-falls-51849.herokuapp.com/api/v1/docs/). With details on how to implement.
 
 ## Getting Started
 
