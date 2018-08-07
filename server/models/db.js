@@ -1,7 +1,8 @@
 import { Client } from 'pg';
+import dotenv from 'dotenv';
 import { config } from '../config/index';
 
-require('dotenv').config();
+dotenv.config();
 
 const connectionString = config || process.env.DATABASE_URL;
 
