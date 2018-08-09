@@ -3,7 +3,11 @@ import { client } from '../models/db';
 const viewAll = (req, res) => {
   client.query('SELECT * FROM entries WHERE user_id = $1', [req.userData.sub], (err, response) => {
     if (err) {
-      console.log(err.stack);
+      res.status(500).json({
+        status: res.statusCode,
+        message: 'Error reaching database',
+        err
+      });
     } else {
       const data = response.rows;
       if (response.rowCount > 0) {
@@ -25,8 +29,14 @@ const viewOne = (req, res) => {
   client.query(
     `SELECT * FROM entries WHERE id=${req.params.id}`,
     (err, response) => {
-      const data = response.rows[0];
-      if (response.rowCount > 0) {
+      if (err) {
+        res.status(500).json({
+          status: res.statusCode,
+          message: 'Error reaching database',
+          err
+        });
+      } else if (response.rowCount > 0) {
+        const data = response.rows[0];
         res.status(200).json({
           data,
           status: res.statusCode,
@@ -48,7 +58,6 @@ const addOne = (req, res) => {
     [req.body.title, req.body.details, req.userData.sub],
     (err, response) => {
       if (err) {
-        console.log(err.stack);
         res.status(404).json({
           status: res.statusCode,
           message: 'This User can\'t add an entry'
@@ -71,9 +80,9 @@ const modifyOne = (req, res) => {
     [req.body.title, req.body.details, req.params.id, req.userData.sub],
     (err, response) => {
       if (err) {
-        console.log(err.stack);
         res.status(500).json({
           status: res.statusCode,
+          message: 'Error reaching database',
           err
         });
       } else {
@@ -101,14 +110,18 @@ const deleteOne = (req, res) => {
     [req.params.id, req.userData.sub],
     (err, response) => {
       if (err) {
-        console.log(err.stack);
+        res.status(500).json({
+          status: res.statusCode,
+          message: 'Error reaching database',
+          err
+        });
       } else {
         if (response.rowCount > 0) {
           res.status(200).json({
             status: res.statusCode,
             message: 'The entry was successfully deleted'
           });
-        } else {
+        } else if (response.rowCount === 0) {
           res.status(404).json({
             status: res.statusCode,
             message: 'This entry was not found'

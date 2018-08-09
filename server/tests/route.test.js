@@ -641,7 +641,7 @@ describe('Entries', () => {
     });
   });
 
-  // Test the /GET route
+  // Test the /GET ALL route
   describe('VIEW entries', () => {
     it('should VIEW all entries', (done) => {
       chai

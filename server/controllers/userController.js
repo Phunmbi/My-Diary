@@ -26,8 +26,6 @@ const signup = (req, res) => {
       ],
       (err, response) => {
         if (err) {
-          console.log(err.stack);
-          const error = err;
           res.status(400).json({
             status: res.statusCode,
             message: 'User was not added successfully, email already exists.'
@@ -54,9 +52,12 @@ const signup = (req, res) => {
 const login = (req, res) => {
   client.query('SELECT * FROM users WHERE email = $1', [req.body.email], (err, response) => {
     if (err) {
-      console.log(err.stack);
-    }
-    if (response.rowCount > 0) {
+      res.status(500).json({
+        status: res.statusCode,
+        message: 'Error reaching database',
+        err
+      });
+    } else if (response.rowCount > 0) {
       const data = {
         userid: response.rows[0].id,
         firstName: response.rows[0].first_name,
