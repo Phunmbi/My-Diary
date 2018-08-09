@@ -951,6 +951,6 @@ describe('Entries', () => {
             done();
           }
         });
-    });
+    }).timeout(10000);
   });
 });
