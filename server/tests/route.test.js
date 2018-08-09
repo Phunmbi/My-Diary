@@ -107,7 +107,7 @@ describe('Users', () => {
             res.body.should.have.property('status');
             res.body.should.have
               .property('message')
-              .eql('Can\'t find user');
+              .eql('Wrong Email or Password');
             done();
           }
         });
@@ -132,7 +132,7 @@ describe('Users', () => {
             res.body.should.have.property('status');
             res.body.should.have
               .property('message')
-              .eql('Authorization failed');
+              .eql('Wrong Email or Password');
             done();
           }
         });
