@@ -64,6 +64,7 @@ const login = (req, res) => {
       const tokenize = token(response.rows[0]);
       bcrypt.compare(req.body.password, response.rows[0].password, (error, result) => {
         if (result) {
+          console.log(result);
           res.status(200).json({
             tokenize,
             data,
@@ -73,14 +74,14 @@ const login = (req, res) => {
         } else {
           res.status(401).json({
             status: res.statusCode,
-            message: 'Authorization failed'
+            message: 'Wrong Email or Password'
           });
         }
       });
     } else {
       res.status(404).json({
         status: res.statusCode,
-        message: 'Can\'t find user'
+        message: 'Wrong Email or Password'
       });
     }
   });

@@ -51,19 +51,21 @@ window.addEventListener('load', () => {
                 password
               };
 
-              fetch('https://morning-falls-51849.herokuapp.com/auth/signup', {
+              fetch('https://morning-falls-51849.herokuapp.com/api/v1/auth/signup', {
                 method: 'POST',
-                mode: 'cors',
                 headers: { 'Content-type': 'application/json' },
                 body: JSON.stringify(request)
               })
                 .then(resp => resp.json())
                 .then((data) => {
-                  sessionStorage.setItem('token', data.token);
-                  sessionStorage.setItem('firstName', data.data.lastName);
-                  sessionStorage.setItem('lastName', data.data.firstName);
-                  window.location.href = 'dashboard.html';
-                  console.log(sessionStorage.getItem('token'));
+                  if (data.status === 200) {
+                    sessionStorage.setItem('token', data.token);
+                    sessionStorage.setItem('firstName', data.data.lastName);
+                    sessionStorage.setItem('lastName', data.data.firstName);
+                    window.location.href = 'dashboard.html';
+                  } else {
+                    errorResponse.innerText = data.message;
+                  }
                 })
                 .catch((err) => {
                   console.log(err);
