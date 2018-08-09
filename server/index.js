@@ -23,6 +23,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json({}));
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// Enable CORS
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', '*');
+  next();
+});
+
 // Api routes v1
 app.get('/', (req, res) => res.json({ message: 'Welcome to the MyDiary APIs' }));
 app.use('/api/v1', routes);
