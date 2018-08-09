@@ -32,10 +32,8 @@ const signup = (req, res) => {
           });
         } else {
           const data = {
-            userid: response.rows[0].id,
             firstName: response.rows[0].first_name,
-            lastName: response.rows[0].last_name,
-            email: response.rows[0].email
+            lastName: response.rows[0].last_name
           };
           res.status(201).json({
             token: token(response.rows[0]),
@@ -59,10 +57,8 @@ const login = (req, res) => {
       });
     } else if (response.rowCount > 0) {
       const data = {
-        userid: response.rows[0].id,
         firstName: response.rows[0].first_name,
-        lastName: response.rows[0].last_name,
-        email: response.rows[0].email
+        lastName: response.rows[0].last_name
       };
 
       const tokenize = token(response.rows[0]);

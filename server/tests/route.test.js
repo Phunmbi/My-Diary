@@ -45,16 +45,11 @@ describe('Users', () => {
           } else {
             res.should.have.status(201);
             res.body.should.be.a('object');
-            res.body.data.should.have.property('userid');
             res.body.data.should.have.property('firstName');
             res.body.data.should.have.property('lastName');
-            res.body.data.should.have.property('email');
             res.body.data.should.have
               .property('firstName')
               .eql('funmbi');
-            res.body.data.should.have
-              .property('email')
-              .eql('phunmbi@gmail.com');
             res.body.data.should.have
               .property('lastName')
               .eql('adeniyi');
@@ -158,11 +153,9 @@ describe('Users', () => {
           } else {
             res.should.have.status(200);
             res.body.should.be.a('object');
-            res.body.data.should.have.property('email');
+            res.body.data.should.have.property('firstName');
+            res.body.data.should.have.property('lastName');
             res.body.should.have.property('message');
-            res.body.data.should.have
-              .property('email')
-              .eql('phunmbi@gmail.com');
             res.body.should.have
               .property('message')
               .eql('Authentic User');
