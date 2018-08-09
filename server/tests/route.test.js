@@ -641,7 +641,7 @@ describe('Entries', () => {
     });
   });
 
-  // Test the /GET route
+  // Test the /GET ALL route
   describe('VIEW entries', () => {
     it('should VIEW all entries', (done) => {
       chai
@@ -928,6 +928,29 @@ describe('Entries', () => {
             });
         }
       });
+    });
+  });
+
+  // Test DATABASE FAILURE errors
+  describe('DATABASE connection failure', () => {
+    it('should not reach DATABASE to view all entries', (done) => {
+      client.end();
+      chai
+        .request('localhost:3000/api/v1')
+        .get('/entries')
+        .set('Authorization', token)
+        .end((err, res) => {
+          if (err) {
+            console.log(err);
+          } else {
+            res.should.have.status(500);
+            res.body.should.be.a('object');
+            res.body.should.have.property('status');
+            res.body.should.have.property('message');
+            res.body.should.have.property('message').eql('Error reaching database');
+            done();
+          }
+        });
     });
   });
 });
