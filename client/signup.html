@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>MyDiary - Dashboard</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <h1>MyDiary</h1>
+
+    <section >
+        <div class="hero-marketing">
+            <p>Don't want to forget to put in a new entry? just tell us when.</p>
+            <p>Don't want to see an entry anymore? just tell us which.</p>
+            <p>Want to change the details of an entry? Just let us know.</p>
+        </div>
+        <div class="hero-account">
+            <h3>Create your MyDiary Account</h3>
+            <p id="errorResponse"></p>
+            <form method="POST">
+                <input id="firstName" type="text" placeholder="First Name" required>
+                <input id="lastName" type="text" placeholder="Last Name" required>
+                <input id="email" type="email" placeholder="Email" required>
+                <input id="password" type="password" placeholder="Password" required min="8">
+                <input id="confirmPassword" type="password" placeholder="Confirm Password" required min="8">
+                <input id="submit" type="submit" value="Create Account">
+            </form>
+            
+            <p>Already have an account? then
+                <a href="index.html">Sign in</a>
+            </p>
+        </div>
+    </section>
+
+    <script src="js/signup.js"></script>
+</body>
+
+</html>

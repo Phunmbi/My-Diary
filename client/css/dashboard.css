@@ -1,0 +1,199 @@
+body{
+    font-size: 18px;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    max-width: 1600px;
+    color: #142B44;
+    background-color: whitesmoke;
+}
+
+h1{
+    font-size: 1.6em;
+    font-family: 'Dancing Script', cursive;
+    color: #142B44;
+    font-weight: bolder;
+}
+
+
+h3{
+    font-size: 1.7em;
+    text-align: center;
+    font-weight: bolder;
+    border-bottom: 7px solid rgb(254, 239, 109, 0.4);
+}
+
+h4{
+    font-size: 1.3em;
+    font-weight: bold;
+    border-bottom: 1px solid rgb(90, 98, 107);
+}
+
+p{
+    margin: 20px 0 10px 0;
+}
+
+a{
+    text-decoration: none;
+    color: #FEEF6D;
+    font-size: 1em;
+}
+
+button{
+    width: 100px;
+    margin: 10px auto;
+    background-color: #142B44;
+    color: #FEEF6D;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+input,textarea{
+    width: 100%;
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 1em;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+input:focus, textarea:focus{
+    outline: none
+}
+
+input[type=submit]{
+    background-color: #FEEF6D;
+    font-weight: bold;
+    color: #142B44;
+    cursor: pointer;
+}
+
+.profile div{
+    background-color: white;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 20px;
+    text-align: left;
+}
+
+.profile a{
+    margin: 0 auto;
+}
+
+header{
+    border-top: 8px solid rgb(20, 43, 68);
+    background-color: #FEEF6D;
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    align-items: center;
+    padding: 0 20px 0 20px;
+}
+
+section{
+    margin: 10px auto 30px auto;
+    max-width: 900px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.card{
+    margin: 15px 0 30px 0;
+    padding: 10px;
+    flex-basis: 260px;
+    border-radius: 4px;
+    box-shadow: 2px 3px 17px 2px #b9babb;
+    max-height: 290px;
+}
+
+.card-title{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(169, 172, 175);
+}
+
+.card-title a{
+    text-decoration: none;
+    color:  rgb(20, 43, 68);
+    font-size: 1em;
+}
+
+.card-details{
+    margin: 20px 0 20px 0;
+    text-align: left;
+    height: 135px;
+}
+
+.card-actions{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0 10px 0;
+}
+
+.add{
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px 20px 20px 0;
+    cursor: pointer;
+}
+
+.add a{
+    position: fixed;
+    top: 85vh;
+}
+
+span{
+    background-color: #142B44;
+    color: white;
+    border-radius: 50%;
+    padding: 30px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    font-size: 1.6em;
+    box-shadow: 4px 5px 17px 4px #b8b9b9;
+}
+
+.entry-body{
+    background-color: white;
+    color: #142B44;
+    height: 450px;
+    max-width: 700px;
+    padding: 15px;
+}
+
+.entry-title h3:last-child{
+    font-size: 1.2em;
+    border-bottom: none;
+    font-weight: 400;
+    align-self: center;
+}
+
+.entry-actions div a{
+    margin: 10px;
+}
+
+.add-entry form, .edit-entry form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-entry input, .edit-entry input{
+    width: 100%;
+    margin: 10px;
+    padding: 13px;
+    border: none;
+    border-radius: 3px;
+    font-size: 1em;
+}
+
+.profile{
+    display: flex;
+    flex-direction: column;
+}
