@@ -32,9 +32,17 @@ window.addEventListener('load', () => {
     deleteImg.setAttribute('alt', 'delete');
 
     // Set their values
-    titleText.innerText = data.title;
-    date.innertext = data.time_created;
-    details.innerText = data.details;
+    if (data.title.length >= 23) {
+      titleText.innerText = `${data.title.slice(0, 24)}...`;
+    } else {
+      titleText.innerText = data.title;
+    }
+    date.innerText = data.time_created.slice(0, 10);
+    if (data.details.length >= 200) {
+      details.innerText = `${data.details.slice(0, 200)}...`;
+    } else {
+      details.innerText = data.details;
+    }
 
     // Implement correct card structure
     viewall.appendChild(titleText);
@@ -46,12 +54,13 @@ window.addEventListener('load', () => {
     cardActions.appendChild(edit);
     cardActions.appendChild(deleteOne);
     card.appendChild(cardTitle);
-    card.appendChild(cardTitle);
+    card.appendChild(cardDetails);
     card.appendChild(cardActions);
     section.appendChild(card);
   };
 
   const displayAll = (data) => {
+    data.reverse();
     for (let index = 0; index < data.length; index++) {
       const element = data[index];
       createCard(element);
@@ -65,6 +74,7 @@ window.addEventListener('load', () => {
       Authorization: `Bearer ${sessionStorage.getItem('token')}`
     }
   })
+    .then(resp => resp.json())
     .then((data) => {
       if (data.status === 204) {
         console.log(data);
@@ -75,8 +85,7 @@ window.addEventListener('load', () => {
         const name = sessionStorage.getItem('firstName');
         const cappedName = name.charAt(0).toUpperCase() + name.slice(1, name.length);
         response.innerText = `Welcome to your Diary ${cappedName}`;
-        console.log(data);
-        displayAll(data.body);
+        displayAll(data.data);
       } else {
         window.location.href = document.referrer;
         response.innerText = data.message;
