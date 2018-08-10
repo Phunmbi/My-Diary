@@ -107,7 +107,6 @@ section{
     border-radius: 4px;
     box-shadow: 2px 3px 17px 2px #b9babb;
     max-height: 290px;
-    cursor: pointer;
 }
 
 .card-title{
@@ -120,12 +119,17 @@ section{
     margin: 20px 0 20px 0;
     text-align: left;
     height: 135px;
+    cursor: pointer;
 }
 
 .card-actions{
     display: flex;
     justify-content: space-between;
     margin: 10px 0 10px 0;
+}
+
+.clickIcons{
+    cursor: pointer;
 }
 
 .add{

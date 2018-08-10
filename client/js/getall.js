@@ -9,8 +9,6 @@ window.addEventListener('load', () => {
       cardTitle = document.createElement('div'),
       cardDetails = document.createElement('div'),
       cardActions = document.createElement('div'),
-      edit = document.createElement('a'),
-      deleteOne = document.createElement('a'),
       titleText = document.createElement('p'),
       date = document.createElement('p'),
       details = document.createElement('p'),
@@ -24,13 +22,13 @@ window.addEventListener('load', () => {
     cardTitle.className = 'card-title';
     cardDetails.className = 'card-details';
     cardActions.className = 'card-actions';
-    edit.setAttribute('href', 'edit.html');
-    deleteOne.setAttribute('href', '#');
     titleText.setAttribute('id', 'cardTitleText');
     editImg.setAttribute('src', 'images/icons8-pencil-26.png');
     editImg.setAttribute('alt', 'edit');
+    editImg.className = 'clickIcons';
     deleteImg.setAttribute('src', 'images/icons8-trash-26.png');
     deleteImg.setAttribute('alt', 'delete');
+    deleteImg.className = 'clickIcons';
 
     // Set their values
 
@@ -50,19 +48,22 @@ window.addEventListener('load', () => {
     cardTitle.appendChild(titleText);
     cardTitle.appendChild(date);
     cardDetails.appendChild(details);
-    edit.appendChild(editImg);
-    deleteOne.appendChild(deleteImg);
-    cardActions.appendChild(edit);
-    cardActions.appendChild(deleteOne);
+    cardActions.appendChild(editImg);
+    cardActions.appendChild(deleteImg);
     card.appendChild(cardTitle);
     card.appendChild(cardDetails);
     card.appendChild(cardActions);
     section.appendChild(card);
 
     // Add event listeners
-    card.addEventListener('click', () => {
+    cardDetails.addEventListener('click', () => {
       sessionStorage.setItem('entryId', data.id);
       window.location.href = 'view.html';
+    });
+
+    editImg.addEventListener('click', () => {
+      sessionStorage.setItem('entryId', data.id);
+      window.location.href = 'edit.html';
     });
   };
 
