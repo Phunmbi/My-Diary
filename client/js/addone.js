@@ -23,7 +23,7 @@ window.addEventListener('load', () => {
     })
       .then(resp => resp.json())
       .then((data) => {
-        if (data.status === 200 || data.status === 200) {
+        if (data.status === 200 || data.status === 201) {
           console.log(request, data);
           window.location.href = 'dashboard.html';
           console.log('a');
