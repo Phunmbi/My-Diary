@@ -58,7 +58,7 @@ window.addEventListener('load', () => {
               })
                 .then(resp => resp.json())
                 .then((data) => {
-                  if (data.status === 200) {
+                  if (data.status === 201) {
                     sessionStorage.setItem('token', data.token);
                     sessionStorage.setItem('firstName', data.data.lastName);
                     sessionStorage.setItem('lastName', data.data.firstName);
