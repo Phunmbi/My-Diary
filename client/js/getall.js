@@ -4,11 +4,11 @@ window.addEventListener('load', () => {
 
   const createCard = (data) => {
     // Create elements that make up a card
+
     const card = document.createElement('div'),
       cardTitle = document.createElement('div'),
       cardDetails = document.createElement('div'),
       cardActions = document.createElement('div'),
-      viewall = document.createElement('a'),
       edit = document.createElement('a'),
       deleteOne = document.createElement('a'),
       titleText = document.createElement('p'),
@@ -18,11 +18,12 @@ window.addEventListener('load', () => {
       deleteImg = document.createElement('img');
 
     // Set their classes and attributes
+
     card.className = 'card';
+    card.setAttribute('id', data.id);
     cardTitle.className = 'card-title';
     cardDetails.className = 'card-details';
     cardActions.className = 'card-actions';
-    viewall.setAttribute('href', 'view.html');
     edit.setAttribute('href', 'edit.html');
     deleteOne.setAttribute('href', '#');
     titleText.setAttribute('id', 'cardTitleText');
@@ -32,6 +33,7 @@ window.addEventListener('load', () => {
     deleteImg.setAttribute('alt', 'delete');
 
     // Set their values
+
     if (data.title.length >= 23) {
       titleText.innerText = `${data.title.slice(0, 24)}...`;
     } else {
@@ -45,8 +47,7 @@ window.addEventListener('load', () => {
     }
 
     // Implement correct card structure
-    viewall.appendChild(titleText);
-    cardTitle.appendChild(viewall);
+    cardTitle.appendChild(titleText);
     cardTitle.appendChild(date);
     cardDetails.appendChild(details);
     edit.appendChild(editImg);
@@ -57,6 +58,12 @@ window.addEventListener('load', () => {
     card.appendChild(cardDetails);
     card.appendChild(cardActions);
     section.appendChild(card);
+
+    // Add event listeners
+    card.addEventListener('click', () => {
+      sessionStorage.setItem('entryId', data.id);
+      window.location.href = 'view.html';
+    });
   };
 
   const displayAll = (data) => {

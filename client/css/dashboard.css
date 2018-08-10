@@ -107,18 +107,13 @@ section{
     border-radius: 4px;
     box-shadow: 2px 3px 17px 2px #b9babb;
     max-height: 290px;
+    cursor: pointer;
 }
 
 .card-title{
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid rgb(169, 172, 175);
-}
-
-.card-title a{
-    text-decoration: none;
-    color:  rgb(20, 43, 68);
-    font-size: 1em;
 }
 
 .card-details{
@@ -165,6 +160,7 @@ span{
     height: 450px;
     max-width: 700px;
     padding: 15px;
+    display: block;
 }
 
 .entry-title h3:last-child{
