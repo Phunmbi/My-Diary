@@ -19,22 +19,27 @@
             <h1>MyDiary</h1>
         </a>
         <a href="profile.html">
-            <img src="icons/icons8-contacts-26.png" alt="Profile">
+            <img src="images/icons8-contacts-26.png" alt="Profile">
         </a>
     </header>
+
     <section>
         <h3>Add a new Entry</h3>
     </section>
-
+    <section>
+        <p id="response"></p>
+    </section>
+    
     <section class="add-entry">
         <form>
-            <input type="text" placeholder="Title">
-            <textarea name="details" id="details" cols="70" rows="16" placeholder="Tell me what happened today"></textarea>
+            <input id="title" type="text" placeholder="Title">
+            <textarea id="details" name="details" id="details" cols="70" rows="16" placeholder="Tell me what happened today"></textarea>
             <input id="submit" type="submit" value="Submit">
+            <a href="dashboard.html"><img src="images/icons8-home-page-24.png" alt="Home"></a>
         </form>
     </section>
 
-    <script src="js/dashboard.js"></script>
+    <script src="js/addone.js"></script>
 </body>
 
 </html>

@@ -64,7 +64,7 @@ const addOne = (req, res) => {
         });
       } else {
         const data = response.rows[0];
-        res.status(200).json({
+        res.status(201).json({
           data,
           status: res.statusCode,
           message: 'A new entry has been added'

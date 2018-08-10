@@ -610,7 +610,7 @@ describe('Entries', () => {
           if (err) {
             console.log(err.stack);
           } else {
-            res.should.have.status(200);
+            res.should.have.status(201);
             res.body.should.be.a('object');
             res.body.data.should.have.property('title');
             res.body.data.should.have.property('details');
