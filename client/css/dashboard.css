@@ -276,3 +276,7 @@ span{
     display: flex;
     flex-direction: column;
 }
+
+#errorResponse{
+    color: red;
+}

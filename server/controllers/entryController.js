@@ -3,6 +3,7 @@ import { client } from '../models/db';
 const viewAll = (req, res) => {
   client.query('SELECT * FROM entries WHERE user_id = $1', [req.userData.sub], (err, response) => {
     if (err) {
+      console.log('err');
       res.status(500).json({
         status: res.statusCode,
         message: 'Error reaching database',
@@ -10,18 +11,11 @@ const viewAll = (req, res) => {
       });
     } else {
       const data = response.rows;
-      if (response.rowCount > 0) {
-        res.status(200).json({
-          data,
-          status: res.statusCode,
-          message: 'All records displayed'
-        });
-      } else {
-        res.status(204).json({
-          data,
-          status: res.statusCode
-        });
-      }
+      res.status(200).json({
+        data,
+        status: res.statusCode,
+        message: 'Existing records displayed'
+      });
     }
   });
 };

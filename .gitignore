@@ -5,3 +5,4 @@ dist/
 .env
 client/firebase.json
 client/.firebaserc
+client/firebase-debug.log

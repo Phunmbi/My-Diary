@@ -586,7 +586,7 @@ describe('Entries', () => {
           console.log(err);
         } else {
           console.log(res.body);
-          res.should.have.status(204);
+          res.should.have.status(200);
           done();
         }
       });
@@ -649,7 +649,7 @@ describe('Entries', () => {
             res.body.should.be.a('object');
             res.body.should.have.property('data');
             res.body.should.have.property('message');
-            res.body.should.have.property('message').eql('All records displayed');
+            res.body.should.have.property('message').eql('Existing records displayed');
             done();
           }
         });

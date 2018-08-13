@@ -69,6 +69,8 @@ window.addEventListener('load', () => {
                     window.location.href = 'dashboard.html';
                   } else {
                     errorResponse.innerText = data.message;
+                    submit.value = 'Create Account';
+                    submit.style.background = '#FEEF6D';
                   }
                 })
                 .catch((err) => {
