@@ -62,6 +62,7 @@ window.addEventListener('load', () => {
                 .then(resp => resp.json())
                 .then((data) => {
                   if (data.status === 201) {
+                    document.body.style.animation = 'fadeOut 2s ease 0s 1 forwards';
                     sessionStorage.setItem('token', data.token);
                     sessionStorage.setItem('firstName', data.data.lastName);
                     sessionStorage.setItem('lastName', data.data.firstName);
