@@ -18,6 +18,7 @@ const viewAll = (req, res) => {
         });
       } else {
         res.status(204).json({
+          data,
           status: res.statusCode
         });
       }
