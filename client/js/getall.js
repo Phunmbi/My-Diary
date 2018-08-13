@@ -1,9 +1,12 @@
 window.addEventListener('load', () => {
   const errorResponse = document.getElementById('response');
   const section = document.getElementById('section');
+  const loadingModal = document.getElementById('loadingModal');
   const deleteModal = document.getElementById('deleteModal');
   const noButton = document.getElementById('no-button');
   const yesButton = document.getElementById('yes-button');
+
+  loadingModal.style.display = 'block';
 
   const createCard = (data) => {
     // Create elements that make up a card
@@ -119,11 +122,12 @@ window.addEventListener('load', () => {
     .then(resp => resp.json())
     .then((data) => {
       if (data.status === 204) {
-        console.log(data);
+        loadingModal.style.animation = 'fadeOut 2s ease 0s 1 forwards';
         const name = sessionStorage.getItem('firstName');
         const cappedName = name.charAt(0).toUpperCase() + name.slice(1, name.length);
         errorResponse.innerText = `Welcome to your Diary ${cappedName}`;
       } else if (data.status === 200) {
+        loadingModal.style.animation = 'fadeOut 2s ease 0s 1 forwards';
         const name = sessionStorage.getItem('firstName');
         const cappedName = name.charAt(0).toUpperCase() + name.slice(1, name.length);
         errorResponse.innerText = `Welcome to your Diary ${cappedName}`;

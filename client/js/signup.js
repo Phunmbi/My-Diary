@@ -44,6 +44,9 @@ window.addEventListener('load', () => {
             if (password && password.trim().length >= 8) {
               password = password.trim();
 
+              submit.value = '';
+              submit.style.background = '#FEEF6D url(images/Spinner-1s.gif) no-repeat center';
+
               const request = {
                 firstName,
                 lastName,

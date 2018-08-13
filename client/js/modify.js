@@ -33,6 +33,9 @@ window.addEventListener('load', () => {
   submit.addEventListener('click', (event) => {
     event.preventDefault();
 
+    submit.value = '';
+    submit.style.background = '#FEEF6D url(images/Spinner-1s.gif) no-repeat center';
+
     const request = {
       title: oldTitle.value,
       details: oldDetails.value
