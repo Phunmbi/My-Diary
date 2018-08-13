@@ -4,6 +4,7 @@ body{
     max-width: 1600px;
     color: #142B44;
     background-color: whitesmoke;
+    display: block;
 }
 
 h1{
@@ -18,13 +19,13 @@ h3{
     font-size: 1.7em;
     text-align: center;
     font-weight: bolder;
-    border-bottom: 7px solid rgb(254, 239, 109, 0.4);
+    border-bottom: 7px solid #feef6d66;
 }
 
 h4{
     font-size: 1.3em;
     font-weight: bold;
-    border-bottom: 1px solid rgb(90, 98, 107);
+    border-bottom: 1px solid #5a626b;
 }
 
 p{
@@ -137,6 +138,42 @@ section{
     left: 0;
     z-index: 1;
     background-color: rgba(0,0,0,0.4);
+}
+
+#loadingModal{
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.loadingModal-main{
+    margin: 60px auto;
+    background-color: white;
+    max-width: 400px;
+    max-height: 200px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.loadingModal-main img{
+    display: block;
+    margin: auto;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    visibility: visible;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 .deleteModal-main{

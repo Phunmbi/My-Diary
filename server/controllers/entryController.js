@@ -95,8 +95,9 @@ const modifyOne = (req, res) => {
           });
         } else {
           res.status(404).json({
+            data,
             status: res.statusCode,
-            message: 'This entry doesn\'t exist'
+            message: 'Sorry, Can\'t edit entry.'
           });
         }
       }

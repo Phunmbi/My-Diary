@@ -8,6 +8,9 @@ window.addEventListener('load', () => {
     const details = document.getElementById('details').value;
     const errorResponse = document.getElementById('response');
 
+    submit.value = '';
+    submit.style.background = '#FEEF6D url(images/Spinner-1s.gif) no-repeat center';
+
     const request = {
       title,
       details

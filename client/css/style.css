@@ -86,3 +86,14 @@ input[type=submit]{
     color: #142B44;
     cursor: pointer;
 }
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    visibility: visible;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

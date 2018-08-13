@@ -24,6 +24,9 @@ window.addEventListener('load', () => {
         if (password && password.trim().length >= 8) {
           password = password.trim();
 
+          submit.value = '';
+          submit.style.background = '#FEEF6D url(images/Spinner-1s.gif) no-repeat center';
+
           const request = {
             email,
             password
@@ -37,6 +40,7 @@ window.addEventListener('load', () => {
             .then(resp => resp.json())
             .then((data) => {
               if (data.status === 200) {
+                document.body.style.animation = 'fadeOut 2s ease 0s 1 forwards';
                 sessionStorage.setItem('token', data.tokenize);
                 sessionStorage.setItem('firstName', data.data.lastName);
                 sessionStorage.setItem('lastName', data.data.firstName);
