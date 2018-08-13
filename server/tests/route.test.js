@@ -849,7 +849,7 @@ describe('Entries', () => {
                 res.body.should.have.property('status');
                 res.body.should.have
                   .property('message')
-                  .eql('Sorry, Can\'t edit entry');
+                  .eql('Sorry, Can\'t edit entry.');
                 done();
               }
             });
