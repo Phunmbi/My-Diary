@@ -47,6 +47,8 @@ window.addEventListener('load', () => {
                 window.location.href = 'dashboard.html';
               } else {
                 errorResponse.innerText = data.message;
+                submit.value = 'Submit';
+                submit.style.background = '#FEEF6D';
               }
             })
             .catch((err) => {

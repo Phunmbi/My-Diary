@@ -121,12 +121,7 @@ window.addEventListener('load', () => {
   })
     .then(resp => resp.json())
     .then((data) => {
-      if (data.status === 204) {
-        loadingModal.style.animation = 'fadeOut 2s ease 0s 1 forwards';
-        const name = sessionStorage.getItem('firstName');
-        const cappedName = name.charAt(0).toUpperCase() + name.slice(1, name.length);
-        errorResponse.innerText = `Welcome to your Diary ${cappedName}`;
-      } else if (data.status === 200) {
+      if (data.status === 200) {
         loadingModal.style.animation = 'fadeOut 2s ease 0s 1 forwards';
         const name = sessionStorage.getItem('firstName');
         const cappedName = name.charAt(0).toUpperCase() + name.slice(1, name.length);
