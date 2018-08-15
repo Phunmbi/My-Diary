@@ -1,13 +1,16 @@
 if (sessionStorage.getItem('token')) {
   window.addEventListener('load', () => {
     const submit = document.getElementById('submit');
+    const errorResponse = document.getElementById('errorResponse');
 
+    const date = new Date();
+    errorResponse.innerText = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    errorResponse.style.color = '#142B44';
     // Attach an event listener on the submit button
     submit.addEventListener('click', (event) => {
       // Set up entry points
       const title = document.getElementById('title').value;
       const details = document.getElementById('details').value;
-      const errorResponse = document.getElementById('response');
 
       submit.value = '';
       submit.style.background = '#FEEF6D url(images/Spinner-1s.gif) no-repeat center';

@@ -17,7 +17,7 @@ window.addEventListener('load', () => {
     } else if (!password || password.trim().length < 1) {
       errorResponse.innerText = 'Please enter your Password';
     } else if (!password || password.trim().length < 8) {
-      errorResponse.innerText = 'Your password must be at least 8 characters lont';
+      errorResponse.innerText = 'Your password must be at least 8 characters long';
     } else {
       if (email && email.search('.com') !== -1 && email.search('@') !== -1) {
         email = email.toLowerCase().trim();

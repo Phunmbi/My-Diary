@@ -279,4 +279,5 @@ span{
 
 #errorResponse{
     color: red;
+    font-weight: bold;
 }
