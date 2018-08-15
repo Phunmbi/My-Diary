@@ -29,11 +29,16 @@
     <section class="profile">
         <div>
             <h4>Reminder Setting</h4>
-            <p>9pm daily</p>
+            <form>
+                <label>What time would you like to be reminded daily?</label>
+                <input type="time" name="time" id="time">
+                <input id="set" type="submit" value="Set Reminder">
+            </form>
+            <p id="reminder"></p>
         </div>
         <div>
             <h4>Total Number of Entries</h4>
-            <p>I have 6 entries</p>
+            <p id="entries">I have 6 entries</p>
         </div>
 
        <button id="signOut">Sign Out</button>
