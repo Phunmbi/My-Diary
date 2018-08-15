@@ -123,16 +123,18 @@ window.addEventListener('load', () => {
     .then((data) => {
       if (data.status === 200) {
         loadingModal.style.animation = 'fadeOut 2s ease 0s 1 forwards';
+        sessionStorage.setItem('entriesTotal', data.data.length);
         const name = sessionStorage.getItem('firstName');
         const cappedName = name.charAt(0).toUpperCase() + name.slice(1, name.length);
         errorResponse.innerText = `Welcome to your Diary ${cappedName}`;
         displayAll(data.data);
       } else {
-        window.location.href = document.referrer;
+        window.location.href = 'index.html';
         errorResponse.innerText = data.message;
       }
     })
     .catch((err) => {
       console.log(err);
+      window.location.href = 'index.html';
     });
 });

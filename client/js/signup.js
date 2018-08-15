@@ -64,8 +64,8 @@ window.addEventListener('load', () => {
                   if (data.status === 201) {
                     document.body.style.animation = 'fadeOut 2s ease 0s 1 forwards';
                     sessionStorage.setItem('token', data.token);
-                    sessionStorage.setItem('firstName', data.data.lastName);
-                    sessionStorage.setItem('lastName', data.data.firstName);
+                    sessionStorage.setItem('firstName', data.data.firstName);
+                    sessionStorage.setItem('lastName', data.data.lastName);
                     window.location.href = 'dashboard.html';
                   } else {
                     errorResponse.innerText = data.message;
