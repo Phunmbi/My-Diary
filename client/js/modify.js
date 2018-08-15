@@ -22,6 +22,7 @@ window.addEventListener('load', () => {
         console.log(data.data);
         display(data.data);
       } else {
+        window.location.href = 'index.html';
         errorResponse.innerText = data.message;
       }
     })
