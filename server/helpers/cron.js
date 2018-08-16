@@ -30,19 +30,22 @@ const scheduleJobs = (minute, hour, user) => {
 };
 
 const scheduleCron = () => {
-  client.query('SELECT email as email, first_Name as firstname, reminder as reminder FROM users WHERE reminder != null', (err, resp) => {
+  client.query('SELECT email as email, first_Name as firstname, reminder as reminder FROM users', (err, resp) => {
     if (err) {
       console.log(err);
     } else {
       const data = resp.rows;
-      console.log(data);
+      console.log(resp);
       if (data.length > 0) {
         for (let index = 0; index < data.length; index++) {
           const user = data[index];
-          const time = user.reminder.split(':');
-          const hour = time[0];
-          const minute = time[1];
-          scheduleJobs(minute, hour, user);
+          if (user.reminder !== 'null') {
+            console.log(user);
+            const time = user.reminder.split(':');
+            const hour = time[0];
+            const minute = time[1];
+            scheduleJobs(minute, hour, user);
+          }
         }
       }
     }
