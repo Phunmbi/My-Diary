@@ -24,6 +24,10 @@ router.get('/auth', welcome);
 router.post('/auth/signup', validateSignUp, signup);
 router.post('/auth/login', validateLogIn, login);
 
+// API endpoints for reminders
+router.post('./auth/reminder', authorization);
+router.get('/auth/reminder', authorization);
+
 // API endpoints for entries
 router.get('/entries', authorization, viewAll);
 router.get('/entries/:id', authorization, viewOne);
