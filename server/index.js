@@ -5,6 +5,7 @@ import logger from 'morgan';
 import routes from './routes/index';
 import { startDb } from './models/db';
 import { createEntriesTable, createUsersTable } from './models/schema';
+import { scheduleCron } from './helpers/cron';
 
 // Setup Server
 const app = express();
@@ -22,6 +23,9 @@ app.use(logger('dev'));
 // parse application/json
 app.use(bodyParser.json({}));
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// Initiate Cron Jobs
+scheduleCron();
 
 // Enable CORS
 app.use((req, res, next) => {

@@ -4,19 +4,10 @@
 // https://www.youtube.com/watch?v=0D5EEKH97NA&list=PL55RiY5tL51q4D-B63KBnygU6opNPFk_q&index=12
 import bcrypt from 'bcrypt';
 import JWT from 'jsonwebtoken';
-import cron from 'node-cron';
-import nodemailer from 'nodemailer';
 import { client } from '../models/db';
+import { scheduleCron } from '../helpers/cron';
 
 require('dotenv').config();
-
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'mydiaryan.no.reply@gmail.com',
-    pass: process.env.EMAIL_PASS
-  }
-});
 
 const token = (newUser) => {
   return JWT.sign({
@@ -99,36 +90,16 @@ const login = (req, res) => {
 };
 
 const addReminder = (req, res) => {
-  client.query('INSERT INTO users(reminder) VALUES ($1) WHERE id = $2 RETURNING *', [req.body.time, req.userData.sub], (err, response) => {
+  client.query('UPDATE users SET reminder = $1 WHERE id = $2 RETURNING *', [req.body.time, req.userData.sub], (err, response) => {
     if (err) {
       console.log(err);
     } else {
-      const data = response.rows[0];
-
-      // Get time
-      const time = req.body.time.split(':');
-      const hour = time[0];
-      const minutes = time[1];
-
-      // Schedule cron job
-      cron.schedule(`* ${minutes} ${hour} * *`, () => {
-        const mailOptions = {
-          from: 'mydiaryan.no.reply@gmail.com',
-          to: 'phunmbi@gmail.com',
-          subject: 'Diary Reminder',
-          text: 'Hey, How\'s the day going?, Why don\'t you tell your diary all about it.'
-        };
-        transporter.sendMail(mailOptions, (error, info) => {
-          if (error) {
-            throw error;
-          } else {
-            res.status(201).json({
-              data,
-              message: 'Reminder successfully set',
-              status: res.statusCode
-            });
-          }
-        });
+      const data = response.rows[0].reminder;
+      scheduleCron();
+      res.status(201).json({
+        data,
+        message: 'Reminder successfully set',
+        status: res.statusCode
       });
     }
   });

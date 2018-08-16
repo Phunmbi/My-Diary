@@ -15,7 +15,13 @@ const tokens = 'Bearer aho;hfliklh[fohaoi haoihfiahkpoikhj iuhapo';
 chai.use(chaiHttp);
 
 // First clear database if they already exist
-client.query('DROP TABLE IF EXISTS entries, users', (err, res) => {
+client.query('DROP TABLE IF EXISTS entries', (err, res) => {
+  if (err) {
+    console.log(err);
+  }
+});
+
+client.query('DROP TABLE IF EXISTS users CASCADE', (err, res) => {
   if (err) {
     console.log(err);
   }
@@ -574,6 +580,65 @@ describe('Validation', () => {
   });
 });
 
+// Testing REMINDERS
+describe('Reminders', () => {
+  it('should set user\'s reminder settings', (done) => {
+    const date = new Date();
+    const hour = date.getHours();
+    const minutes = date.getMinutes();
+    const time = `${hour}:${minutes}`;
+    const reminder = {
+      time
+    };
+    chai
+      .request('localhost:3000/api/v1')
+      .post('/auth/reminder')
+      .set('Authorization', token)
+      .send(reminder)
+      .end((err, res) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.should.have.status(201);
+          res.body.should.be.a('object');
+          res.body.should.have.property('data');
+          res.body.should.have.property('status');
+          res.body.should.have.property('message');
+          res.body.should.have
+            .property('message')
+            .eql('Reminder successfully set');
+          res.body.should.have
+            .property('data')
+            .eql(time);
+          done();
+        }
+      });
+  });
+
+  it('should get user\'s reminder settings', (done) => {
+    chai
+      .request('localhost:3000/api/v1')
+      .get('/auth/reminder')
+      .set('Authorization', token)
+      .end((err, res) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.data.should.have.property('reminder');
+          res.body.should.have.property('status');
+          res.body.should.have.property('message');
+          res.body.should.have
+            .property('message')
+            .eql('Current reminder setting');
+          done();
+        }
+      });
+  });
+});
+
+
 // Testing /GET
 describe('Entries', () => {
   it('should return an empty for new users without entries', (done) => {
@@ -585,7 +650,6 @@ describe('Entries', () => {
         if (err) {
           console.log(err);
         } else {
-          console.log(res.body);
           res.should.have.status(200);
           done();
         }
