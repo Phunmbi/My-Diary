@@ -2,7 +2,7 @@ if (sessionStorage.getItem('token')) {
   window.addEventListener('load', () => {
     const signOut = document.getElementById('signOut'),
       entriesNumber = document.getElementById('entries'),
-      time = document.getElementById('time').value,
+      timeValue = document.getElementById('time'),
       set = document.getElementById('set'),
       reminder = document.getElementById('reminder');
 
@@ -16,12 +16,11 @@ if (sessionStorage.getItem('token')) {
     })
       .then(resp => resp.json())
       .then((data) => {
-        if (data.status === 200 || data.status === 200) {
-          console.log(data.data);
-          reminder.innerText = `Your current reminder setting is for ${data.data} daily`;
+        if (data.status === 200) {
+          console.log(data);
+          reminder.innerText = `Your current reminder setting is for ${data.data.reminder} daily`;
         } else {
           console.log(data);
-          // errorResponse.innerText = data.message;
           reminder.innerText = 'You current have no reminder setting';
         }
       })
@@ -32,6 +31,8 @@ if (sessionStorage.getItem('token')) {
     set.addEventListener('click', (event) => {
       event.preventDefault();
 
+      const time = timeValue.value;
+      console.log(time);
       const request = {
         time
       };
@@ -46,7 +47,7 @@ if (sessionStorage.getItem('token')) {
       })
         .then(resp => resp.json())
         .then((data) => {
-          if (data.status === 200 || data.status === 201) {
+          if (data.status === 201) {
             console.log(request, data);
             reminder.innerText = `Your current reminder setting is for ${data.data} daily`;
           } else {

@@ -3,7 +3,6 @@ import { client } from '../models/db';
 const viewAll = (req, res) => {
   client.query('SELECT * FROM entries WHERE user_id = $1', [req.userData.sub], (err, response) => {
     if (err) {
-      console.log('err');
       res.status(500).json({
         status: res.statusCode,
         message: 'Error reaching database',
