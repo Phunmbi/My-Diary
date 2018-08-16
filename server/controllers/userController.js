@@ -156,4 +156,10 @@ const welcome = (req, res) => {
   });
 };
 
-export { signup, login, welcome };
+export {
+  signup,
+  login,
+  addReminder,
+  getReminder,
+  welcome
+};

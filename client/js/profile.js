@@ -22,6 +22,7 @@ if (sessionStorage.getItem('token')) {
         } else {
           console.log(data);
           // errorResponse.innerText = data.message;
+          reminder.innerText = 'You current have no reminder setting';
         }
       })
       .catch((err) => {
