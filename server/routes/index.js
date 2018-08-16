@@ -11,7 +11,13 @@ import {
   deleteOne,
   modifyOne
 } from '../controllers/entryController';
-import { signup, login, welcome } from '../controllers/userController';
+import {
+  signup,
+  login,
+  addReminder,
+  getReminder,
+  welcome
+} from '../controllers/userController';
 import { authorization } from '../helpers/authorization';
 import swaggerDoc from '../../swagger.json';
 
@@ -23,6 +29,10 @@ const router = Router();
 router.get('/auth', welcome);
 router.post('/auth/signup', validateSignUp, signup);
 router.post('/auth/login', validateLogIn, login);
+
+// API endpoints for reminders
+router.post('./auth/reminder', authorization, addReminder);
+router.get('/auth/reminder', authorization, getReminder);
 
 // API endpoints for entries
 router.get('/entries', authorization, viewAll);
