@@ -120,6 +120,19 @@ const getReminder = (req, res) => {
   });
 };
 
+const deleteReminder = (req, res) => {
+  client.query('UPDATE users SET reminder = null WHERE id = $1', [req.userData.sub], (err, response) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.status(200).json({
+        status: res.statusCode,
+        message: 'Reminder was successfully deleted'
+      });
+    }
+  });
+};
+
 const welcome = (req, res) => {
   res.status(200).json({
     status: res.statusCode,
@@ -132,5 +145,6 @@ export {
   login,
   addReminder,
   getReminder,
+  deleteReminder,
   welcome
 };

@@ -16,6 +16,7 @@ import {
   login,
   addReminder,
   getReminder,
+  deleteReminder,
   welcome
 } from '../controllers/userController';
 import { authorization } from '../helpers/authorization';
@@ -33,6 +34,7 @@ router.post('/auth/login', validateLogIn, login);
 // API endpoints for reminders
 router.post('/auth/reminder', authorization, addReminder);
 router.get('/auth/reminder', authorization, getReminder);
+router.delete('/auth/reminder', authorization, deleteReminder);
 
 // API endpoints for entries
 router.get('/entries', authorization, viewAll);

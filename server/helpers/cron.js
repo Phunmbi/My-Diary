@@ -35,12 +35,10 @@ const scheduleCron = () => {
       console.log(err);
     } else {
       const data = resp.rows;
-      console.log(resp);
       if (data.length > 0) {
         for (let index = 0; index < data.length; index++) {
           const user = data[index];
-          if (user.reminder !== 'null') {
-            console.log(user);
+          if (user.reminder !== null) {
             const time = user.reminder.split(':');
             const hour = time[0];
             const minute = time[1];
