@@ -202,6 +202,85 @@
         }
       }
     },
+    "/auth/reminder": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Set reminder for users",
+        "description": "Allow a user be able to create a reminder on the platform",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The time the reminder should be scheduled for.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Reminder successfully set",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "string"
+                }
+              },
+              "status": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Be able to retrieve the already set reminder if it exists",
+        "description": "Allow a user on opening the profile page be able to see the existing reminder settings.",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Current reminder setting",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "string"
+                }
+              },
+              "status": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
     "/entries": {
       "get": {
         "tags": [
