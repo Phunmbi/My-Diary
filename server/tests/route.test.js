@@ -928,7 +928,7 @@ describe('Entries', () => {
               if (err) {
                 console.log(err.stack);
               } else {
-                res.should.have.status(404);
+                res.should.have.status(403);
                 res.body.should.be.a('object');
                 res.body.should.have.property('message');
                 res.body.should.have.property('status');

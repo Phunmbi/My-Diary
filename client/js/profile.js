@@ -48,6 +48,8 @@ if (sessionStorage.getItem('token')) {
     set.addEventListener('click', (event) => {
       event.preventDefault();
 
+      set.value = '';
+      set.style.background = '#FEEF6D url(images/Spinner-1s.gif) no-repeat center';
       const time = timeValue.value;
       const request = {
         time
@@ -80,7 +82,10 @@ if (sessionStorage.getItem('token')) {
     // Attach a click event to delete the user's reminder settings
     deleteReminder.addEventListener('click', (event) => {
       event.preventDefault();
-      console.log('a');
+
+      deleteReminder.value = '';
+      deleteReminder.style.background = '#FEEF6D url(images/Spinner-1s.gif) no-repeat center';
+
       fetch('https://morning-falls-51849.herokuapp.com/api/v1/auth/reminder/', {
         method: 'DELETE',
         headers: {
@@ -103,8 +108,9 @@ if (sessionStorage.getItem('token')) {
     });
 
     signOut.addEventListener('click', () => {
-      signOut.style.content = '';
+      signOut.innerHTML = '';
       signOut.style.background = 'rgb(20, 43, 68) url(images/Spinner-1s.gif) no-repeat center';
+
       sessionStorage.clear();
       window.location.href = 'index.html';
     });

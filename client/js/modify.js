@@ -2,7 +2,7 @@ window.addEventListener('load', () => {
   const oldTitle = document.getElementById('title');
   const submit = document.getElementById('submit');
   const oldDetails = document.getElementById('details');
-  const errorResponse = document.getElementById('response');
+  const errorResponse = document.getElementById('errorResponse');
 
   const display = (entry) => {
     oldTitle.value = entry.title;
@@ -18,7 +18,7 @@ window.addEventListener('load', () => {
   })
     .then(resp => resp.json())
     .then((data) => {
-      if (data.status === 200 || data.status === 200) {
+      if (data.status === 200) {
         console.log(data.data);
         display(data.data);
       } else {
@@ -57,9 +57,12 @@ window.addEventListener('load', () => {
           console.log(request, data);
           window.location.href = 'dashboard.html';
           console.log('a');
-        } else {
-          console.log(data);
+        } else if (data.status === 403) {
           errorResponse.innerText = data.message;
+          setTimeout(() => { window.location.href = 'dashboard.html'; }, 4000);
+        } else {
+          errorResponse.innerText = data.message;
+          setTimeout(() => { window.location.href = 'dashboard.html'; }, 4000);
         }
       })
       .catch((err) => {
