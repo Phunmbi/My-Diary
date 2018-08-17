@@ -88,7 +88,7 @@ const modifyOne = (req, res) => {
             message: 'This entry has been successfully edited'
           });
         } else {
-          res.status(404).json({
+          res.status(403).json({
             data,
             status: res.statusCode,
             message: 'Sorry, Can\'t edit entry.'
