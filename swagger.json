@@ -217,6 +217,12 @@
         ],
         "parameters": [
           {
+            "name": "api_key",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
             "in": "body",
             "name": "body",
             "description": "The time the reminder should be scheduled for.",
@@ -234,14 +240,14 @@
               "properties": {
                 "data": {
                   "type": "string"
+                },
+                "status": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "message": {
+                  "type": "string"
                 }
-              },
-              "status": {
-                "type": "integer",
-                "format": "int64"
-              },
-              "message": {
-                "type": "string"
               }
             }
           }
@@ -259,6 +265,14 @@
         "produces": [
           "application/json"
         ],
+        "parameters":[
+          {
+            "name": "api_key",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Current reminder setting",
@@ -267,14 +281,52 @@
               "properties": {
                 "data": {
                   "type": "string"
+                },
+                "status": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "message": {
+                  "type": "string"
                 }
-              },
-              "status": {
-                "type": "integer",
-                "format": "int64"
-              },
-              "message": {
-                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Delete reminder setting for users",
+        "description": "Allow a user be able to delete a reminder originally created",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reminder was successfully deleted",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "message": {
+                  "type": "string"
+                }
               }
             }
           }

@@ -636,6 +636,27 @@ describe('Reminders', () => {
         }
       });
   });
+
+  it('should delete user\'s reminder settings', (done) => {
+    chai
+      .request('localhost:3000/api/v1')
+      .delete('/auth/reminder')
+      .set('Authorization', token)
+      .end((err, res) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('status');
+          res.body.should.have.property('message');
+          res.body.should.have
+            .property('message')
+            .eql('Reminder was successfully deleted');
+          done();
+        }
+      });
+  });
 });
 
 

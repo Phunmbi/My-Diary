@@ -25,15 +25,23 @@
     <section>
         <h3>My Profile</h3>
     </section>
-
+    <div id="loadingModal">
+        <div class="loadingModal-main">
+            <img src="images/Ellipsis.gif" alt="Loading">
+        </div>
+    </div>
     <section class="profile">
         <a href="dashboard.html"><img src="images/icons8-home-page-24.png" alt="Home"></a>
+        <p id="error"></p>
         <div>
             <h4>Reminder Setting</h4>
             <form>
                 <label>What time would you like to be reminded daily?</label>
                 <input type="time" name="time" id="time">
-                <input id="set" type="submit" value="Set Reminder">
+                <div class="reminderButtons">
+                    <input id="set" type="submit" value="Set Reminder">
+                    <input id="delete" type="submit" value="Delete Reminder">
+                </div>
             </form>
             <p id="reminder"></p>
         </div>

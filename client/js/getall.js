@@ -104,6 +104,8 @@ window.addEventListener('load', () => {
     });
   };
 
+  // Function to display cards
+
   const displayAll = (data) => {
     data.reverse();
     for (let index = 0; index < data.length; index++) {
@@ -112,6 +114,15 @@ window.addEventListener('load', () => {
     }
   };
 
+  // Handling results for new users with empty databases
+  const usingMyDiary = () => {
+    section.innerHTML = `<h1>Welcome to my Diary. Here's a little guide to help you know your way around.</h1><br><br><br>
+    <h1>To add a new entry, just click on the big blue + button in the bottom corner.</h1><br><br><br>
+    <h1>And if you'd like us to help remind you to pen something down, click on the icon in the upper right corner.</h1><br><br><br>
+    <h1>Welcome once again and enjoy.</h1>`;
+  };
+
+  // Fetch request to get entries if it exists
   fetch('https://morning-falls-51849.herokuapp.com/api/v1/entries', {
     method: 'GET',
     headers: {
@@ -127,7 +138,11 @@ window.addEventListener('load', () => {
         const name = sessionStorage.getItem('firstName');
         const cappedName = name.charAt(0).toUpperCase() + name.slice(1, name.length);
         errorResponse.innerText = `Welcome to your Diary ${cappedName}`;
-        displayAll(data.data);
+        if (data.data.length === 0) {
+          usingMyDiary();
+        } else {
+          displayAll(data.data);
+        }
       } else {
         window.location.href = 'index.html';
         errorResponse.innerText = data.message;
