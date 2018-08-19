@@ -1,4 +1,4 @@
-import cron from 'node-cron';
+import { CronJob } from 'cron';
 import nodemailer from 'nodemailer';
 import { client } from '../models/db';
 
@@ -12,14 +12,19 @@ const transporter = nodemailer.createTransport({
 });
 
 const scheduleJobs = (minute, hour, user) => {
-  cron.schedule(`${minute} ${hour} * * *`, () => {
+  const cronJob = new CronJob(`${minute} ${hour} * * *`, () => {
+    const cappedName = user.firstname.charAt(0).toUpperCase()
+    + user.firstname.slice(1, user.firstname.length);
     const mailOptions = {
       from: 'mydiaryan.no.reply@gmail.com',
       to: user.email,
       subject: 'Diary Reminder',
-      text: `Hey ${user.firstname}, 
+      text: `Hey ${cappedName}, 
 
-      How's the day going?, Why don't you come tell your diary all about it.`
+      How's the day going?, Why don't you come tell your diary all about it.
+      
+  Best Regards
+  Your Diary`
     };
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
@@ -27,6 +32,8 @@ const scheduleJobs = (minute, hour, user) => {
       }
     });
   });
+
+  cronJob.start();
 };
 
 const scheduleCron = () => {
