@@ -116,10 +116,9 @@ window.addEventListener('load', () => {
 
   // Handling results for new users with empty databases
   const usingMyDiary = () => {
-    section.innerHTML = `<h1>Welcome to my Diary. Here's a little guide to help you know your way around.</h1><br><br><br>
-    <h1>To add a new entry, just click on the big blue + button in the bottom corner.</h1><br><br><br>
-    <h1>And if you'd like us to help remind you to pen something down, click on the icon in the upper right corner.</h1><br><br><br>
-    <h1>Welcome once again and enjoy.</h1>`;
+    section.innerHTML = `<p>Welcome to my Diary. Here's a little guide to help you know your way around.</p><br><br><br>
+    <p>To add a new entry, just click on the big blue + button in the bottom corner.</p><br><br><br>
+    <p>And if you'd like us to help remind you to pen something down, click on the icon in the upper right corner. Enjoy.</p>`;
   };
 
   // Fetch request to get entries if it exists
