@@ -149,7 +149,7 @@ section{
     background-color: rgba(0,0,0,0.4);
 }
 
-#loadingModal{
+#loadingModal, #responseModal{
     display: none;
     position: fixed;
     width: 100vw;
@@ -160,7 +160,7 @@ section{
     background-color: rgba(0,0,0,0.8);
 }
 
-.loadingModal-main{
+.loadingModal-main, .responseModal-main{
     margin: 60px auto;
     background-color: white;
     max-width: 400px;
@@ -178,10 +178,12 @@ section{
   from {
     opacity: 1;
     visibility: visible;
+    display: block;
   }
   to {
     opacity: 0;
     visibility: hidden;
+    display: none;
   }
 }
 
