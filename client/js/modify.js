@@ -1,3 +1,7 @@
+// While the page loads up the modal should be in display
+const loadingModal = document.getElementById('loadingModal');
+loadingModal.style.display = 'block';
+
 window.addEventListener('load', () => {
   const oldTitle = document.getElementById('title');
   const submit = document.getElementById('submit');
@@ -19,7 +23,7 @@ window.addEventListener('load', () => {
     .then(resp => resp.json())
     .then((data) => {
       if (data.status === 200) {
-        console.log(data.data);
+        loadingModal.style.animation = 'fadeOut 2s ease 0s 1 forwards';
         display(data.data);
       } else {
         window.location.href = 'index.html';

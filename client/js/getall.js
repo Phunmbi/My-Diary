@@ -1,12 +1,14 @@
+// While the page loads up the modal should be in display
+const loadingModal = document.getElementById('loadingModal');
+loadingModal.style.display = 'block';
+
 window.addEventListener('load', () => {
   const errorResponse = document.getElementById('response');
   const section = document.getElementById('section');
-  const loadingModal = document.getElementById('loadingModal');
   const deleteModal = document.getElementById('deleteModal');
   const noButton = document.getElementById('no-button');
   const yesButton = document.getElementById('yes-button');
 
-  loadingModal.style.display = 'block';
 
   const createCard = (data) => {
     // Create elements that make up a card
