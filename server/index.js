@@ -2,6 +2,7 @@ import http from 'http';
 import express from 'express';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
+import cors from 'cors';
 import routes from './routes/index';
 import { startDb } from './models/db';
 import { createEntriesTable, createUsersTable } from './models/schema';
@@ -34,6 +35,8 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Headers', '*');
   next();
 });
+
+app.use(cors());
 
 // Api routes v1
 app.get('/', (req, res) => res.json({ message: 'Welcome to the MyDiary APIs' }));
