@@ -19,10 +19,10 @@ const scheduleJobs = (minute, hour, user) => {
       from: 'mydiaryan.no.reply@gmail.com',
       to: user.email,
       subject: 'Diary Reminder',
-      text: `Hey ${cappedName}, 
+      text: `Hey ${cappedName},
 
       How's the day going?, Why don't you come tell your diary all about it.
-      
+
   Best Regards
   Your Diary`
     };
